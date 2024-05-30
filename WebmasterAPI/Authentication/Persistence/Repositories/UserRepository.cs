@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Repositories;
-using WebmasterAPI.Data;
 using WebmasterAPI.Models;
+using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
 
 namespace WebmasterAPI.Authentication.Persistence.Repositories;

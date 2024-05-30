@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Resources;
-using WebmasterAPI.Data;
 using WebmasterAPI.Models;
 
 namespace WebmasterAPI.Controllers;

@@ -3,8 +3,8 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Persistence.Repositories;
 using WebmasterAPI.Authentication.Services;
-using WebmasterAPI.Data;
 using WebmasterAPI.Shared.Domain.Repositories;
+using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
