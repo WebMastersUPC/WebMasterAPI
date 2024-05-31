@@ -10,8 +10,8 @@ using WebmasterAPI.Shared.Persistence.Contexts;
 namespace WebmasterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240529223940_ChangesONDbMigration02")]
-    partial class ChangesONDbMigration02
+    [Migration("20240531131208_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,16 +21,119 @@ namespace WebmasterAPI.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("WebmasterAPI.Models.User", b =>
+            modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Developer", b =>
                 {
-                    b.Property<int>("user_id")
+                    b.Property<long>("developer_id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("completed_projects")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserType")
+                    b.Property<string>("country")
                         .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("varchar(13)");
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("firstName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<string>("lastName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("profile_img_url")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
+
+                    b.Property<string>("specialties")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<long>("user_id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("developer_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("Developers", (string)null);
+                });
+
+            modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Enterprise", b =>
+                {
+                    b.Property<long>("enterprise_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("RUC")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<string>("country")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("enterprise_name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("profile_img_url")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
+
+                    b.Property<string>("sector")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<long>("user_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("website")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("enterprise_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("Enterprises", (string)null);
+                });
+
+            modelBuilder.Entity("WebmasterAPI.Models.User", b =>
+                {
+                    b.Property<long>("user_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
 
                     b.Property<string>("mail")
                         .IsRequired()
@@ -49,117 +152,28 @@ namespace WebmasterAPI.Migrations
                     b.HasKey("user_id");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasDiscriminator<string>("UserType").HasValue("User");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Developer", b =>
                 {
-                    b.HasBaseType("WebmasterAPI.Models.User");
+                    b.HasOne("WebmasterAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("completed_projects")
-                        .HasColumnType("int");
-
-                    b.Property<string>("country")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("varchar(512)");
-
-                    b.Property<string>("firstName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.Property<string>("lastName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.Property<string>("phone")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
-
-                    b.Property<string>("profile_img_url")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("specialties")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.ToTable("Users", t =>
-                        {
-                            t.Property("country")
-                                .HasColumnName("Developer_country");
-
-                            t.Property("description")
-                                .HasColumnName("Developer_description");
-
-                            t.Property("phone")
-                                .HasColumnName("Developer_phone");
-
-                            t.Property("profile_img_url")
-                                .HasColumnName("Developer_profile_img_url");
-                        });
-
-                    b.HasDiscriminator().HasValue("Developer");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Enterprise", b =>
                 {
-                    b.HasBaseType("WebmasterAPI.Models.User");
+                    b.HasOne("WebmasterAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("RUC")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
-
-                    b.Property<string>("country")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("varchar(512)");
-
-                    b.Property<string>("enterprise_name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
-
-                    b.Property<string>("phone")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
-
-                    b.Property<string>("profile_img_url")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("sector")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.Property<string>("website")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
-
-                    b.HasDiscriminator().HasValue("Enterprise");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

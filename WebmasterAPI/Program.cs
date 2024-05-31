@@ -35,8 +35,10 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Authentication Bounded Context Injection Configuration
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 
 
 // AutoMapper Configuration

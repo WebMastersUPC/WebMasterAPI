@@ -5,7 +5,7 @@ namespace WebmasterAPI.Authentication.Domain.Models;
 public class Developer
 {
     // Key
-    public int developer_id { get; set; }
+    public long developer_id { get; set; }
     
     // Properties
     public string firstName { get; set; }
@@ -18,6 +18,6 @@ public class Developer
     public string profile_img_url { get; set; }
     
     // Foreign Key    
-    public int user_id { get; set; }
+    public long user_id { get; set; }
     public User User { get; set; }
 }

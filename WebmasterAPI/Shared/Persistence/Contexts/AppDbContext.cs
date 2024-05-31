@@ -36,6 +36,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             // Developer Configuration
             builder.Entity<Developer>().ToTable("Developers");
             builder.Entity<Developer>().HasKey(d => d.developer_id);
+            builder.Entity<Developer>().Property(d => d.developer_id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Developer>().HasOne(d => d.User)
                 .WithMany()
                 .HasForeignKey(d => d.user_id);
@@ -51,6 +52,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             // Enterprise Configuration
             builder.Entity<Enterprise>().ToTable("Enterprises");
             builder.Entity<Enterprise>().HasKey(e => e.enterprise_id);
+            builder.Entity<Enterprise>().Property(e => e.enterprise_id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Enterprise>().HasOne(e => e.User)
                 .WithMany()
                 .HasForeignKey(e => e.user_id);

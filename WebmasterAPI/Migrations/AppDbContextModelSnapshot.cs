@@ -20,9 +20,9 @@ namespace WebmasterAPI.Migrations
 
             modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Developer", b =>
                 {
-                    b.Property<int>("developer_id")
+                    b.Property<long>("developer_id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<int>("completed_projects")
                         .HasColumnType("int");
@@ -61,8 +61,8 @@ namespace WebmasterAPI.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("varchar(128)");
 
-                    b.Property<int>("user_id")
-                        .HasColumnType("int");
+                    b.Property<long>("user_id")
+                        .HasColumnType("bigint");
 
                     b.HasKey("developer_id");
 
@@ -73,9 +73,9 @@ namespace WebmasterAPI.Migrations
 
             modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Enterprise", b =>
                 {
-                    b.Property<int>("enterprise_id")
+                    b.Property<long>("enterprise_id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("RUC")
                         .IsRequired()
@@ -111,8 +111,8 @@ namespace WebmasterAPI.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("varchar(32)");
 
-                    b.Property<int>("user_id")
-                        .HasColumnType("int");
+                    b.Property<long>("user_id")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("website")
                         .IsRequired()
@@ -128,9 +128,9 @@ namespace WebmasterAPI.Migrations
 
             modelBuilder.Entity("WebmasterAPI.Models.User", b =>
                 {
-                    b.Property<int>("user_id")
+                    b.Property<long>("user_id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("mail")
                         .IsRequired()

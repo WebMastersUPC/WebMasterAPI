@@ -5,7 +5,7 @@ namespace WebmasterAPI.Authentication.Domain.Models;
 public class Enterprise
 {
     // Key
-    public int enterprise_id { get; set; }
+    public long enterprise_id { get; set; }
     
     // Properties
     public string enterprise_name { get; set; }
@@ -18,6 +18,6 @@ public class Enterprise
     public string sector { get; set; }
     
     // Foreign Key
-    public int user_id { get; set; }
+    public long user_id { get; set; }
     public User User { get; set; }
 }

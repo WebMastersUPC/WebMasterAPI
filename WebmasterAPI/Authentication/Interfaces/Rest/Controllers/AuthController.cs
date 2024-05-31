@@ -26,12 +26,28 @@ public class AuthController : ControllerBase
     }
 
     
-    [HttpPost("sign-up")]
-    public async Task<IActionResult> Register(RegisterRequest request)
+    [HttpPost("register-developer")]
+    public async Task<IActionResult> RegisterDeveloper(RegisterDeveloperRequest model)
     {
         try
         {
-            await _userService.RegisterAsync(request);
+            var resource = _mapper.Map<DeveloperResource>(model);
+            await _userService.RegisterDeveloperAsync(resource);
+            return Ok(new { message = "Registration succesful" });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
+    }
+    
+    [HttpPost("register-enterprise")]
+    public async Task<IActionResult> RegisterEnterprise(RegisterEnterpriseRequest model)
+    {
+        try
+        {
+            var resource = _mapper.Map<RegisterEnterpriseRequest>(model);
+            await _userService.RegisterEnterpriseAsync(resource);
             return Ok(new { message = "Registration succesful" });
         }
         catch (Exception e)
@@ -46,15 +62,6 @@ public class AuthController : ControllerBase
     {
         var response = await _userService.AuthenticateAsync(request);
         return Ok(response);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        var users = await _userService.ListAsync();
-        var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
-
-        return Ok(resources);
     }
 
 }

@@ -3,7 +3,7 @@ namespace WebmasterAPI.Models;
 public class User
 {
     // Key
-    public int user_id { get; set; }
+    public long user_id { get; set; }
     
     // Properties
     public string mail { get; set; }
