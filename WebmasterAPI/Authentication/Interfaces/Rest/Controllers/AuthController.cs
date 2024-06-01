@@ -31,8 +31,7 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var resource = _mapper.Map<DeveloperResource>(model);
-            await _userService.RegisterDeveloperAsync(resource);
+            await _userService.RegisterDeveloperAsync(model);
             return Ok(new { message = "Registration succesful" });
         }
         catch (Exception e)
@@ -46,13 +45,12 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var resource = _mapper.Map<RegisterEnterpriseRequest>(model);
-            await _userService.RegisterEnterpriseAsync(resource);
+            await _userService.RegisterEnterpriseAsync(model);
             return Ok(new { message = "Registration succesful" });
         }
         catch (Exception e)
         {
-            return BadRequest(e.Message);
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
         }
     }
     

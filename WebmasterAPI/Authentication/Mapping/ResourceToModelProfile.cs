@@ -30,6 +30,6 @@ public class ResourceToModelProfile : AutoMapper.Profile
         CreateMap<RegisterEnterpriseRequest, EnterpriseResource>();
         
         CreateMap<DeveloperResource, Developer>();
-        CreateMap<DeveloperResource, User>();
+        CreateMap<EnterpriseResource, Enterprise>();
     }
 }

@@ -38,7 +38,7 @@ public class AuthService : IUserService
         var response = _mapper.Map<AuthenticateResponse>(user);
         return response;
     }
-    public async Task RegisterDeveloperAsync(DeveloperResource model)
+    public async Task RegisterDeveloperAsync(RegisterDeveloperRequest model)
     {
         if (await _userRepository.ExistsByEmailAsync(model.mail))
         {
@@ -51,7 +51,8 @@ public class AuthService : IUserService
         await _userRepository.AddAsync(user);
         await _unitOfWork.CompleteAsync();
 
-        var developer = _mapper.Map<Developer>(model);
+        var resource = _mapper.Map<DeveloperResource>(model);
+        var developer = _mapper.Map<Developer>(resource);
         developer.user_id = user.user_id;
 
         await _developerRepository.AddAsync(developer);
@@ -66,7 +67,8 @@ public class AuthService : IUserService
         await _userRepository.AddAsync(user);
         await _unitOfWork.CompleteAsync();
 
-        var enterprise = _mapper.Map<Enterprise>(model);
+        var resource = _mapper.Map<EnterpriseResource>(model);
+        var enterprise = _mapper.Map<Enterprise>(resource);
         enterprise.user_id = user.user_id;
 
         await _enterpriseRepository.AddAsync(enterprise);

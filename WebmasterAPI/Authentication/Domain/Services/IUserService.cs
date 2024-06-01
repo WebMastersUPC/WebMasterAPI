@@ -7,6 +7,6 @@ namespace WebmasterAPI.Authentication.Domain.Services;
 public interface IUserService
 {
     Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest model);
-    Task RegisterDeveloperAsync(DeveloperResource model);
+    Task RegisterDeveloperAsync(RegisterDeveloperRequest model);
     Task RegisterEnterpriseAsync(RegisterEnterpriseRequest model);
 }

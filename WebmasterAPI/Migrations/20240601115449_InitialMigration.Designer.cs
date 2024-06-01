@@ -10,7 +10,7 @@ using WebmasterAPI.Shared.Persistence.Contexts;
 namespace WebmasterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240531131208_InitialMigration")]
+    [Migration("20240601115449_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
