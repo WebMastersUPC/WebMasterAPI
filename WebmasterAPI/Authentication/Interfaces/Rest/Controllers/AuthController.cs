@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Resources;
-using WebmasterAPI.Data;
 using WebmasterAPI.Models;
 
 namespace WebmasterAPI.Controllers;
@@ -27,17 +26,31 @@ public class AuthController : ControllerBase
     }
 
     
-    [HttpPost("sign-up")]
-    public async Task<IActionResult> Register(RegisterRequest request)
+    [HttpPost("register-developer")]
+    public async Task<IActionResult> RegisterDeveloper(RegisterDeveloperRequest model)
     {
         try
         {
-            await _userService.RegisterAsync(request);
+            await _userService.RegisterDeveloperAsync(model);
             return Ok(new { message = "Registration succesful" });
         }
         catch (Exception e)
         {
-            return BadRequest(e.Message);
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
+    }
+    
+    [HttpPost("register-enterprise")]
+    public async Task<IActionResult> RegisterEnterprise(RegisterEnterpriseRequest model)
+    {
+        try
+        {
+            await _userService.RegisterEnterpriseAsync(model);
+            return Ok(new { message = "Registration succesful" });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
         }
     }
     
@@ -47,15 +60,6 @@ public class AuthController : ControllerBase
     {
         var response = await _userService.AuthenticateAsync(request);
         return Ok(response);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        var users = await _userService.ListAsync();
-        var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
-
-        return Ok(resources);
     }
 
 }

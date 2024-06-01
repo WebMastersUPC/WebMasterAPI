@@ -1,3 +1,4 @@
+using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Resources;
 using WebmasterAPI.Models;
@@ -10,5 +11,9 @@ public class ModelToResourceProfile : AutoMapper.Profile
     {
         CreateMap<User, AuthenticateResponse>();
         CreateMap<User, UserResource>();
+        
+        // Map for Developer and Enterprise
+        CreateMap<Developer, DeveloperResource>();
+        CreateMap<Enterprise, EnterpriseResource>();
     }
 }

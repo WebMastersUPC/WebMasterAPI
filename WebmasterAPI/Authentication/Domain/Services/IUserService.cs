@@ -1,4 +1,5 @@
 using WebmasterAPI.Authentication.Domain.Services.Communication;
+using WebmasterAPI.Authentication.Resources;
 using WebmasterAPI.Models;
 
 namespace WebmasterAPI.Authentication.Domain.Services;
@@ -6,9 +7,6 @@ namespace WebmasterAPI.Authentication.Domain.Services;
 public interface IUserService
 {
     Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest model);
-    Task<IEnumerable<User>> ListAsync();
-    Task<User> GetByIdAsync(int id);
-    Task RegisterAsync(RegisterRequest model);
-    //Task UpdateAsync(int id, UpdateRequest model);
-    // Task DeleteAsync(int id);
+    Task RegisterDeveloperAsync(RegisterDeveloperRequest model);
+    Task RegisterEnterpriseAsync(RegisterEnterpriseRequest model);
 }

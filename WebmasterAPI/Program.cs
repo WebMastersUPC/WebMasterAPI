@@ -3,8 +3,8 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Persistence.Repositories;
 using WebmasterAPI.Authentication.Services;
-using WebmasterAPI.Data;
 using WebmasterAPI.Shared.Domain.Repositories;
+using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,8 +35,10 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Authentication Bounded Context Injection Configuration
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 
 
 // AutoMapper Configuration

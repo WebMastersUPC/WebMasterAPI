@@ -1,4 +1,4 @@
-using WebmasterAPI.Data;
+using WebmasterAPI.Shared.Persistence.Contexts;
 
 namespace WebmasterAPI.Shared.Persistence.Repositories;
 
