@@ -74,8 +74,12 @@ public class AuthService : IUserService
         await _enterpriseRepository.AddAsync(enterprise);
         await _unitOfWork.CompleteAsync();
     }
+    
     // public Task DeleteAsync(int id)
     // {
     //     throw new NotImplementedException();
     // }
+    
+    //get all
+    
 }

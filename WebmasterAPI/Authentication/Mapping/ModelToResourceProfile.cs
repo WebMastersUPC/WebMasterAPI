@@ -11,9 +11,15 @@ public class ModelToResourceProfile : AutoMapper.Profile
     {
         CreateMap<User, AuthenticateResponse>();
         CreateMap<User, UserResource>();
+
         
         // Map for Developer and Enterprise
         CreateMap<Developer, DeveloperResource>();
         CreateMap<Enterprise, EnterpriseResource>();
+        
+        CreateMap<Developer, DeveloperResponse>();
+        CreateMap<Enterprise, EnterpriseResponse>();
+        
+        CreateMap<Enterprise, EnterpriseUpdateRequest>();
     }
 }
