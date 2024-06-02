@@ -39,6 +39,7 @@ builder.Services.AddScoped<IUserService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 
 // AutoMapper Configuration

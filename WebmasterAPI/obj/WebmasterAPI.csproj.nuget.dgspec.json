@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj": {}
+    "C:\\Users\\USER\\Documents\\GitHub\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj": {
+    "C:\\Users\\USER\\Documents\\GitHub\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Documents\\GitHub\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
         "projectName": "WebmasterAPI",
-        "projectPath": "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
-        "packagesPath": "C:\\Users\\Jair\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\obj\\",
+        "projectPath": "C:\\Users\\USER\\Documents\\GitHub\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\Documents\\GitHub\\WebMasterAPI\\WebmasterAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Jair\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -94,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
