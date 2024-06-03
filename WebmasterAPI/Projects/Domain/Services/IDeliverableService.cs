@@ -7,6 +7,8 @@ public interface IDeliverableService {
     Task<List<DeliverableResponse>> ListDeliverablesAsync();
     
     Task<DeliverableResponse> GetDeliverableByIdAsync(long id);
+
+    Task<DeliverableResponse> DeleteDeliverableByIdAsync(long id);
     
     Task UpdateDeliverableAsync(long id, DeliverableRequest updateRequest);
     

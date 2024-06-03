@@ -13,8 +13,8 @@ public interface IDeliverableRepository
 
     Task <List<Deliverable>> ListAsync();
 
-    void Remove(Deliverable deliverable);
-
+    Task RemoveByIdAsync(long id);
+    
     Task<bool> ExistByIdAsync(long id);
-
+    
 }

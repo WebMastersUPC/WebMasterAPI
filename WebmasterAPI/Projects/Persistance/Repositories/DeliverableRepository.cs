@@ -22,18 +22,27 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
 
     public async Task<Deliverable> FindDeliverableIdAsync(long id)
     {
-        return await _Context.Deliverables.Include(d => d.Developer).Include(d => d.Project)
+        return await _Context.Deliverables.Include(d => d.Project)
             .FirstOrDefaultAsync(d => d.deliverable_id == id);
     }
 
+    //Revisar porque agarra todos los deliverables se me filtra la base de datos puñeta
     public async Task<List<Deliverable>> ListAsync()
     {
         return await _Context.Deliverables.Include(d => d.Developer).Include(d => d.Project).ToListAsync();
     }
 
-    public void Remove(Deliverable deliverable)
+    
+    public async Task RemoveByIdAsync(long id)
     {
+        var deliverable = await _Context.Deliverables.FindAsync(id);
+        if (deliverable == null)
+        {
+            throw new Exception($"Deliverable with id {id} not found");
+        }
+
         _Context.Deliverables.Remove(deliverable);
+        await _Context.SaveChangesAsync();
     }
     
     public async Task UpdateAsync(Deliverable deliverable)
@@ -46,5 +55,6 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     {
         return _Context.Deliverables.AnyAsync(d => d.deliverable_id == id);
     }
+    
 
 }

@@ -35,5 +35,13 @@ public class DeliverableController : ControllerBase
         return Ok(deliverable);
     }
     
+    //DELETE: api/v1/Deliverables/{id}
+    [HttpDelete("Deliverables/{id}")]
+    public async Task<IActionResult> DeleteDeliverableById(long id)
+    {
+        var response = await _deliverableService.DeleteDeliverableByIdAsync(id);
+        return Ok(response);
+    }
+    
     
 }

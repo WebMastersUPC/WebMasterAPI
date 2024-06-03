@@ -35,6 +35,14 @@ public class DeliverableService : IDeliverableService
         return response;
     }
 
+
+    public async Task<DeliverableResponse> DeleteDeliverableByIdAsync(long id)
+    {
+        await _deliverableRepository.RemoveByIdAsync(id);
+        await _unitOfWork.CompleteAsync();
+        return new DeliverableResponse();
+    }
+
     public async Task UpdateDeliverableAsync(long id, DeliverableRequest updateRequest)
     {
         throw new NotImplementedException();
