@@ -58,7 +58,6 @@ public class AuthService : IUserService
         await _developerRepository.AddAsync(developer);
         await _unitOfWork.CompleteAsync();
     }
-
     public async Task RegisterEnterpriseAsync(RegisterEnterpriseRequest model)
     {
         var user = _mapper.Map<User>(model);
@@ -74,12 +73,5 @@ public class AuthService : IUserService
         await _enterpriseRepository.AddAsync(enterprise);
         await _unitOfWork.CompleteAsync();
     }
-    
-    // public Task DeleteAsync(int id)
-    // {
-    //     throw new NotImplementedException();
-    // }
-    
-    //get all
     
 }
