@@ -39,5 +39,7 @@ public class ResourceToModelProfile : AutoMapper.Profile
                 // Solo asigna el valor si el miembro de origen no es null
                 return sourceMember != null;
             }));
+        
+        
     }
 }

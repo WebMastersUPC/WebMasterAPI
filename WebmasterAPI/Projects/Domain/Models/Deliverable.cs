@@ -9,7 +9,7 @@ public class Deliverable {
     public long deliverable_id { get; set; }
     
     //Properties
-    
+    public string title {get; set;}
     public string description { get; set; }
     
     public string state { get; set; }

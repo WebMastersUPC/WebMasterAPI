@@ -72,6 +72,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Deliverable>().ToTable("Deliverables");
             builder.Entity<Deliverable>().HasKey(d => d.deliverable_id);
             builder.Entity<Deliverable>().Property(d => d.deliverable_id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Deliverable>().Property(d=> d.title).IsRequired().HasMaxLength(64);
             builder.Entity<Deliverable>().Property(d => d.description).IsRequired().HasMaxLength(512);
             builder.Entity<Deliverable>().Property(d => d.state).IsRequired().HasMaxLength(32);
             builder.Entity<Deliverable>().Property(d => d.file).IsRequired().HasMaxLength(512);

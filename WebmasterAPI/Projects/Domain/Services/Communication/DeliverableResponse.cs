@@ -11,6 +11,7 @@ public class DeliverableResponse  {
     
     //Properties
     
+    public string title {get; set;}
     public string descripción { get; set; }
     public string state { get; set; }
     public string file { get; set; }

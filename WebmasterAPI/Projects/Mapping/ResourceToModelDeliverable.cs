@@ -1,0 +1,42 @@
+
+using WebmasterAPI.Authentication.Domain.Services.Communication;
+using WebmasterAPI.Projects.Domain.Models;
+using WebmasterAPI.Projects.Domain.Services.Communication;
+using WebmasterAPI.Projects.Resources;
+
+namespace WebmasterAPI.Authentication.Mapping;
+
+public class ResourceToModelDeliverable : AutoMapper.Profile
+{
+    public ResourceToModelDeliverable()
+    {
+        // DeliverableResource to Deliverable
+        CreateMap<DeliverableResource, Deliverable>();
+        CreateMap<UpdateRequest,Deliverable>().ForAllMembers(options =>options.Condition((source, target, property) =>
+            {
+                if (property == null) return false;
+                return property.GetType() != typeof(string) || !string.IsNullOrEmpty((string)property);
+            })
+        );
+
+        // DeliverableRequest to Deliverable
+        CreateMap<DeliverableRequest, Deliverable>()
+            .ForMember(dest => dest.description, opt => opt.MapFrom(src => src.description));
+
+        // Deliverable to DeliverableResource
+        CreateMap<Deliverable, DeliverableResource>()
+            .ForMember(dest => dest.state, opt => opt.MapFrom(src => src.state))
+            .ForMember(dest => dest.file, opt => opt.MapFrom(src => src.file))
+            .ForMember(dest => dest.project_id, opt => opt.MapFrom(src => src.project_id))
+            .ForMember(dest => dest.developer_id, opt => opt.MapFrom(src => src.developer_id));
+        
+        CreateMap<DeliverableRequest, Deliverable>()
+            .ForAllMembers(options => options.Condition((source, target, sourceMember, destMember) =>
+            {
+                // Solo asigna el valor si el miembro de origen no es null
+                return sourceMember != null;
+            }));
+        
+    }
+    
+}

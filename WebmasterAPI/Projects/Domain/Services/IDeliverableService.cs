@@ -10,7 +10,7 @@ public interface IDeliverableService {
 
     Task<DeliverableResponse> DeleteDeliverableByIdAsync(long id);
     
-    Task UpdateDeliverableAsync(long id, DeliverableRequest updateRequest);
+    Task UpdateDeliverableAsync(long id, DeliverableUpdateRequest updateRequest);
     
     
 }

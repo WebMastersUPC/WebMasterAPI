@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Projects.Domain.Services;
+using WebmasterAPI.Projects.Domain.Services.Communication;
 
 namespace WebmasterAPI.Projects.Interfaces.Rest.Controllers;
 
@@ -43,5 +44,13 @@ public class DeliverableController : ControllerBase
         return Ok(response);
     }
     
+    //PUT: api/v1/Deliverables/{id}
+    [HttpPut("Deliverables/{id}")]
+    public async Task<IActionResult> UpdateDeliverable(long id, [FromBody] DeliverableUpdateRequest resource)
+    {
+        var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
+        await _deliverableService.UpdateDeliverableAsync(id, updateRequest);
+        return Ok();
+    }
     
 }
