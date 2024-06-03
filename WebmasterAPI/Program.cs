@@ -6,6 +6,8 @@ using WebmasterAPI.Authentication.Services;
 using WebmasterAPI.Shared.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
+using WebmasterAPI.UserManagement.Domain.Services;
+using WebmasterAPI.UserManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IPasswordHashingService, PasswordHashingService>();
 
 
 // AutoMapper Configuration

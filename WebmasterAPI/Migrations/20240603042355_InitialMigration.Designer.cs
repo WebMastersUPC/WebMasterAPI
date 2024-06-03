@@ -10,7 +10,7 @@ using WebmasterAPI.Shared.Persistence.Contexts;
 namespace WebmasterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240601115449_InitialMigration")]
+    [Migration("20240603042355_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -140,10 +140,9 @@ namespace WebmasterAPI.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.Property<string>("password")
+                    b.Property<string>("passwordHashed")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("user_type")
                         .IsRequired()
