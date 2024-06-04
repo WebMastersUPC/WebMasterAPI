@@ -70,4 +70,19 @@ public class DeliverableController : ControllerBase
         }
     }
     
+    // POST: api/v1/Projects/{projectId}/Deliverables
+    [HttpPost("Projects/{projectId}/Deliverables")]
+    public async Task<IActionResult> CreateDeliverableForProject(long projectId, [FromBody] CreateDeliverableRequest request)
+    {
+        try
+        {
+            await _deliverableService.AddDeliverableToProjectAsync(projectId, request);
+            return Ok(new { message = "Deliverable added successfully to the project." });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
+    }
+    
 }

@@ -62,11 +62,48 @@ public class DeliverableService : IDeliverableService
 
     public async Task AddDeliverableAsync(CreateDeliverableRequest request)
     {
-        // Verificar existencia del proyecto
+        /*// Verificar existencia del proyecto
         var projectExists = await _deliverableRepository.ProjectExistsAsync(request.project_id);
         if (!projectExists)
         {
             throw new Exception($"No se encontró un proyecto con ID {request.project_id}");
+        }*/
+
+        // Verificar existencia del desarrollador
+        var developerExists = await _deliverableRepository.DeveloperExistsAsync(request.developer_id);
+        if (!developerExists)
+        {
+            throw new Exception($"No se encontró un desarrollador con ID {request.developer_id}");
+        }
+
+        var deliverable = new Deliverable
+        {
+            title = request.title,
+            description = request.description,
+            state = request.state,
+            file = "", // Valor predeterminado para file
+            developer_id = request.developer_id
+        };
+
+        try
+        {
+            await _deliverableRepository.AddSync(deliverable);
+            await _unitOfWork.CompleteAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al agregar el deliverable: {ex.Message}");
+            throw;
+        }
+    }
+    
+    public async Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableRequest request)
+    {
+        // Verificar existencia del proyecto
+        var projectExists = await _deliverableRepository.ProjectExistsAsync(projectId);
+        if (!projectExists)
+        {
+            throw new Exception($"No se encontró un proyecto con ID {projectId}");
         }
 
         // Verificar existencia del desarrollador
@@ -82,7 +119,7 @@ public class DeliverableService : IDeliverableService
             description = request.description,
             state = request.state,
             file = "", // Valor predeterminado para file
-            project_id = request.project_id,
+            project_id = projectId,
             developer_id = request.developer_id
         };
 

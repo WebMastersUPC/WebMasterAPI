@@ -19,4 +19,5 @@ public interface IDeliverableRepository
     Task<bool> ProjectExistsAsync(long projectId);
     Task<bool> DeveloperExistsAsync(long developerId);
     
+    
 }
