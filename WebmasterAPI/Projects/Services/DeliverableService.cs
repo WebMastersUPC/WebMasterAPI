@@ -1,7 +1,9 @@
 using AutoMapper;
+using WebmasterAPI.Projects.Domain.Models;
 using WebmasterAPI.Projects.Domain.Repositories;
 using WebmasterAPI.Projects.Domain.Services;
 using WebmasterAPI.Projects.Domain.Services.Communication;
+using WebmasterAPI.Projects.Resources;
 using WebmasterAPI.Shared.Domain.Repositories;
 
 namespace WebmasterAPI.Projects.Services;
@@ -55,7 +57,45 @@ public class DeliverableService : IDeliverableService
         deliverable.description=updateRequest.description;
         deliverable.state=updateRequest.state;
         await _deliverableRepository.UpdateAsync(deliverable);
-
-
+        
     }
+
+    public async Task AddDeliverableAsync(CreateDeliverableRequest request)
+    {
+        // Verificar existencia del proyecto
+        var projectExists = await _deliverableRepository.ProjectExistsAsync(request.project_id);
+        if (!projectExists)
+        {
+            throw new Exception($"No se encontró un proyecto con ID {request.project_id}");
+        }
+
+        // Verificar existencia del desarrollador
+        var developerExists = await _deliverableRepository.DeveloperExistsAsync(request.developer_id);
+        if (!developerExists)
+        {
+            throw new Exception($"No se encontró un desarrollador con ID {request.developer_id}");
+        }
+
+        var deliverable = new Deliverable
+        {
+            title = request.title,
+            description = request.description,
+            state = request.state,
+            file = "", // Valor predeterminado para file
+            project_id = request.project_id,
+            developer_id = request.developer_id
+        };
+
+        try
+        {
+            await _deliverableRepository.AddSync(deliverable);
+            await _unitOfWork.CompleteAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al agregar el deliverable: {ex.Message}");
+            throw;
+        }
+    }
+    
 }

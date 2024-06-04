@@ -56,5 +56,13 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
         return _Context.Deliverables.AnyAsync(d => d.deliverable_id == id);
     }
     
+    public async Task<bool> ProjectExistsAsync(long projectId)
+    {
+        return await _Context.Projects.AnyAsync(p => p.project_id == projectId);
+    }
 
+    public async Task<bool> DeveloperExistsAsync(long developerId)
+    {
+        return await _Context.Developers.AnyAsync(d => d.developer_id == developerId);
+    }
 }

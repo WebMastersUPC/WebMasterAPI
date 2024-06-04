@@ -12,5 +12,7 @@ public interface IDeliverableService {
     
     Task UpdateDeliverableAsync(long id, DeliverableUpdateRequest updateRequest);
     
+    Task AddDeliverableAsync(CreateDeliverableRequest deliverable);
+    
     
 }

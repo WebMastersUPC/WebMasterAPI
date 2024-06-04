@@ -24,6 +24,8 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         
         public DbSet<Deliverable> Deliverables { get; set; }
         
+        public DbSet<Project> Projects { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

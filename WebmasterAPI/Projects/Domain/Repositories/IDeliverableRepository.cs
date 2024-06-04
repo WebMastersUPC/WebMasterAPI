@@ -16,5 +16,7 @@ public interface IDeliverableRepository
     Task RemoveByIdAsync(long id);
     
     Task<bool> ExistByIdAsync(long id);
+    Task<bool> ProjectExistsAsync(long projectId);
+    Task<bool> DeveloperExistsAsync(long developerId);
     
 }

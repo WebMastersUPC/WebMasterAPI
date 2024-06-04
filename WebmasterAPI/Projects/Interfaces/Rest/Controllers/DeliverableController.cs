@@ -1,8 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
+using WebmasterAPI.Projects.Domain.Models;
 using WebmasterAPI.Projects.Domain.Services;
 using WebmasterAPI.Projects.Domain.Services.Communication;
+using WebmasterAPI.Projects.Resources;
 
 namespace WebmasterAPI.Projects.Interfaces.Rest.Controllers;
 
@@ -51,6 +53,21 @@ public class DeliverableController : ControllerBase
         var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
         await _deliverableService.UpdateDeliverableAsync(id, updateRequest);
         return Ok();
+    }
+    
+    //POST: api/v1/Deliverables
+    [HttpPost("Deliverables")]
+    public async Task<IActionResult> CreateDeliverable([FromBody] CreateDeliverableRequest request)
+    {
+        try
+        {
+            await _deliverableService.AddDeliverableAsync(request);
+            return Ok(new { message = "Deliverable agregado exitosamente." });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
     }
     
 }

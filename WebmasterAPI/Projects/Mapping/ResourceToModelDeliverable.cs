@@ -18,13 +18,18 @@ public class ResourceToModelDeliverable : AutoMapper.Profile
                 return property.GetType() != typeof(string) || !string.IsNullOrEmpty((string)property);
             })
         );
-
+        
+        CreateMap<CreateDeliverableRequest, Deliverable>();
+        
+        CreateMap<CreateDeliverableRequest, DeliverableResource>();
+        
         // DeliverableRequest to Deliverable
         CreateMap<DeliverableRequest, Deliverable>()
             .ForMember(dest => dest.description, opt => opt.MapFrom(src => src.description));
 
         // Deliverable to DeliverableResource
         CreateMap<Deliverable, DeliverableResource>()
+            .ForMember(dest=>dest.title, opt=>opt.MapFrom(src=>src.title))
             .ForMember(dest => dest.state, opt => opt.MapFrom(src => src.state))
             .ForMember(dest => dest.file, opt => opt.MapFrom(src => src.file))
             .ForMember(dest => dest.project_id, opt => opt.MapFrom(src => src.project_id))
