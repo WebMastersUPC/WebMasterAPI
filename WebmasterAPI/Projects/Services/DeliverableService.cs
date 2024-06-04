@@ -97,7 +97,7 @@ public class DeliverableService : IDeliverableService
         }
     }
     
-    public async Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableRequest request)
+    public async Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableByProjectIdRequest request)
     {
         // Verificar existencia del proyecto
         var projectExists = await _deliverableRepository.ProjectExistsAsync(projectId);

@@ -18,6 +18,6 @@ public interface IDeliverableRepository
     Task<bool> ExistByIdAsync(long id);
     Task<bool> ProjectExistsAsync(long projectId);
     Task<bool> DeveloperExistsAsync(long developerId);
-    
+    //Task<bool> DeveloperBelongsToProjectAsync(long projectId, long developerId);
     
 }

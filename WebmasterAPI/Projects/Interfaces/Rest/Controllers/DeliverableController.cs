@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
@@ -8,6 +9,10 @@ using WebmasterAPI.Projects.Resources;
 
 namespace WebmasterAPI.Projects.Interfaces.Rest.Controllers;
 
+
+
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
 public class DeliverableController : ControllerBase
 {
 
@@ -22,7 +27,7 @@ public class DeliverableController : ControllerBase
     
     //Poner filtro 
     //GET: api/v1/Deliverables
-    [HttpGet("Deliverables")]
+    [HttpGet("api/v1/Deliverables")]
     public async Task<IActionResult> GetDeliverables()
     {
        var deliverables = await _deliverableService.ListDeliverablesAsync();
@@ -31,7 +36,7 @@ public class DeliverableController : ControllerBase
     
     
     //GET: api/v1/Deliverables/{id}
-    [HttpGet("Deliverables/{id}")]
+    [HttpGet("api/v1/Deliverables/{id}")]
     public async Task<IActionResult> GetDeliverableById(long id)
     {
         var deliverable = await _deliverableService.GetDeliverableByIdAsync(id);
@@ -39,7 +44,7 @@ public class DeliverableController : ControllerBase
     }
     
     //DELETE: api/v1/Deliverables/{id}
-    [HttpDelete("Deliverables/{id}")]
+    [HttpDelete("api/v1/Deliverables/{id}")]
     public async Task<IActionResult> DeleteDeliverableById(long id)
     {
         var response = await _deliverableService.DeleteDeliverableByIdAsync(id);
@@ -47,7 +52,7 @@ public class DeliverableController : ControllerBase
     }
     
     //PUT: api/v1/Deliverables/{id}
-    [HttpPut("Deliverables/{id}")]
+    [HttpPut("api/v1/Deliverables/{id}")]
     public async Task<IActionResult> UpdateDeliverable(long id, [FromBody] DeliverableUpdateRequest resource)
     {
         var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
@@ -56,7 +61,7 @@ public class DeliverableController : ControllerBase
     }
     
     //POST: api/v1/Deliverables
-    [HttpPost("Deliverables")]
+    [HttpPost("api/v1/Deliverables")]
     public async Task<IActionResult> CreateDeliverable([FromBody] CreateDeliverableRequest request)
     {
         try
@@ -71,8 +76,8 @@ public class DeliverableController : ControllerBase
     }
     
     // POST: api/v1/Projects/{projectId}/Deliverables
-    [HttpPost("Projects/{projectId}/Deliverables")]
-    public async Task<IActionResult> CreateDeliverableForProject(long projectId, [FromBody] CreateDeliverableRequest request)
+    [HttpPost("api/v1/Projects/{projectId}/Deliverables")]
+    public async Task<IActionResult> CreateDeliverableForProject(long projectId, [FromBody] CreateDeliverableByProjectIdRequest request)
     {
         try
         {

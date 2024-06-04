@@ -90,6 +90,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Project>().HasKey(p => p.project_id);
             builder.Entity<Project>().Property(p => p.project_id).IsRequired().ValueGeneratedOnAdd();
             
+            
         }
     }
 }

@@ -65,4 +65,9 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     {
         return await _Context.Developers.AnyAsync(d => d.developer_id == developerId);
     }
+    
+    /*public async Task<bool> DeveloperBelongsToProjectAsync(long projectId, long developerId)
+    {
+        return await _Context.Projects.AnyAsync(p => p.project_id == projectId && p.Developers.Any(d => d.developer_id == developerId));
+    }*/
 }
