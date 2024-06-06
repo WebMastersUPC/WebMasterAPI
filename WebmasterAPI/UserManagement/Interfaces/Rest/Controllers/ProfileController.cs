@@ -24,7 +24,6 @@ public class ProfileController : ControllerBase
     }
     
     // GET: api/v1/Profile/Developers
-    [Authorize]
     [HttpGet("Developers")]
     public async Task<IActionResult> GetDevelopers()
     {
@@ -34,7 +33,6 @@ public class ProfileController : ControllerBase
     
     // GET: api/v1/Profile/Developers/{id}
     [HttpGet("Developers/{id}")]
-    [Authorize]
     public async Task<IActionResult> GetDeveloperById(long id)
     {
         var developer = await _profileService.GetDeveloperByIdAsync(id);

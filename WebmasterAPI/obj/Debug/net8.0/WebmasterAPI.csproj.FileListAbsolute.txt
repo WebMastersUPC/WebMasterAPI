@@ -563,3 +563,12 @@ C:\Users\Asus\Desktop\Aplicaciones web\WebMastersApi\WebMasterAPI\WebmasterAPI\b
 C:\Users\Asus\Desktop\Aplicaciones web\WebMastersApi\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Asus\Desktop\Aplicaciones web\WebMastersApi\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\Asus\Desktop\Aplicaciones web\WebMastersApi\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\USER\Documents\GitHub\WebMasterAPI\WebmasterAPI\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
