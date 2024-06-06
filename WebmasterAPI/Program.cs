@@ -3,6 +3,9 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Persistence.Repositories;
 using WebmasterAPI.Authentication.Services;
+using WebmasterAPI.Project.Domain.Repositories;
+using WebmasterAPI.Project.Domain.Services.Communication;
+using WebmasterAPI.Project.Persistence.Repositories;
 using WebmasterAPI.Shared.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
@@ -40,7 +43,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
-
+builder.Services.AddScoped<IProjectRepository<ProjectDto>, ProjectRepository>();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(

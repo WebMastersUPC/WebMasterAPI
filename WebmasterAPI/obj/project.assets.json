@@ -2893,26 +2893,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jair\\.nuget\\packages\\": {}
+    "C:\\Users\\André\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
+      "projectUniqueName": "D:\\UPC\\Aplicaciones Web\\Aplicaciones web-2024-1\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
       "projectName": "WebmasterAPI",
-      "projectPath": "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
-      "packagesPath": "C:\\Users\\Jair\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jair\\Desktop\\Aplicaciones web\\Testing API\\WebMasterApiUltimate\\WebMasterAPI\\WebmasterAPI\\obj\\",
+      "projectPath": "D:\\UPC\\Aplicaciones Web\\Aplicaciones web-2024-1\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
+      "packagesPath": "C:\\Users\\André\\.nuget\\packages\\",
+      "outputPath": "D:\\UPC\\Aplicaciones Web\\Aplicaciones web-2024-1\\WebMasterAPI\\WebmasterAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Jair\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\André\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2925,6 +2923,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2985,7 +2988,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

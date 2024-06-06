@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Models;
-
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {
     public class AppDbContext : DbContext
