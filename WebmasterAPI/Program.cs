@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using WebmasterAPI.ApiProject.Domain.Models;
 using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Persistence.Repositories;
 using WebmasterAPI.Authentication.Services;
-using WebmasterAPI.Project.Domain.Repositories;
-using WebmasterAPI.Project.Domain.Services.Communication;
-using WebmasterAPI.Project.Persistence.Repositories;
+using WebmasterAPI.ApiProject.Domain.Repositories;
+using WebmasterAPI.ApiProject.Domain.Services;
+using WebmasterAPI.ApiProject.Domain.Services.Communication;
+using WebmasterAPI.ApiProject.Mapping;
+using WebmasterAPI.ApiProject.Persistence.Repositories;
+using WebmasterAPI.ApiProject.Services;
 using WebmasterAPI.Shared.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
@@ -43,13 +47,15 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
-builder.Services.AddScoped<IProjectRepository<ProjectDto>, ProjectRepository>();
+builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
+builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>, ProjectService>("projectService");
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
     typeof(WebmasterAPI.Authentication.Mapping.ModelToResourceProfile),
     typeof(WebmasterAPI.Authentication.Mapping.ResourceToModelProfile)
 );
+builder.Services.AddAutoMapper(typeof(MappingProject));
 
 
 var app = builder.Build();

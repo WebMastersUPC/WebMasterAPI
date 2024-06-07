@@ -18,6 +18,49 @@ namespace WebmasterAPI.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("WebmasterAPI.ApiProject.Domain.Models.Project", b =>
+                {
+                    b.Property<long>("ProjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DescriptionProject")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Developer_id")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Frameworks")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Languages")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Methodologies")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NameProject")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<long>("enterprise_id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ProjectID");
+
+                    b.HasIndex("enterprise_id");
+
+                    b.ToTable("Projects");
+                });
+
             modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Developer", b =>
                 {
                     b.Property<long>("developer_id")
@@ -151,47 +194,15 @@ namespace WebmasterAPI.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("WebmasterAPI.Project.Domain.Models.Project", b =>
+            modelBuilder.Entity("WebmasterAPI.ApiProject.Domain.Models.Project", b =>
                 {
-                    b.Property<long>("projectID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.HasOne("WebmasterAPI.Authentication.Domain.Models.Enterprise", "Enterprise")
+                        .WithMany()
+                        .HasForeignKey("enterprise_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<decimal>("budget")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("descriptionProject")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("developer_id")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<long>("enterprise_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("frameworks")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("languages")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("methodologies")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("nameProject")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("projectID");
-
-                    b.HasIndex("enterprise_id");
-
-                    b.ToTable("Projects");
+                    b.Navigation("Enterprise");
                 });
 
             modelBuilder.Entity("WebmasterAPI.Authentication.Domain.Models.Developer", b =>
@@ -214,17 +225,6 @@ namespace WebmasterAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebmasterAPI.Project.Domain.Models.Project", b =>
-                {
-                    b.HasOne("WebmasterAPI.Authentication.Domain.Models.Enterprise", "Enterprise")
-                        .WithMany()
-                        .HasForeignKey("enterprise_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Enterprise");
                 });
 #pragma warning restore 612, 618
         }

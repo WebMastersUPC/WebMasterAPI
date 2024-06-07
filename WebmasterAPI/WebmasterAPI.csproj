@@ -16,16 +16,15 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ApiProject\Interfaces\Rest\Controllers\" />
       <Folder Include="Migrations\" />
-      <Folder Include="Project\Interfaces\Controllers\" />
-      <Folder Include="Project\Mapping\" />
-      <Folder Include="Project\Resources\" />
-      <Folder Include="Project\Services\" />
+      <Folder Include="ApiProject\Resources\" />
     </ItemGroup>
 
 </Project>

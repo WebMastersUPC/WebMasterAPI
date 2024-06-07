@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Models;
+using WebmasterAPI.ApiProject.Domain.Models;
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {
     public class AppDbContext : DbContext
@@ -19,7 +20,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Enterprise> Enterprises { get; set; }
-        
+        public DbSet<ApiProject.Domain.Models.Project> Projects { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
