@@ -47,8 +47,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
-builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
+
 builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>, ProjectService>("projectService");
+builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(

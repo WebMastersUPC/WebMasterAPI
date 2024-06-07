@@ -8,6 +8,7 @@ public class MappingProject : Profile
 {
     public MappingProject()
     {
-        CreateMap<ProjectDto, Project>();
+        CreateMap<Project, ProjectDto>().ForMember(dto => dto.Id, 
+            m => m.MapFrom(p => p.ProjectID));
     }
 }
