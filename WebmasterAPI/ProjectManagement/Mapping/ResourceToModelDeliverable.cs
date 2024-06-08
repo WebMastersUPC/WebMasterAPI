@@ -1,10 +1,10 @@
 
 using WebmasterAPI.Authentication.Domain.Services.Communication;
-using WebmasterAPI.Projects.Domain.Models;
-using WebmasterAPI.Projects.Domain.Services.Communication;
-using WebmasterAPI.Projects.Resources;
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Resources;
 
-namespace WebmasterAPI.Authentication.Mapping;
+namespace WebmasterAPI.ProjectManagement.Mapping;
 
 public class ResourceToModelDeliverable : AutoMapper.Profile
 {

@@ -1,6 +1,6 @@
-using WebmasterAPI.Projects.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Models;
 
-namespace WebmasterAPI.Projects.Domain.Repositories;
+namespace WebmasterAPI.ProjectManagement.Domain.Repositories;
 
 public interface IDeliverableRepository
 {

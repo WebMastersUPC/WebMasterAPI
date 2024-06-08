@@ -1,12 +1,12 @@
 using AutoMapper;
-using WebmasterAPI.Projects.Domain.Models;
-using WebmasterAPI.Projects.Domain.Repositories;
-using WebmasterAPI.Projects.Domain.Services;
-using WebmasterAPI.Projects.Domain.Services.Communication;
-using WebmasterAPI.Projects.Resources;
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Repositories;
+using WebmasterAPI.ProjectManagement.Domain.Services;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Resources;
 using WebmasterAPI.Shared.Domain.Repositories;
 
-namespace WebmasterAPI.Projects.Services;
+namespace WebmasterAPI.ProjectManagement.Services;
 
 public class DeliverableService : IDeliverableService
 {

@@ -1,7 +1,7 @@
 using WebmasterAPI.Authentication.Domain.Models;
-using WebmasterAPI.Projects.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Models;
 
-namespace WebmasterAPI.Projects.Domain.Services.Communication;
+namespace WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
 public class DeliverableResponse  {
     

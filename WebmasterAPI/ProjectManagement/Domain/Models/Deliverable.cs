@@ -1,6 +1,6 @@
 using WebmasterAPI.Authentication.Domain.Models;
 
-namespace WebmasterAPI.Projects.Domain.Models;
+namespace WebmasterAPI.ProjectManagement.Domain.Models;
 
 public class Deliverable {
     

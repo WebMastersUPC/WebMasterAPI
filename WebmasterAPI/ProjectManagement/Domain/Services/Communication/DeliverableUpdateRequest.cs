@@ -1,4 +1,4 @@
-namespace WebmasterAPI.Projects.Domain.Services.Communication;
+namespace WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
 public class DeliverableUpdateRequest {
     

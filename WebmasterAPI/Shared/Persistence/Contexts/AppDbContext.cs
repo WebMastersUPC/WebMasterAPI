@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Models;
-using WebmasterAPI.Projects.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Models;
 
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {

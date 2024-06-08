@@ -1,6 +1,6 @@
-using WebmasterAPI.Projects.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
-namespace WebmasterAPI.Projects.Domain.Services;
+namespace WebmasterAPI.ProjectManagement.Domain.Services;
 
 public interface IDeliverableService {
 

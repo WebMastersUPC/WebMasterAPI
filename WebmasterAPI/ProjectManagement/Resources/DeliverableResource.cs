@@ -1,4 +1,4 @@
-namespace WebmasterAPI.Projects.Resources;
+namespace WebmasterAPI.ProjectManagement.Resources;
 
 public class DeliverableResource {
     

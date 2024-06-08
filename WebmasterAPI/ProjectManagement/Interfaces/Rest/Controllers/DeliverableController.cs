@@ -2,12 +2,12 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
-using WebmasterAPI.Projects.Domain.Models;
-using WebmasterAPI.Projects.Domain.Services;
-using WebmasterAPI.Projects.Domain.Services.Communication;
-using WebmasterAPI.Projects.Resources;
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Services;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Resources;
 
-namespace WebmasterAPI.Projects.Interfaces.Rest.Controllers;
+namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers;
 
 
 
@@ -40,7 +40,7 @@ public class DeliverableController : ControllerBase
         try
         {
             await _deliverableService.AddDeliverableToProjectAsync(projectId, request);
-            return Ok(new { message = "Deliverable added successfully to the project." });
+            return Ok(new { message = "Entregable añadido exitosamente en el proyecto." });
         }
         catch (Exception e)
         {
@@ -52,6 +52,7 @@ public class DeliverableController : ControllerBase
     [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}")]
     public async Task<IActionResult> UpdateDeliverableByProjectIdandDeliverableId(long projectId, long deliverableId, [FromBody] DeliverableUpdateRequest resource)
     {
+        
         var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
         await _deliverableService.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId, updateRequest);
         return Ok();

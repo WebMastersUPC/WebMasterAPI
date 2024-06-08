@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Authentication.Domain.Repositories;
-using WebmasterAPI.Projects.Domain.Models;
-using WebmasterAPI.Projects.Domain.Repositories;
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
 
-namespace WebmasterAPI.Projects.Domain.Persistance.Repositories;
+namespace WebmasterAPI.ProjectManagement.Domain.Persistance.Repositories;
 
 public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
 
