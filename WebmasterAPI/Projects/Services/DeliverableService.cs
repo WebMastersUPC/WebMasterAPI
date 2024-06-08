@@ -59,6 +59,21 @@ public class DeliverableService : IDeliverableService
         await _deliverableRepository.UpdateAsync(deliverable);
         
     }
+    
+    public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest)
+    {
+        var deliverable = await _deliverableRepository.FindDeliverableIdAsync(deliverableId);
+        if (deliverable == null)
+        {
+            throw new Exception("Deliverable not found");
+        }
+        
+        deliverable.title=updateRequest.title;
+        deliverable.description=updateRequest.description;
+        deliverable.state=updateRequest.state;
+        await _deliverableRepository.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId, deliverable);
+        
+    }
 
     public async Task AddDeliverableAsync(CreateDeliverableRequest request)
     {

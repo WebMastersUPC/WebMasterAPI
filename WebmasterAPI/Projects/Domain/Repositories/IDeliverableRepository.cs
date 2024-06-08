@@ -9,6 +9,8 @@ public interface IDeliverableRepository
     
     Task UpdateAsync(Deliverable deliverable);
     
+    Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, Deliverable deliverable);
+    
     Task<Deliverable> FindDeliverableIdAsync(long id);
 
     Task <List<Deliverable>> ListAsync();

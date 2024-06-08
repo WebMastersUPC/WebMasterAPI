@@ -15,6 +15,8 @@ public interface IDeliverableService {
     
     Task UpdateDeliverableAsync(long id, DeliverableUpdateRequest updateRequest);
     
+    Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest);
+    
     Task AddDeliverableAsync(CreateDeliverableRequest deliverable);
     
     Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableByProjectIdRequest request);

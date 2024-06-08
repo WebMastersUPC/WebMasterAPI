@@ -78,6 +78,22 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
         await _Context.SaveChangesAsync();
     }
     
+    public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, Deliverable deliverable)
+    {
+        var deliverableToUpdate = await _Context.Deliverables.FirstOrDefaultAsync(d => d.project_id == projectId && d.deliverable_id == deliverableId);
+        if (deliverableToUpdate == null)
+        {
+            throw new Exception($"Deliverable with id {deliverableId} not found in project with id {projectId}");
+        }
+
+        deliverableToUpdate.title = deliverable.title;
+        deliverableToUpdate.description = deliverable.description;
+        deliverableToUpdate.state = deliverable.state;
+        deliverableToUpdate.developer_id = deliverable.developer_id;
+        deliverableToUpdate.project_id = deliverable.project_id;
+        await _Context.SaveChangesAsync();
+    }
+    
     public Task<bool> ExistByIdAsync(long id)
     {
         return _Context.Deliverables.AnyAsync(d => d.deliverable_id == id);
