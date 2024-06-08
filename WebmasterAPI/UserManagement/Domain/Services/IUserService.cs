@@ -10,5 +10,6 @@ public interface IUserService
     Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest model);
     Task RegisterDeveloperAsync(RegisterDeveloperRequest model);
     Task RegisterEnterpriseAsync(RegisterEnterpriseRequest model);
+    Task<User> GetByIdAsync(int id);
     
 }

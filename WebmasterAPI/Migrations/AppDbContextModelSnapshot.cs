@@ -137,10 +137,9 @@ namespace WebmasterAPI.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.Property<string>("password")
+                    b.Property<string>("passwordHashed")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("user_type")
                         .IsRequired()

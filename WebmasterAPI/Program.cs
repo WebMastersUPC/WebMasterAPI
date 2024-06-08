@@ -1,4 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Persistence.Repositories;
@@ -6,6 +9,14 @@ using WebmasterAPI.Authentication.Services;
 using WebmasterAPI.Shared.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
+using WebmasterAPI.UserManagement.Authorization.Handlers.Implementations;
+using WebmasterAPI.UserManagement.Authorization.Handlers.Interface;
+using WebmasterAPI.UserManagement.Authorization.Middleware;
+using WebmasterAPI.UserManagement.Authorization.Settings;
+using WebmasterAPI.UserManagement.Domain.Services;
+using WebmasterAPI.UserManagement.Services;
+using WebmasterAPI.UserManagement.Authorization.Settings;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +26,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"])),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 //Add Database Connection 
 builder.Services.AddDbContext<AppDbContext>();
@@ -40,6 +65,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IPasswordHashingService, PasswordHashingService>();  
+builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
 
 // AutoMapper Configuration
@@ -58,13 +85,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<JwtMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors("AllowSpecificOrigin");
+app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.MapControllers();
 

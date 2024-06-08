@@ -6,6 +6,8 @@ using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Resources;
 using WebmasterAPI.Models;
 using WebmasterAPI.Shared.Domain.Repositories;
+using WebmasterAPI.UserManagement.Authorization.Handlers.Interface;
+using WebmasterAPI.UserManagement.Domain.Services;
 
 namespace WebmasterAPI.Authentication.Services;
 
@@ -14,14 +16,18 @@ public class AuthService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IDeveloperRepository _developerRepository;
     private readonly IEnterpriseRepository _enterpriseRepository;
+    private readonly IPasswordHashingService _passwordHashingService;
+    private readonly IJwtHandler _jwtHandler;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AuthService(IUserRepository userRepository, IDeveloperRepository developerRepository, IEnterpriseRepository enterpriseRepository, IMapper mapper, IUnitOfWork unitOfWork)
+    public AuthService(IUserRepository userRepository, IDeveloperRepository developerRepository, IEnterpriseRepository enterpriseRepository, IPasswordHashingService passwordHashingService, IJwtHandler jwtHandler ,IMapper mapper, IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _developerRepository = developerRepository;
         _enterpriseRepository = enterpriseRepository;
+        _passwordHashingService = passwordHashingService;
+        _jwtHandler = jwtHandler;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
     }
@@ -30,12 +36,13 @@ public class AuthService : IUserService
     {
         var user = await _userRepository.FindByEmailAsync(model.Mail);
 
-        if (user == null || user.password!= model.Password)
+        if (user == null || !_passwordHashingService.VerifyPassword(model.Password, user.passwordHashed))
         {
             throw new ApplicationException("User not found");
         }
 
         var response = _mapper.Map<AuthenticateResponse>(user);
+        response.token = _jwtHandler.GenerateToken(user);
         return response;
     }
     public async Task RegisterDeveloperAsync(RegisterDeveloperRequest model)
@@ -46,7 +53,7 @@ public class AuthService : IUserService
         }
     
         var user = _mapper.Map<User>(model);
-        // Agregar Hash de Password
+        user.passwordHashed = _passwordHashingService.GetHash(model.password);
 
         await _userRepository.AddAsync(user);
         await _unitOfWork.CompleteAsync();
@@ -61,7 +68,7 @@ public class AuthService : IUserService
     public async Task RegisterEnterpriseAsync(RegisterEnterpriseRequest model)
     {
         var user = _mapper.Map<User>(model);
-        // Agregar Hash de Password
+        user.passwordHashed = _passwordHashingService.GetHash(model.password);
 
         await _userRepository.AddAsync(user);
         await _unitOfWork.CompleteAsync();
@@ -73,5 +80,14 @@ public class AuthService : IUserService
         await _enterpriseRepository.AddAsync(enterprise);
         await _unitOfWork.CompleteAsync();
     }
+
+    public async Task<User> GetByIdAsync(int id)
+    {
+        var user = await _userRepository.FindByIdAsync(id);
     
+        if (user == null) 
+            throw new ApplicationException("User not found");
+    
+        return user;
+    }
 }

@@ -3,7 +3,7 @@ namespace WebmasterAPI.Authentication.Resources;
 public class EnterpriseResource
 {
     public string mail { get; set; }
-    public string password { get; set; }
+    public string password{ get; set; }
     public string enterprise_name { get; set; }
     public string user_type { get; set; } = "E";
     public string description { get; set; } = "No description provided.";

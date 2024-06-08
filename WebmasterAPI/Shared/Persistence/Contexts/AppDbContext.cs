@@ -30,7 +30,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<User>().HasKey(u => u.user_id);
             builder.Entity<User>().Property(u => u.user_id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(u => u.mail).IsRequired().HasMaxLength(64);
-            builder.Entity<User>().Property(u => u.password).IsRequired().HasMaxLength(32);
+            builder.Entity<User>().Property(u => u.passwordHashed).IsRequired();
             builder.Entity<User>().Property(u => u.user_type).IsRequired();
             
             // Developer Configuration

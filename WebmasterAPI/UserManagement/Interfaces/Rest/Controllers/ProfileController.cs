@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
