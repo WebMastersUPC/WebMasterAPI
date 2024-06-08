@@ -23,9 +23,10 @@ public class ProjectRepository : IProjectRepository<Project>
     public async Task Add(Project project) =>
         await _appDbContext.Projects.AddAsync(project);
 
-    public void Update(Project entity)
+    public void Update(Project project)
     {
-        throw new NotImplementedException();
+        _appDbContext.Projects.Attach(project);
+        _appDbContext.Projects.Entry(project).State = EntityState.Modified;
     }
 
     public void Delete(Project project)
@@ -35,4 +36,6 @@ public class ProjectRepository : IProjectRepository<Project>
 
     public async Task Save() =>
         await _appDbContext.SaveChangesAsync();
+    public IEnumerable<Project> Search(Func<Project, bool> filter) =>
+        _appDbContext.Projects.Where(filter).ToList();
 }

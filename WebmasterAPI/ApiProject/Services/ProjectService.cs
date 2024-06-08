@@ -12,6 +12,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
     private IProjectRepository<Project> _projectRepository;
     private IMapper _mapper;
     private IDeveloperRepository _developerRepository;
+    public List<string> Errors { get; }
 
     public ProjectService(IProjectRepository<Project> projectRepository, IMapper mapper, 
         IDeveloperRepository developerRepository)
@@ -19,6 +20,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         _projectRepository = projectRepository;
         _mapper = mapper;
         _developerRepository = developerRepository;
+        Errors = new List<string>();
     }
     public async Task<IEnumerable<ProjectDto>> Get()
     {
@@ -56,9 +58,22 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         throw new Exception("One or more developer IDs are invalid.");
     }
 
-    public Task<ProjectDto> Update(int id, UpdateProjectDto updateDto)
+    public async Task<ProjectDto> Update(int id, UpdateProjectDto updateDto)
     {
-        throw new NotImplementedException();
+        if (await ValidateDeveloperIdsAsync(updateDto.developer_id))
+        {
+            var project = await _projectRepository.GetById(id);
+            if (project != null)
+            {
+                _mapper.Map<UpdateProjectDto,Project>(updateDto, project);
+                _projectRepository.Update(project);
+                await _projectRepository.Save();
+                var projectDto = _mapper.Map<ProjectDto>(project);
+                return projectDto;
+            }
+            throw new Exception("Project not found.");
+        }
+        throw new Exception("One or more developer IDs are invalid.");
     }
 
     public async Task<ProjectDto> Delete(int id)
@@ -73,5 +88,26 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         }
 
         return null;
+    }
+    public bool Validate(InsertProjectDto insertDto)
+    {
+        if (_projectRepository.Search(p => p.nameProject == insertDto.nameProject).Count() > 0)
+        {
+            Errors.Add("A project with the same name cannot exist");
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool Validate(UpdateProjectDto updateDto)
+    {
+        if (_projectRepository.Search(p => p.nameProject == updateDto.nameProject && 
+                                        updateDto.projectID != p.projectID).Count() > 0)
+        {
+            Errors.Add("A project with the same name cannot exist");
+            return false;
+        }
+        return true;
     }
 }

@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.ApiProject.Domain.Models;
 using WebmasterAPI.Authentication.Domain.Repositories;
@@ -7,6 +8,7 @@ using WebmasterAPI.Authentication.Services;
 using WebmasterAPI.ApiProject.Domain.Repositories;
 using WebmasterAPI.ApiProject.Domain.Services;
 using WebmasterAPI.ApiProject.Domain.Services.Communication;
+using WebmasterAPI.ApiProject.Domain.Services.Validations;
 using WebmasterAPI.ApiProject.Mapping;
 using WebmasterAPI.ApiProject.Persistence.Repositories;
 using WebmasterAPI.ApiProject.Services;
@@ -50,6 +52,8 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 
 builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>, ProjectService>("projectService");
 builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
+builder.Services.AddScoped<IValidator<InsertProjectDto>, InsertProjectValidation>();
+builder.Services.AddScoped<IValidator<UpdateProjectDto>, UpdateProjectValidation>();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
