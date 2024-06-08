@@ -11,6 +11,8 @@ public interface IDeliverableService {
 
     Task<DeliverableResponse> DeleteDeliverableByIdAsync(long id);
     
+    Task<DeliverableResponse>DeleteDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId);
+    
     Task UpdateDeliverableAsync(long id, DeliverableUpdateRequest updateRequest);
     
     Task AddDeliverableAsync(CreateDeliverableRequest deliverable);

@@ -20,6 +20,24 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
         await _Context.Deliverables.AddAsync(deliverable);
     }
     
+    public async Task RemoveByProjectIdAsync(long projectId)
+    {
+        var deliverables = await _Context.Deliverables.Where(d => d.project_id == projectId).ToListAsync();
+        _Context.Deliverables.RemoveRange(deliverables);
+        await _Context.SaveChangesAsync();
+    }
+    
+    public async Task RemoveDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId)
+    {
+        var deliverable = await _Context.Deliverables.FirstOrDefaultAsync(d => d.project_id == projectId && d.deliverable_id == deliverableId);
+        if (deliverable == null)
+        {
+            throw new Exception($"Deliverable with id {deliverableId} not found in project with id {projectId}");
+        }
+
+        _Context.Deliverables.Remove(deliverable);
+        await _Context.SaveChangesAsync();
+    }
     
     public async Task<List<Deliverable>> ListByProjectIdAsync(long projectId)
     {

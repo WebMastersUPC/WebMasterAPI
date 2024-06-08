@@ -25,15 +25,6 @@ public class DeliverableController : ControllerBase
         _mapper = mapper;
     }
     
-    //Poner filtro 
-    //GET: api/v1/Deliverables
-    [HttpGet("api/v1/Deliverables")]
-    public async Task<IActionResult> GetDeliverables()
-    {
-       var deliverables = await _deliverableService.ListDeliverablesAsync();
-       return Ok(deliverables);
-    }
-    
     
     //GET: api/v1/Deliverables/{id}
     [HttpGet("api/v1/Deliverables/{id}")]
@@ -41,6 +32,15 @@ public class DeliverableController : ControllerBase
     {
         var deliverable = await _deliverableService.GetDeliverableByIdAsync(id);
         return Ok(deliverable);
+    }
+    
+    
+    //DELETE: api/v1/Projects/{projectId}/Deliverables/{deliverableId}
+    [HttpDelete("api/v1/Projects/{projectId}/Deliverables/{deliverableId}")]
+    public async Task<IActionResult> DeleteDeliverableByProjectIdandDeliverableId(long projectId, long deliverableId)
+    {
+        var response = await _deliverableService.DeleteDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId);
+        return Ok(response);
     }
     
     //DELETE: api/v1/Deliverables/{id}
@@ -60,20 +60,6 @@ public class DeliverableController : ControllerBase
         return Ok();
     }
     
-    //POST: api/v1/Deliverables
-    [HttpPost("api/v1/Deliverables")]
-    public async Task<IActionResult> CreateDeliverable([FromBody] CreateDeliverableRequest request)
-    {
-        try
-        {
-            await _deliverableService.AddDeliverableAsync(request);
-            return Ok(new { message = "Deliverable agregado exitosamente." });
-        }
-        catch (Exception e)
-        {
-            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
-        }
-    }
     
     
     //GET: api/v1/Projects/{projectId}/Deliverables
@@ -98,5 +84,32 @@ public class DeliverableController : ControllerBase
             return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
         }
     }
+    
+    
+    
+    // //Poner filtro 
+    // //GET: api/v1/Deliverables
+    // [HttpGet("api/v1/Deliverables")]
+    // public async Task<IActionResult> GetDeliverables()
+    // {
+    //    var deliverables = await _deliverableService.ListDeliverablesAsync();
+    //    return Ok(deliverables);
+    // }
+    
+    // //POST: api/v1/Deliverables
+    // [HttpPost("api/v1/Deliverables")]
+    // public async Task<IActionResult> CreateDeliverable([FromBody] CreateDeliverableRequest request)
+    // {
+    //     try
+    //     {
+    //         await _deliverableService.AddDeliverableAsync(request);
+    //         return Ok(new { message = "Deliverable agregado exitosamente." });
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+    //     }
+    // }
+
     
 }

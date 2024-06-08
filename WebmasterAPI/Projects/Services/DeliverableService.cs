@@ -141,4 +141,11 @@ public class DeliverableService : IDeliverableService
         var response = _mapper.Map<List<DeliverableResponse>>(deliverables);
         return response;
     }
+    
+    public async Task<DeliverableResponse> DeleteDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId)
+    {
+        await _deliverableRepository.RemoveDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId);
+        await _unitOfWork.CompleteAsync();
+        return new DeliverableResponse();
+    }
 }
