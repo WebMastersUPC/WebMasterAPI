@@ -1,10 +1,10 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebmasterAPI.ApiProject.Domain.Services;
-using WebmasterAPI.ApiProject.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Domain.Services;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
-namespace WebmasterAPI.ApiProject.Interfaces.Rest.Controllers
+namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -47,7 +47,7 @@ namespace WebmasterAPI.ApiProject.Interfaces.Rest.Controllers
                 return BadRequest(_projectService.Errors);
             }
             var projectDto = await _projectService.Add(insertProjectDto);
-            return CreatedAtAction(nameof(GetById), new { id = projectDto.Id }, projectDto);
+            return CreatedAtAction(nameof(GetById), new { id = projectDto.project_Id }, projectDto);
         }
 
         [HttpPut("{id}")]

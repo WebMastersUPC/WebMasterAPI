@@ -1,7 +1,8 @@
-namespace WebmasterAPI.ApiProject.Domain.Services.Communication;
+namespace WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
-public class InsertProjectDto
+public class ProjectDto
 {
+    public long project_Id { get; set; }
     public string nameProject { get; set; }
     public string descriptionProject { get; set; }
     public List<string> languages { get; set; }

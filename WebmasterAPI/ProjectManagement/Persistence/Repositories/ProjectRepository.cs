@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using WebmasterAPI.ApiProject.Domain.Models;
-using WebmasterAPI.ApiProject.Domain.Repositories;
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 
 namespace WebmasterAPI.ApiProject.Persistence.Repositories;
@@ -17,7 +17,7 @@ public class ProjectRepository : IProjectRepository<Project>
     public async Task<IEnumerable<Project>> Get() =>
         await _appDbContext.Projects.ToListAsync();
 
-    public async Task<Project> GetById(int id) =>
+    public async Task<Project> GetById(long id) =>
         await _appDbContext.Projects.FindAsync(id);
 
     public async Task Add(Project project) =>

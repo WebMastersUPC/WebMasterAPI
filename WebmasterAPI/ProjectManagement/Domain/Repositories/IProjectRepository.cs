@@ -1,9 +1,9 @@
-namespace WebmasterAPI.ApiProject.Domain.Repositories;
+namespace WebmasterAPI.ProjectManagement.Domain.Repositories;
 
 public interface IProjectRepository<TEntity>
 {
     Task<IEnumerable<TEntity>> Get();
-    Task<TEntity> GetById(int id);
+    Task<TEntity> GetById(long id);
     Task Add(TEntity entity);
     void Update(TEntity entity);
     void Delete(TEntity entity);

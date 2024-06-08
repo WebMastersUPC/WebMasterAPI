@@ -22,9 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ApiProject\Interfaces\Rest\Controllers\" />
+      <Folder Include="ProjectManagement\Interfaces\Rest\Controllers\" />
       <Folder Include="Migrations\" />
-      <Folder Include="ApiProject\Resources\" />
+      <Folder Include="ProjectManagement\Resources\" />
     </ItemGroup>
 
 </Project>

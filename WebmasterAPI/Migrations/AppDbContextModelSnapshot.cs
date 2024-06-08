@@ -18,7 +18,7 @@ namespace WebmasterAPI.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("WebmasterAPI.ApiProject.Domain.Models.Project", b =>
+            modelBuilder.Entity("WebmasterAPI.ProjectManagement.Domain.Models.Project", b =>
                 {
                     b.Property<int>("projectID")
                         .ValueGeneratedOnAdd()
@@ -195,7 +195,7 @@ namespace WebmasterAPI.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("WebmasterAPI.ApiProject.Domain.Models.Project", b =>
+            modelBuilder.Entity("WebmasterAPI.ProjectManagement.Domain.Models.Project", b =>
                 {
                     b.HasOne("WebmasterAPI.Authentication.Domain.Models.Enterprise", "Enterprise")
                         .WithMany()

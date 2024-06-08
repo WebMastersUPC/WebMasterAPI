@@ -1,8 +1,7 @@
-namespace WebmasterAPI.ApiProject.Domain.Services.Communication;
+namespace WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
-public class UpdateProjectDto
+public class InsertProjectDto
 {
-    public int projectID { get; set; }
     public string nameProject { get; set; }
     public string descriptionProject { get; set; }
     public List<string> languages { get; set; }
@@ -10,4 +9,5 @@ public class UpdateProjectDto
     public decimal budget { get; set; }
     public List<string> methodologies { get; set; }
     public List<long> developer_id { get; set; }
+    public long enterprise_id { get; set; }
 }

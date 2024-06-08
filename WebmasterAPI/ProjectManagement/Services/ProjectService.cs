@@ -1,8 +1,8 @@
 using AutoMapper;
-using WebmasterAPI.ApiProject.Domain.Models;
-using WebmasterAPI.ApiProject.Domain.Repositories;
-using WebmasterAPI.ApiProject.Domain.Services;
-using WebmasterAPI.ApiProject.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Repositories;
+using WebmasterAPI.ProjectManagement.Domain.Services;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Domain.Repositories;
 
 namespace WebmasterAPI.ApiProject.Services;
@@ -28,7 +28,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         return projects.Select(p => _mapper.Map<ProjectDto>(p));
     }
 
-    public async Task<ProjectDto> GetById(int id)
+    public async Task<ProjectDto> GetById(long id)
     {
         var project = await _projectRepository.GetById(id);
         if (project != null)
@@ -58,7 +58,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         throw new Exception("One or more developer IDs are invalid.");
     }
 
-    public async Task<ProjectDto> Update(int id, UpdateProjectDto updateDto)
+    public async Task<ProjectDto> Update(long id, UpdateProjectDto updateDto)
     {
         if (await ValidateDeveloperIdsAsync(updateDto.developer_id))
         {
@@ -76,7 +76,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         throw new Exception("One or more developer IDs are invalid.");
     }
 
-    public async Task<ProjectDto> Delete(int id)
+    public async Task<ProjectDto> Delete(long id)
     {
         var project = await _projectRepository.GetById(id);
         if (project != null)
