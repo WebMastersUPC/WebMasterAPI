@@ -27,5 +27,19 @@ namespace WebmasterAPI.ApiProject.Interfaces.Rest.Controllers
             var projectDto = await _projectService.GetById(id);
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<InsertProjectDto>> Add(InsertProjectDto insertProjectDto)
+        {
+            var projectDto = await _projectService.Add(insertProjectDto);
+            return CreatedAtAction(nameof(GetById), new { id = projectDto.Id }, projectDto);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ProjectDto>> Delete(int id)
+        {
+            var projectDto = await _projectService.Delete(id);
+            return projectDto == null ? NotFound() : Ok(projectDto);
+        }
     }
 }

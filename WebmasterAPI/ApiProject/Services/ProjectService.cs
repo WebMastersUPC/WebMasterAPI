@@ -3,6 +3,7 @@ using WebmasterAPI.ApiProject.Domain.Models;
 using WebmasterAPI.ApiProject.Domain.Repositories;
 using WebmasterAPI.ApiProject.Domain.Services;
 using WebmasterAPI.ApiProject.Domain.Services.Communication;
+using WebmasterAPI.Authentication.Domain.Repositories;
 
 namespace WebmasterAPI.ApiProject.Services;
 
@@ -10,11 +11,14 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 {
     private IProjectRepository<Project> _projectRepository;
     private IMapper _mapper;
+    private IDeveloperRepository _developerRepository;
 
-    public ProjectService(IProjectRepository<Project> projectRepository, IMapper mapper)
+    public ProjectService(IProjectRepository<Project> projectRepository, IMapper mapper, 
+        IDeveloperRepository developerRepository)
     {
         _projectRepository = projectRepository;
         _mapper = mapper;
+        _developerRepository = developerRepository;
     }
     public async Task<IEnumerable<ProjectDto>> Get()
     {
@@ -33,10 +37,23 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 
         return null;
     }
-
-    public Task<ProjectDto> Add(InsertProjectDto insertDto)
+    public async Task<bool> ValidateDeveloperIdsAsync(List<long> developerIds)
     {
-        throw new NotImplementedException();
+        var existingDeveloperIds = await _developerRepository.GetAllDeveloperIdsAsync();
+        return developerIds.All(id => existingDeveloperIds.Contains(id));
+    }
+    public async Task<ProjectDto> Add(InsertProjectDto insertDto)
+    {
+        if (await ValidateDeveloperIdsAsync(insertDto.developer_id))
+        {
+            var project = _mapper.Map<Project>(insertDto);
+            await _projectRepository.Add(project);
+            
+            await _projectRepository.Save();
+            var projectDto = _mapper.Map<ProjectDto>(project);
+            return projectDto;
+        }
+        throw new Exception("One or more developer IDs are invalid.");
     }
 
     public Task<ProjectDto> Update(int id, UpdateProjectDto updateDto)
@@ -44,8 +61,17 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         throw new NotImplementedException();
     }
 
-    public Task<ProjectDto> Delete(int id)
+    public async Task<ProjectDto> Delete(int id)
     {
-        throw new NotImplementedException();
+        var project = await _projectRepository.GetById(id);
+        if (project != null)
+        {
+            var projectDto = _mapper.Map<ProjectDto>(project);
+            _projectRepository.Delete(project);
+            await _projectRepository.Save();
+            return projectDto;
+        }
+
+        return null;
     }
 }

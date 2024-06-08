@@ -38,4 +38,8 @@ public class DeveloperRepository : BaseRepository, IDeveloperRepository
         _Context.Developers.Update(developer);
         await _Context.SaveChangesAsync();
     }
+    public async Task<List<long>> GetAllDeveloperIdsAsync()
+    {
+        return await _Context.Developers.Select(d => d.developer_id).ToListAsync();
+    }
 }

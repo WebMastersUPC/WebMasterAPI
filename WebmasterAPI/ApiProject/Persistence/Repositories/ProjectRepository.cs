@@ -28,13 +28,11 @@ public class ProjectRepository : IProjectRepository<Project>
         throw new NotImplementedException();
     }
 
-    public void Delete(Project entity)
+    public void Delete(Project project)
     {
-        throw new NotImplementedException();
+        _appDbContext.Projects.Remove(project);
     }
 
-    public Task Save()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task Save() =>
+        await _appDbContext.SaveChangesAsync();
 }

@@ -1,7 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using WebmasterAPI.Authentication.Domain.Models;
-
 namespace WebmasterAPI.ApiProject.Domain.Models;
 
 public class Project
