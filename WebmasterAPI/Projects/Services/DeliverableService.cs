@@ -134,7 +134,7 @@ public class DeliverableService : IDeliverableService
             description = request.description,
             state = request.state,
             file = "", // Valor predeterminado para file
-            project_id = projectId,
+            projectID = projectId,
             developer_id = request.developer_id
         };
 

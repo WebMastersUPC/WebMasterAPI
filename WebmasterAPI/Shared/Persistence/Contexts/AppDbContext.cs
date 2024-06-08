@@ -80,16 +80,38 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Deliverable>().Property(d => d.file).IsRequired().HasMaxLength(512);
             builder.Entity<Deliverable>().HasOne(d => d.Project)
                 .WithMany()
-                .HasForeignKey(d => d.project_id);
+                .HasForeignKey(d => d.projectID);
             builder.Entity<Deliverable>().HasOne(d => d.Developer)
                 .WithMany()
                 .HasForeignKey(d=> d.developer_id);
             
             //Project Configuration
             builder.Entity<Project>().ToTable("Projects");
-            builder.Entity<Project>().HasKey(p => p.project_id);
-            builder.Entity<Project>().Property(p => p.project_id).IsRequired().ValueGeneratedOnAdd();
-            
+            builder.Entity<Project>().HasKey(p => p.projectID);
+            builder.Entity<Project>().Property(p => p.projectID).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Project>().HasOne(p => p.Enterprise)
+                .WithMany()
+                .HasForeignKey(p => p.enterprise_id);
+            builder.Entity<Project>().Property(p => p.nameProject).HasMaxLength(100);
+            builder.Entity<Project>().Property(p => p.descriptionProject).HasColumnType("TEXT");
+            builder.Entity<Project>().Property(p => p.languages).HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
+
+            builder.Entity<Project>().Property(p => p.frameworks).HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
+
+            builder.Entity<Project>().Property(p => p.budget).HasColumnType("decimal(18, 2)");
+
+            builder.Entity<Project>().Property(p => p.methodologies).HasColumnType("TEXT").HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
+
+            builder.Entity<Project>().Property(p => p.developer_id).HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s.Trim())).ToList());
+
             
         }
     }

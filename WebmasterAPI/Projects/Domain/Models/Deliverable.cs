@@ -16,7 +16,7 @@ public class Deliverable {
     public string file { get; set; }
     
     //Foreign Key
-    public long project_id { get; set; }
+    public long projectID { get; set; }
     public Project Project { get; set; }
     
     public long developer_id { get; set; }

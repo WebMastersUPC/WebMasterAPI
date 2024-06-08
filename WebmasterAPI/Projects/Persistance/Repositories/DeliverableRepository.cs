@@ -22,14 +22,14 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     
     public async Task RemoveByProjectIdAsync(long projectId)
     {
-        var deliverables = await _Context.Deliverables.Where(d => d.project_id == projectId).ToListAsync();
+        var deliverables = await _Context.Deliverables.Where(d => d.projectID == projectId).ToListAsync();
         _Context.Deliverables.RemoveRange(deliverables);
         await _Context.SaveChangesAsync();
     }
     
     public async Task RemoveDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId)
     {
-        var deliverable = await _Context.Deliverables.FirstOrDefaultAsync(d => d.project_id == projectId && d.deliverable_id == deliverableId);
+        var deliverable = await _Context.Deliverables.FirstOrDefaultAsync(d => d.projectID == projectId && d.deliverable_id == deliverableId);
         if (deliverable == null)
         {
             throw new Exception($"Deliverable with id {deliverableId} not found in project with id {projectId}");
@@ -42,7 +42,7 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     public async Task<List<Deliverable>> ListByProjectIdAsync(long projectId)
     {
         return await _Context.Deliverables.Include(d => d.Project)
-            .Where(d => d.project_id == projectId).ToListAsync();
+            .Where(d => d.projectID == projectId).ToListAsync();
     }
 
     public async Task<Deliverable> FindDeliverableIdAsync(long id)
@@ -80,7 +80,7 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     
     public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, Deliverable deliverable)
     {
-        var deliverableToUpdate = await _Context.Deliverables.FirstOrDefaultAsync(d => d.project_id == projectId && d.deliverable_id == deliverableId);
+        var deliverableToUpdate = await _Context.Deliverables.FirstOrDefaultAsync(d => d.projectID == projectId && d.deliverable_id == deliverableId);
         if (deliverableToUpdate == null)
         {
             throw new Exception($"Deliverable with id {deliverableId} not found in project with id {projectId}");
@@ -90,7 +90,7 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
         deliverableToUpdate.description = deliverable.description;
         deliverableToUpdate.state = deliverable.state;
         deliverableToUpdate.developer_id = deliverable.developer_id;
-        deliverableToUpdate.project_id = deliverable.project_id;
+        deliverableToUpdate.projectID = deliverable.projectID;
         await _Context.SaveChangesAsync();
     }
     
@@ -101,7 +101,7 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     
     public async Task<bool> ProjectExistsAsync(long projectId)
     {
-        return await _Context.Projects.AnyAsync(p => p.project_id == projectId);
+        return await _Context.Projects.AnyAsync(p => p.projectID == projectId);
     }
 
     public async Task<bool> DeveloperExistsAsync(long developerId)

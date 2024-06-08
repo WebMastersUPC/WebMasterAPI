@@ -32,7 +32,7 @@ public class ResourceToModelDeliverable : AutoMapper.Profile
             .ForMember(dest=>dest.title, opt=>opt.MapFrom(src=>src.title))
             .ForMember(dest => dest.state, opt => opt.MapFrom(src => src.state))
             .ForMember(dest => dest.file, opt => opt.MapFrom(src => src.file))
-            .ForMember(dest => dest.project_id, opt => opt.MapFrom(src => src.project_id))
+            .ForMember(dest => dest.project_id, opt => opt.MapFrom(src => src.projectID))
             .ForMember(dest => dest.developer_id, opt => opt.MapFrom(src => src.developer_id));
         
         CreateMap<DeliverableRequest, Deliverable>()
