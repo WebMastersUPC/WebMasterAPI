@@ -19,6 +19,13 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
     {
         await _Context.Deliverables.AddAsync(deliverable);
     }
+    
+    
+    public async Task<List<Deliverable>> ListByProjectIdAsync(long projectId)
+    {
+        return await _Context.Deliverables.Include(d => d.Project)
+            .Where(d => d.project_id == projectId).ToListAsync();
+    }
 
     public async Task<Deliverable> FindDeliverableIdAsync(long id)
     {
@@ -32,7 +39,9 @@ public class DeliverableRepository:BaseRepository,IDeliverableRepository  {
         return await _Context.Deliverables.Include(d => d.Developer).Include(d => d.Project).ToListAsync();
     }
 
-    
+
+
+
     public async Task RemoveByIdAsync(long id)
     {
         var deliverable = await _Context.Deliverables.FindAsync(id);

@@ -75,6 +75,15 @@ public class DeliverableController : ControllerBase
         }
     }
     
+    
+    //GET: api/v1/Projects/{projectId}/Deliverables
+    [HttpGet("api/v1/Projects/{projectId}/Deliverables")]
+    public async Task<IActionResult> GetDeliverableByProjectId(long projectId)
+    {
+        var deliverables = await _deliverableService.GetDeliverableByProjectIdAsync(projectId);
+        return Ok(deliverables);
+    }
+    
     // POST: api/v1/Projects/{projectId}/Deliverables
     [HttpPost("api/v1/Projects/{projectId}/Deliverables")]
     public async Task<IActionResult> CreateDeliverableForProject(long projectId, [FromBody] CreateDeliverableByProjectIdRequest request)

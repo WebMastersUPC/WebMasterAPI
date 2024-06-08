@@ -12,6 +12,8 @@ public interface IDeliverableRepository
     Task<Deliverable> FindDeliverableIdAsync(long id);
 
     Task <List<Deliverable>> ListAsync();
+    
+    Task <List<Deliverable>> ListByProjectIdAsync(long projectId);
 
     Task RemoveByIdAsync(long id);
     

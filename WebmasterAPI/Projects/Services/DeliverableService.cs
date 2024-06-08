@@ -134,5 +134,11 @@ public class DeliverableService : IDeliverableService
             throw;
         }
     }
-    
+
+    public async Task<List<DeliverableResponse>> GetDeliverableByProjectIdAsync(long projectId)
+    {
+        var deliverables = await _deliverableRepository.ListByProjectIdAsync(projectId);
+        var response = _mapper.Map<List<DeliverableResponse>>(deliverables);
+        return response;
+    }
 }
