@@ -1,9 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
+using WebmasterAPI.Messaging.Domain.Models;
 using WebmasterAPI.Models;
 using WebmasterAPI.ProjectManagement.Domain.Models;
 
 using WebmasterAPI.Support.Domain.Models;
+using Developer = WebmasterAPI.Authentication.Domain.Models.Developer;
+using Enterprise = WebmasterAPI.Authentication.Domain.Models.Enterprise;
+using User = WebmasterAPI.Models.User;
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {
     public class AppDbContext : DbContext
@@ -27,6 +31,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         public DbSet<Project> Projects { get; set; }
         
         public DbSet<SupportRequest> SupportRequests { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -127,6 +132,20 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 .HasOne(p => p.User)
                 .WithMany(u => u.SupportRequests)
                 .HasForeignKey(p => p.UserId);
+
+
+            builder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(c => c.SentMessages)
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .HasOne(m => m.Receiver)
+                .WithMany(c => c.ReceivedMessages)
+                .HasForeignKey(m => m.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
+    
 }
