@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Models;
-
+using WebmasterAPI.ProjectManagement.Domain.Models;
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {
     public class AppDbContext : DbContext
@@ -20,7 +20,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Enterprise> Enterprises { get; set; }
-        
+        public DbSet<Project> Projects { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -64,6 +64,33 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Enterprise>().Property(e => e.website).HasMaxLength(64);
             builder.Entity<Enterprise>().Property(e => e.profile_img_url).HasMaxLength(512);
             builder.Entity<Enterprise>().Property(e => e.sector).HasMaxLength(32);
+            //Project Configuration
+            builder.Entity<Project>().ToTable("Projects");
+            builder.Entity<Project>().HasKey(p => p.projectID);
+            builder.Entity<Project>().Property(p => p.projectID).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Project>().HasOne(p => p.Enterprise)
+                .WithMany()
+                .HasForeignKey(p => p.enterprise_id);
+            builder.Entity<Project>().Property(p => p.nameProject).HasMaxLength(100);
+            builder.Entity<Project>().Property(p => p.descriptionProject).HasColumnType("TEXT");
+            builder.Entity<Project>().Property(p => p.languages).HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
+
+            builder.Entity<Project>().Property(p => p.frameworks).HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
+
+            builder.Entity<Project>().Property(p => p.budget).HasColumnType("decimal(18, 2)");
+
+            builder.Entity<Project>().Property(p => p.methodologies).HasColumnType("TEXT").HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
+
+            builder.Entity<Project>().Property(p => p.developer_id).HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s.Trim())).ToList());
+
         }
     }
 }

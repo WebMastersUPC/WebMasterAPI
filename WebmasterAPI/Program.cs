@@ -1,6 +1,7 @@
 using System.Text;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using WebmasterAPI.ProjectManagement.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
@@ -16,7 +17,14 @@ using WebmasterAPI.UserManagement.Authorization.Settings;
 using WebmasterAPI.UserManagement.Domain.Services;
 using WebmasterAPI.UserManagement.Services;
 using WebmasterAPI.UserManagement.Authorization.Settings;
-
+using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Repositories;
+using WebmasterAPI.ProjectManagement.Domain.Services;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
+using WebmasterAPI.ProjectManagement.Domain.Services.Validations;
+using WebmasterAPI.ProjectManagement.Mapping;
+using WebmasterAPI.ProjectManagement.Persistence.Repositories;
+using WebmasterAPI.ProjectManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,13 +76,16 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IPasswordHashingService, PasswordHashingService>();  
 builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
-
+builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>, ProjectService>("projectService");
+builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
+builder.Services.AddScoped<IValidator<InsertProjectDto>, InsertProjectValidation>();
+builder.Services.AddScoped<IValidator<UpdateProjectDto>, UpdateProjectValidation>();
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
     typeof(WebmasterAPI.Authentication.Mapping.ModelToResourceProfile),
     typeof(WebmasterAPI.Authentication.Mapping.ResourceToModelProfile)
 );
-
+builder.Services.AddAutoMapper(typeof(MappingProject));
 
 var app = builder.Build();
 
