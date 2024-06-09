@@ -10,4 +10,5 @@ public interface IDeveloperRepository
     void Remove(Developer developer);
     Task<List<Developer>> ListAsync();
     Task UpdateAsync(Developer developer);
+    Task<List<long>> GetAllDeveloperIdsAsync();
 }
