@@ -61,18 +61,5 @@ public class AuthController : ControllerBase
         var response = await _userService.AuthenticateAsync(request);
         return Ok(response);
     }
-    
-    [AllowAnonymous]
-    [HttpGet("sign-in/{Mail}&{Password}")]
-    public async Task<IActionResult> Authenticate(string Mail, string Password)
-    {
-        AuthenticateRequest request = new AuthenticateRequest
-        {
-            Mail = Mail,
-            Password = Password
-        };
-        var response = await _userService.AuthenticateAsync(request);
-        return Ok(response);
-    }
 
 }

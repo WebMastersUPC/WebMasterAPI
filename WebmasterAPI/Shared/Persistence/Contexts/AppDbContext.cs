@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using WebmasterAPI.Authentication.Domain.Models;
-using WebmasterAPI.Models;
+using WebmasterAPI.Messaging.Domain.Models;
+
+using Developer = WebmasterAPI.Authentication.Domain.Models.Developer;
+using Enterprise = WebmasterAPI.Authentication.Domain.Models.Enterprise;
+using User = WebmasterAPI.Models.User;
 
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {
@@ -20,7 +23,8 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Enterprise> Enterprises { get; set; }
-        
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -30,7 +34,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<User>().HasKey(u => u.user_id);
             builder.Entity<User>().Property(u => u.user_id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(u => u.mail).IsRequired().HasMaxLength(64);
-            builder.Entity<User>().Property(u => u.passwordHashed).IsRequired();
+            builder.Entity<User>().Property(u => u.password).IsRequired().HasMaxLength(32);
             builder.Entity<User>().Property(u => u.user_type).IsRequired();
             
             // Developer Configuration
@@ -64,6 +68,31 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Enterprise>().Property(e => e.website).HasMaxLength(64);
             builder.Entity<Enterprise>().Property(e => e.profile_img_url).HasMaxLength(512);
             builder.Entity<Enterprise>().Property(e => e.sector).HasMaxLength(32);
+            
+            
+
+            // Configuración de las relaciones
+            // builder.Entity<Developer>()
+            //     .HasOne(d => d.User)
+            //     .WithMany()
+            //     .HasForeignKey(d => d.UserId);
+            //
+            // builder.Entity<Enterprise>()
+            //     .HasOne(e => e.User)
+            //     .WithMany()
+            //     .HasForeignKey(e => e.UserId);
+
+            builder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(c => c.SentMessages)
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .HasOne(m => m.Receiver)
+                .WithMany(c => c.ReceivedMessages)
+                .HasForeignKey(m => m.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
