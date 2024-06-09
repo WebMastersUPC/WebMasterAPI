@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Models;
 using WebmasterAPI.ProjectManagement.Domain.Models;
+
+using WebmasterAPI.Support.Domain.Models;
 namespace WebmasterAPI.Shared.Persistence.Contexts
 {
     public class AppDbContext : DbContext
@@ -23,6 +25,9 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         
         public DbSet<Deliverable> Deliverables { get; set; }
         public DbSet<Project> Projects { get; set; }
+        
+        public DbSet<SupportRequest> SupportRequests { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -108,7 +113,20 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Project>().Property(p => p.developer_id).HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s.Trim())).ToList());
-
+            
+            // Configuración de la entidad SupportRequest
+            builder.Entity<SupportRequest>().ToTable("SupportRequests");
+            builder.Entity<SupportRequest>().HasKey(p => p.Id);
+            builder.Entity<SupportRequest>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<SupportRequest>().Property(p => p.UserId).IsRequired();
+            builder.Entity<SupportRequest>().Property(p => p.Title).IsRequired().HasMaxLength(100);
+            builder.Entity<SupportRequest>().Property(p => p.Description).IsRequired();
+            builder.Entity<SupportRequest>().Property(p => p.CreatedAt).IsRequired();
+            builder.Entity<SupportRequest>().Property(p => p.Status).IsRequired().HasMaxLength(20);
+            builder.Entity<SupportRequest>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.SupportRequests)
+                .HasForeignKey(p => p.UserId);
         }
     }
 }

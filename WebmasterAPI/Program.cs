@@ -27,6 +27,12 @@ using WebmasterAPI.ProjectManagement.Mapping;
 using WebmasterAPI.ProjectManagement.Persistence.Repositories;
 using WebmasterAPI.ProjectManagement.Services;
 
+using WebmasterAPI.Support.Persistence;
+using WebmasterAPI.Support.Services;
+using WebmasterAPI.Support.Domain.Services;
+using WebmasterAPI.Support.Domain.Repositories;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -81,6 +87,10 @@ builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, Upd
 builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
 builder.Services.AddScoped<IValidator<InsertProjectDto>, InsertProjectValidation>();
 builder.Services.AddScoped<IValidator<UpdateProjectDto>, UpdateProjectValidation>();
+builder.Services.AddScoped<ISupportRequestRepository, SupportRequestRepository>();
+builder.Services.AddScoped<ISupportRequestService, SupportRequestService>();
+
+
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
     typeof(WebmasterAPI.Authentication.Mapping.ModelToResourceProfile),

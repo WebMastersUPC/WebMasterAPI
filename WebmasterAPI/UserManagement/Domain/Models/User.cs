@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using  WebmasterAPI.Support.Domain.Models;
+
 
 namespace WebmasterAPI.Models;
 
@@ -12,4 +14,6 @@ public class User
     public string user_type { get; set; }
     [JsonIgnore]
     public string passwordHashed { get; set; }
+    
+    public List<SupportRequest> SupportRequests { get; set; }
 }
