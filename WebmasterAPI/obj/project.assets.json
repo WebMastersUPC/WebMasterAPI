@@ -3257,24 +3257,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SAMIR\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\josep\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SAMIR\\repos\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
+      "projectUniqueName": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
       "projectName": "WebmasterAPI",
-      "projectPath": "C:\\Users\\SAMIR\\repos\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
-      "packagesPath": "C:\\Users\\SAMIR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SAMIR\\repos\\WebMasterAPI\\WebmasterAPI\\obj\\",
+      "projectPath": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\WebmasterAPI.csproj",
+      "packagesPath": "C:\\Users\\josep\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\SAMIR\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\josep\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3282,6 +3277,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3366,7 +3362,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
