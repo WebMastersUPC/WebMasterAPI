@@ -9,5 +9,6 @@ public class UpdateProjectDto
     public List<string> frameworks { get; set; }
     public decimal budget { get; set; }
     public List<string> methodologies { get; set; }
-    public List<long> developer_id { get; set; }
+    public List<long> applicants_id { get; set; }
+    public long developer_id { get; set; }
 }

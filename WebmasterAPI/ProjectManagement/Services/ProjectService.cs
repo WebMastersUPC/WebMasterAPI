@@ -7,7 +7,7 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 
 namespace WebmasterAPI.ProjectManagement.Services;
 
-public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>
+public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto>
 {
     private IProjectRepository<Project> _projectRepository;
     private IMapper _mapper;
@@ -46,7 +46,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
     }
     public async Task<ProjectDto> Add(InsertProjectDto insertDto)
     {
-        if (await ValidateDeveloperIdsAsync(insertDto.developer_id))
+        if (await ValidateDeveloperIdsAsync(insertDto.applicants_id))
         {
             var project = _mapper.Map<Project>(insertDto);
             await _projectRepository.Add(project);
@@ -60,12 +60,12 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 
     public async Task<ProjectDto> Update(long id, UpdateProjectDto updateDto)
     {
-        if (await ValidateDeveloperIdsAsync(updateDto.developer_id))
+        if (await ValidateDeveloperIdsAsync(updateDto.applicants_id) && await ValidateDeveloperIdForProjectAsync(id, updateDto.developer_id))
         {
             var project = await _projectRepository.GetById(id);
             if (project != null)
             {
-                _mapper.Map<UpdateProjectDto,Project>(updateDto, project);
+                _mapper.Map<UpdateProjectDto, Project>(updateDto, project);
                 _projectRepository.Update(project);
                 await _projectRepository.Save();
                 var projectDto = _mapper.Map<ProjectDto>(project);
@@ -109,5 +109,36 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
             return false;
         }
         return true;
+    }
+    
+    public async Task<bool> ValidateDeveloperIdForProjectAsync(long projectId, long developerId)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        return project.applicants_id.Contains(developerId);
+    }
+    public async Task<ProjectDto> AssignDeveloper(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        if (!await ValidateDeveloperIdForProjectAsync(projectId, insertDeveloperProjectDto.developer_id))
+        {
+            throw new Exception("Developer ID must be one of the applicants.");
+        }
+
+        project.developer_id = insertDeveloperProjectDto.developer_id;
+
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+
+        return _mapper.Map<ProjectDto>(project);
     }
 }

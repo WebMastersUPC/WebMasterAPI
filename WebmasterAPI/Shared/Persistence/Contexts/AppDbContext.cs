@@ -94,6 +94,9 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Project>().HasOne(p => p.Enterprise)
                 .WithMany()
                 .HasForeignKey(p => p.enterprise_id);
+            builder.Entity<Project>().HasOne(p => p.Developer)
+                .WithMany()
+                .HasForeignKey(p => p.developer_id);
             builder.Entity<Project>().Property(p => p.nameProject).HasMaxLength(100);
             builder.Entity<Project>().Property(p => p.descriptionProject).HasColumnType("TEXT");
             builder.Entity<Project>().Property(p => p.languages).HasConversion(
@@ -110,7 +113,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
 
-            builder.Entity<Project>().Property(p => p.developer_id).HasConversion(
+            builder.Entity<Project>().Property(p => p.applicants_id).HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s.Trim())).ToList());
             

@@ -10,12 +10,12 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto> _projectService;
+        private ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto,InsertDeveloperProjectDto> _projectService;
         private IValidator<InsertProjectDto> _projectInsertValidation;
         private IValidator<UpdateProjectDto> _projectUpdateValidation;
 
         public ProjectController([FromKeyedServices("projectService")]
-            ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto> projectService,
+            ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto> projectService,
             IValidator<InsertProjectDto> projectInsertValidation, IValidator<UpdateProjectDto> projectUpdateValidation )
         {
             _projectService = projectService;
@@ -71,5 +71,13 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             var projectDto = await _projectService.Delete(id);
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
+
+        [HttpPost("assignDeveloper/{id}")]
+        public async Task<IActionResult> AssignDeveloper(int id, InsertDeveloperProjectDto insertDeveloperProjectDto)
+        {
+            var project = await _projectService.AssignDeveloper(id, insertDeveloperProjectDto);
+            return project == null ? NotFound("Project not found or developer not an applicant") : Ok(project);
+        }
+            
     }
 }
