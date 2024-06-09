@@ -20,6 +20,8 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Enterprise> Enterprises { get; set; }
+        
+        public DbSet<Deliverable> Deliverables { get; set; }
         public DbSet<Project> Projects { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -64,6 +66,22 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Enterprise>().Property(e => e.website).HasMaxLength(64);
             builder.Entity<Enterprise>().Property(e => e.profile_img_url).HasMaxLength(512);
             builder.Entity<Enterprise>().Property(e => e.sector).HasMaxLength(32);
+            
+            // Deliverable Configuration
+            builder.Entity<Deliverable>().ToTable("Deliverables");
+            builder.Entity<Deliverable>().HasKey(d => d.deliverable_id);
+            builder.Entity<Deliverable>().Property(d => d.deliverable_id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Deliverable>().Property(d=> d.title).IsRequired().HasMaxLength(64);
+            builder.Entity<Deliverable>().Property(d => d.description).IsRequired().HasMaxLength(512);
+            builder.Entity<Deliverable>().Property(d => d.state).IsRequired().HasMaxLength(32);
+            builder.Entity<Deliverable>().Property(d => d.file).IsRequired().HasMaxLength(512);
+            builder.Entity<Deliverable>().HasOne(d => d.Project)
+                .WithMany()
+                .HasForeignKey(d => d.projectID);
+            builder.Entity<Deliverable>().HasOne(d => d.Developer)
+                .WithMany()
+                .HasForeignKey(d=> d.developer_id);
+            
             //Project Configuration
             builder.Entity<Project>().ToTable("Projects");
             builder.Entity<Project>().HasKey(p => p.projectID);
