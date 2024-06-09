@@ -1,0 +1,355 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\interfaces.rest\\controllers\\messagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\interfaces.rest\\controllers\\messagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\shared\\persistence\\contexts\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\shared\\persistence\\contexts\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\usermanagement\\domain\\models\\enterprise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\usermanagement\\domain\\models\\enterprise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\usermanagement\\domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\usermanagement\\domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\domain\\models\\enterprise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\domain\\models\\enterprise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\services\\messageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\services\\messageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\resources\\savemessageresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\resources\\savemessageresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\resources\\savemessageresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\resources\\savemessageresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\resources\\messageresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\resources\\messageresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\persistence\\messagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\persistence\\messagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\mapping\\resourcetomodelprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\mapping\\resourcetomodelprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\mapping\\modeltoresourceprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\mapping\\modeltoresourceprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\mapping\\modelstateextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\mapping\\modelstateextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\domain\\services\\imessageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\domain\\services\\imessageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\domain\\repositories\\imessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\domain\\repositories\\imessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\domain\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\domain\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|c:\\users\\josep\\onedrive\\documentos\\github\\webmasterapi\\webmasterapi\\messaging\\domain\\models\\developer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CBAA010-CB88-400E-8778-E475B50603CA}|WebmasterAPI\\WebmasterAPI.csproj|solutionrelative:webmasterapi\\messaging\\domain\\models\\developer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MessageController.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Interfaces.rest\\Controllers\\MessageController.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Interfaces.rest\\Controllers\\MessageController.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Interfaces.rest\\Controllers\\MessageController.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Interfaces.rest\\Controllers\\MessageController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:31:30.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "WebmasterAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\appsettings.json",
+              "RelativeToolTip": "WebmasterAPI\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-06-09T10:29:34.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Enterprise.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\UserManagement\\Domain\\Models\\Enterprise.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\UserManagement\\Domain\\Models\\Enterprise.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\UserManagement\\Domain\\Models\\Enterprise.cs",
+              "RelativeToolTip": "WebmasterAPI\\UserManagement\\Domain\\Models\\Enterprise.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:26:43.681Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\UserManagement\\Domain\\Models\\User.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\UserManagement\\Domain\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\UserManagement\\Domain\\Models\\User.cs",
+              "RelativeToolTip": "WebmasterAPI\\UserManagement\\Domain\\Models\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:25:10.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SaveMessageResponse.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Resources\\SaveMessageResponse.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Resources\\SaveMessageResponse.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Resources\\SaveMessageResponse.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Resources\\SaveMessageResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:20:51.969Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MessageService.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Services\\MessageService.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Services\\MessageService.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Services\\MessageService.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Services\\MessageService.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAwwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:20:48.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Program.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Program.cs",
+              "RelativeToolTip": "WebmasterAPI\\Program.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAAAGAAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:10:29.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Shared\\Persistence\\Contexts\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Shared\\Persistence\\Contexts\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Shared\\Persistence\\Contexts\\AppDbContext.cs",
+              "RelativeToolTip": "WebmasterAPI\\Shared\\Persistence\\Contexts\\AppDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJUAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:21:31.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SaveMessageResource.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Resources\\SaveMessageResource.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Resources\\SaveMessageResource.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Resources\\SaveMessageResource.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Resources\\SaveMessageResource.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:20:54.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Enterprise.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Models\\Enterprise.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Domain\\Models\\Enterprise.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Models\\Enterprise.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Domain\\Models\\Enterprise.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:17:33.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MessageResource.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Resources\\MessageResource.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Resources\\MessageResource.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Resources\\MessageResource.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Resources\\MessageResource.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:20:55.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MessageRepository.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Persistence\\MessageRepository.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Persistence\\MessageRepository.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Persistence\\MessageRepository.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Persistence\\MessageRepository.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAA1wAkAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:20:57.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ResourceToModelProfile.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Mapping\\ResourceToModelProfile.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Mapping\\ResourceToModelProfile.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Mapping\\ResourceToModelProfile.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Mapping\\ResourceToModelProfile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:23:28.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ModelStateExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Mapping\\ModelStateExtensions.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Mapping\\ModelStateExtensions.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Mapping\\ModelStateExtensions.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Mapping\\ModelStateExtensions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:18:10.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IMessageService.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Services\\IMessageService.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Domain\\Services\\IMessageService.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Services\\IMessageService.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Domain\\Services\\IMessageService.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:23:18.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Message.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Models\\Message.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Domain\\Models\\Message.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Models\\Message.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Domain\\Models\\Message.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:17:34.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Developer.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Models\\Developer.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Domain\\Models\\Developer.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Models\\Developer.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Domain\\Models\\Developer.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:17:26.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ModelToResourceProfile.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Mapping\\ModelToResourceProfile.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Mapping\\ModelToResourceProfile.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Mapping\\ModelToResourceProfile.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Mapping\\ModelToResourceProfile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:18:13.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IMessageRepository.cs",
+              "DocumentMoniker": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Repositories\\IMessageRepository.cs",
+              "RelativeDocumentMoniker": "WebmasterAPI\\Messaging\\Domain\\Repositories\\IMessageRepository.cs",
+              "ToolTip": "C:\\Users\\josep\\OneDrive\\Documentos\\GitHub\\WebMasterAPI\\WebmasterAPI\\Messaging\\Domain\\Repositories\\IMessageRepository.cs",
+              "RelativeToolTip": "WebmasterAPI\\Messaging\\Domain\\Repositories\\IMessageRepository.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T10:17:47.169Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
