@@ -1,6 +1,7 @@
 using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using WebmasterAPI.ProjectManagement.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 using WebmasterAPI.Authentication.Domain.Repositories;
