@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
         try
         {
             await _userService.RegisterDeveloperAsync(model);
-            return Ok(new { message = "Registration succesful" });
+            return Ok(new { message = "Registration succesful", status = "200"});
         }
         catch (Exception e)
         {
@@ -46,7 +46,7 @@ public class AuthController : ControllerBase
         try
         {
             await _userService.RegisterEnterpriseAsync(model);
-            return Ok(new { message = "Registration succesful" });
+            return Ok(new { message = "Registration succesful", status = "200" });
         }
         catch (Exception e)
         {
