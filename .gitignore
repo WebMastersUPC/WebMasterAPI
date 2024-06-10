@@ -134,3 +134,5 @@ $RECYCLE.BIN/
 _NCrunch*
 /WebmasterAPI/bin/Debug/net8.0
 /WebmasterAPI/obj
+/WebmasterAPI/bin/Debug/net8.0
+/WebmasterAPI/obj
