@@ -46,16 +46,14 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
     }
     public async Task<ProjectDto> Add(InsertProjectDto insertDto)
     {
-        if (await ValidateDeveloperIdsAsync(insertDto.applicants_id))
-        {
+       
             var project = _mapper.Map<Project>(insertDto);
             await _projectRepository.Add(project);
             
             await _projectRepository.Save();
             var projectDto = _mapper.Map<ProjectDto>(project);
             return projectDto;
-        }
-        throw new Exception("One or more developer IDs are invalid.");
+      
     }
 
     public async Task<ProjectDto> Update(long id, UpdateProjectDto updateDto)
@@ -136,6 +134,26 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 
         project.developer_id = insertDeveloperProjectDto.developer_id;
 
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+
+        return _mapper.Map<ProjectDto>(project);
+    }
+    
+    public async Task<ProjectDto> AddApplicant(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        if (project.applicants_id.Contains(insertDeveloperProjectDto.developer_id))
+        {
+            throw new Exception("Applicant already exists in the project.");
+        }
+
+        project.applicants_id.Add(insertDeveloperProjectDto.developer_id);
         _projectRepository.Update(project);
         await _projectRepository.Save();
 

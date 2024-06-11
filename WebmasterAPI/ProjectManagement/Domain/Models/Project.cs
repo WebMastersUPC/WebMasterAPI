@@ -16,6 +16,6 @@ public class Project
     public long enterprise_id { get; set; }
     public virtual Enterprise Enterprise { get; set; }
     
-    public long developer_id { get; set; }
+    public long? developer_id { get; set; }
     public virtual Developer Developer { get; set; }
 }

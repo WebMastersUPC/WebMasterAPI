@@ -96,7 +96,9 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 .HasForeignKey(p => p.enterprise_id);
             builder.Entity<Project>().HasOne(p => p.Developer)
                 .WithMany()
-                .HasForeignKey(p => p.developer_id);
+                .HasForeignKey(p => p.developer_id).OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Project>().Property(p => p.developer_id).IsRequired(false);
+            builder.Entity<Project>().Property(p => p.applicants_id).IsRequired(false);
             builder.Entity<Project>().Property(p => p.nameProject).HasMaxLength(100);
             builder.Entity<Project>().Property(p => p.descriptionProject).HasColumnType("TEXT");
             builder.Entity<Project>().Property(p => p.languages).HasConversion(
