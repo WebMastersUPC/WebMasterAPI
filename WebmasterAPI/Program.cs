@@ -35,6 +35,7 @@ using WebmasterAPI.Messaging.Domain.Repositories;
 using WebmasterAPI.Messaging.Domain.Services;
 using WebmasterAPI.Messaging.Persistence;
 using WebmasterAPI.Messaging.Services;
+using WebmasterAPI.ProjectManagement.Domain.Persistance.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -87,6 +88,8 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IPasswordHashingService, PasswordHashingService>();  
 builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
+builder.Services.AddScoped<IDeliverableService, DeliverableService>();
+builder.Services.AddScoped<IDeliverableRepository, DeliverableRepository>();
 builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>, ProjectService>("projectService");
 builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
 builder.Services.AddScoped<IValidator<InsertProjectDto>, InsertProjectValidation>();
