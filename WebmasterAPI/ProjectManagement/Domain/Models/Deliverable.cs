@@ -12,8 +12,14 @@ public class Deliverable {
     public string title {get; set;}
     public string description { get; set; }
     
+    public string developerDescription { get; set; }
     public string state { get; set; }
     public string file { get; set; }
+    
+    public DateTime deadline { get; set; }
+    
+    public DateTime createdAt { get; set; }
+    
     
     //Foreign Key
     public long projectID { get; set; }

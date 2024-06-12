@@ -6,4 +6,6 @@ public class DeliverableUpdateRequest {
     public string description { get; set; }
     public string state { get; set; }
     
+    public DateTime deadline { get; set; }
+    
 }

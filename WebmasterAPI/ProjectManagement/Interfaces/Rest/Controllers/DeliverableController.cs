@@ -66,30 +66,46 @@ public class DeliverableController : ControllerBase
         return Ok(response);
     }
     
-    //GET: api/v1/Deliverables/{id}
-    [HttpGet("api/v1/Deliverables/{id}")]
-    public async Task<IActionResult> GetDeliverableById(long id)
+    // POST: api/v1/Deliverables/{deliverableId}/Developers/{developerId}/Upload
+    [HttpPost("api/v1/Deliverables/{deliverableId}/Developers/{developerId}/Upload")]
+    public async Task<IActionResult> uploadDeliverableAsync(long deliverableId, long developerId, [FromBody] UploadDeliverableRequest upload)
     {
-        var deliverable = await _deliverableService.GetDeliverableByIdAsync(id);
-        return Ok(deliverable);
-    }
-    
-    //DELETE: api/v1/Deliverables/{id}
-    [HttpDelete("api/v1/Deliverables/{id}")]
-    public async Task<IActionResult> DeleteDeliverableById(long id)
-    {
-        var response = await _deliverableService.DeleteDeliverableByIdAsync(id);
+        var response = await _deliverableService.UploadDeliverableAsync(deliverableId, developerId, upload);
+
+        if (response.developerDescription.Contains("error"))
+        {
+            return BadRequest(response);
+        }
+
         return Ok(response);
     }
     
-    //PUT: api/v1/Deliverables/{id}
-    [HttpPut("api/v1/Deliverables/{id}")]
-    public async Task<IActionResult> UpdateDeliverable(long id, [FromBody] DeliverableUpdateRequest resource)
-    {
-        var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
-        await _deliverableService.UpdateDeliverableAsync(id, updateRequest);
-        return Ok();
-    }
+    
+    
+    // //GET: api/v1/Deliverables/{id}
+    // [HttpGet("api/v1/Deliverables/{id}")]
+    // public async Task<IActionResult> GetDeliverableById(long id)
+    // {
+    //     var deliverable = await _deliverableService.GetDeliverableByIdAsync(id);
+    //     return Ok(deliverable);
+    // }
+    //
+    // //DELETE: api/v1/Deliverables/{id}
+    // [HttpDelete("api/v1/Deliverables/{id}")]
+    // public async Task<IActionResult> DeleteDeliverableById(long id)
+    // {
+    //     var response = await _deliverableService.DeleteDeliverableByIdAsync(id);
+    //     return Ok(response);
+    // }
+    //
+    // //PUT: api/v1/Deliverables/{id}
+    // [HttpPut("api/v1/Deliverables/{id}")]
+    // public async Task<IActionResult> UpdateDeliverable(long id, [FromBody] DeliverableUpdateRequest resource)
+    // {
+    //     var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
+    //     await _deliverableService.UpdateDeliverableAsync(id, updateRequest);
+    //     return Ok();
+    // }
     
     
 }

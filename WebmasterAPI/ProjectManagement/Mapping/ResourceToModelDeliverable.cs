@@ -19,6 +19,11 @@ public class ResourceToModelDeliverable : AutoMapper.Profile
             })
         );
         
+        // UploadDeliverableRequest to Deliverable
+        CreateMap<UploadDeliverableRequest, Deliverable>()
+            .ForMember(dest => dest.developerDescription, opt => opt.MapFrom(src => src.developerDescription))
+            .ForMember(dest => dest.file, opt => opt.MapFrom(src => src.file));
+        
         CreateMap<CreateDeliverableRequest, Deliverable>();
         
         CreateMap<CreateDeliverableRequest, DeliverableResource>();
@@ -30,6 +35,7 @@ public class ResourceToModelDeliverable : AutoMapper.Profile
         // Deliverable to DeliverableResource
         CreateMap<Deliverable, DeliverableResource>()
             .ForMember(dest=>dest.title, opt=>opt.MapFrom(src=>src.title))
+            .ForMember(dest => dest.description, opt => opt.MapFrom(src => src.description))
             .ForMember(dest => dest.state, opt => opt.MapFrom(src => src.state))
             .ForMember(dest => dest.file, opt => opt.MapFrom(src => src.file))
             .ForMember(dest => dest.project_id, opt => opt.MapFrom(src => src.projectID))

@@ -21,6 +21,7 @@ public interface IDeliverableService {
     
     Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableByProjectIdRequest request);
 
+    Task<UploadDeliverableResponse> UploadDeliverableAsync(long deliverableId, long developerId, UploadDeliverableRequest upload);
     
 
 
