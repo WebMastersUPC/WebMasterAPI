@@ -39,11 +39,6 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 
         return null;
     }
-    public async Task<bool> ValidateDeveloperIdsAsync(List<long> developerIds)
-    {
-        var existingDeveloperIds = await _developerRepository.GetAllDeveloperIdsAsync();
-        return developerIds.All(id => existingDeveloperIds.Contains(id));
-    }
     public async Task<ProjectDto> Add(InsertProjectDto insertDto)
     {
        
@@ -55,10 +50,17 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
             return projectDto;
       
     }
+    public async Task<bool> ValidateDeveloperIdsAsync(List<long> applicantsId, long developerId)
+    {
+        var existingDeveloperIds = await _developerRepository.GetAllDeveloperIdsAsync();
+        var allValid = applicantsId.All(id => existingDeveloperIds.Contains(id));
+        var developerInApplicants = applicantsId.Contains(developerId);
 
+        return allValid && developerInApplicants;
+    }
     public async Task<ProjectDto> Update(long id, UpdateProjectDto updateDto)
     {
-        if (await ValidateDeveloperIdsAsync(updateDto.applicants_id) && await ValidateDeveloperIdForProjectAsync(id, updateDto.developer_id))
+        if (await ValidateDeveloperIdsAsync(updateDto.applicants_id, updateDto.developer_id) )
         {
             var project = await _projectRepository.GetById(id);
             if (project != null)
@@ -101,7 +103,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
     public bool Validate(UpdateProjectDto updateDto)
     {
         if (_projectRepository.Search(p => p.nameProject == updateDto.nameProject && 
-                                        updateDto.projectID != p.projectID).Count() > 0)
+                                        updateDto.project_ID != p.projectID).Count() > 0)
         {
             Errors.Add("A project with the same name cannot exist");
             return false;
@@ -116,6 +118,10 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         {
             throw new Exception("Project not found.");
         }
+
+        // Registro para depuración
+        Console.WriteLine($"Project ID: {projectId}, Developer ID: {developerId}");
+        Console.WriteLine($"Applicants ID: {string.Join(", ", project.applicants_id)}");
 
         return project.applicants_id.Contains(developerId);
     }
@@ -133,11 +139,11 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         }
 
         project.developer_id = insertDeveloperProjectDto.developer_id;
-
+        _mapper.Map<InsertDeveloperProjectDto, Project>(insertDeveloperProjectDto, project);
         _projectRepository.Update(project);
         await _projectRepository.Save();
-
-        return _mapper.Map<ProjectDto>(project);
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
     }
     
     public async Task<ProjectDto> AddApplicant(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
@@ -147,16 +153,21 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         {
             throw new Exception("Project not found.");
         }
-
+        
+        if (project.applicants_id == null)
+        {
+            project.applicants_id = new List<long>();
+        }
+        
         if (project.applicants_id.Contains(insertDeveloperProjectDto.developer_id))
         {
             throw new Exception("Applicant already exists in the project.");
         }
-
+        
         project.applicants_id.Add(insertDeveloperProjectDto.developer_id);
         _projectRepository.Update(project);
         await _projectRepository.Save();
-
-        return _mapper.Map<ProjectDto>(project);
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
     }
 }

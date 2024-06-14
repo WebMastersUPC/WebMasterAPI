@@ -6,7 +6,7 @@ using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
 namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ProjectController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             await _projectService.Get();
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProjectDto>> GetById(int id)
+        public async Task<ActionResult<ProjectDto>> GetById(long id)
         {
             var projectDto = await _projectService.GetById(id);
             return projectDto == null ? NotFound() : Ok(projectDto);
@@ -47,11 +47,11 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
                 return BadRequest(_projectService.Errors);
             }
             var projectDto = await _projectService.Add(insertProjectDto);
-            return CreatedAtAction(nameof(GetById), new { id = projectDto.project_Id }, projectDto);
+            return CreatedAtAction(nameof(GetById), new { id = projectDto.project_ID }, projectDto);
         }
-
+        
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProjectDto>> Update(int id, UpdateProjectDto updateProjectDto)
+        public async Task<ActionResult<ProjectDto>> Update(long id, UpdateProjectDto updateProjectDto)
         {
             var validationResult = await _projectUpdateValidation.ValidateAsync(updateProjectDto);
             if (!validationResult.IsValid)
@@ -66,18 +66,26 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProjectDto>> Delete(int id)
+        public async Task<ActionResult<ProjectDto>> Delete(long id)
         {
             var projectDto = await _projectService.Delete(id);
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
 
-        [HttpPost("assignDeveloper/{id}")]
-        public async Task<IActionResult> AssignDeveloper(int id, InsertDeveloperProjectDto insertDeveloperProjectDto)
+        [HttpPost("assign-developer/{id}")]
+        public async Task<IActionResult> AssignDeveloper(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
         {
             var project = await _projectService.AssignDeveloper(id, insertDeveloperProjectDto);
-            return project == null ? NotFound("Project not found or developer not an applicant") : Ok(project);
+            return project == null ? NotFound("Project not found or developer not an applicant") : 
+                Ok(new { message = "Added developer succesful", status = "200"});
         }
-            
+
+        [HttpPost("add-applicant/{id}")]
+        public async Task<IActionResult> AddApplicant(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
+        {
+            var project = await _projectService.AddApplicant(id, insertDeveloperProjectDto);
+            return project == null ? NotFound("Project not found or applicant not exist") :  
+                Ok(new { message = "Added developer succesful", status = "200"});
+        }
     }
 }
