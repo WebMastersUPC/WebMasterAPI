@@ -4,7 +4,6 @@ using WebmasterAPI.Messaging.Domain.Repositories;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
 
-using WebmasterAPI.Authentication.Domain.Models;
 
 
 namespace WebmasterAPI.Messaging.Persistence

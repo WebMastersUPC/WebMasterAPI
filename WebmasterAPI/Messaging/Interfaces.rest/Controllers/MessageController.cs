@@ -8,7 +8,7 @@ using WebmasterAPI.Messaging.Resources;
 
 namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("messages")]
         public async Task<IEnumerable<MessageResource>> GetAllAsync()
         {
             var messages = await _messageService.ListAsync();
@@ -30,7 +30,7 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
             return resources;
         }
 
-        [HttpPost]
+        [HttpPost("messages")]
         public async Task<IActionResult> PostAsync([FromBody] SaveMessageResource resource)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
             var messageResource = _mapper.Map<Message, MessageResource>(result);
             return Ok(messageResource);
         }
-        [HttpPut("{id}")]
+        [HttpPut("messages/{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveMessageResource resource)
         {
             if (!ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
             var messageResource = _mapper.Map<Message, MessageResource>(result);
             return Ok(messageResource);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("messages/{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _messageService.DeleteAsync(id);
@@ -72,7 +72,7 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
             var messageResource = _mapper.Map<Message, MessageResource>(result);
             return Ok(messageResource);
         }
-        [HttpGet("{id}")]
+        [HttpGet("messages/{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var message = await _messageService.GetByIdAsync(id);
@@ -85,14 +85,14 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
         }
 
         
-        [HttpGet("receiver/{receiverId}")]
+        [HttpGet("messages/receiver/{receiverId}")]
         public async Task<IEnumerable<MessageResource>> GetByReceiverIdAsync(int receiverId)
         {
             var messages = await _messageService.ListByReceiverIdAsync(receiverId);
             var resources = _mapper.Map<IEnumerable<Message>, IEnumerable<MessageResource>>(messages);
             return resources;
         }
-        [HttpGet("sender/{senderId}")]
+        [HttpGet("messages/sender/{senderId}")]
         public async Task<IEnumerable<MessageResource>> GetBySenderIdAsync(int senderId)
         {
             var messages = await _messageService.ListBySenderIdAsync(senderId);
