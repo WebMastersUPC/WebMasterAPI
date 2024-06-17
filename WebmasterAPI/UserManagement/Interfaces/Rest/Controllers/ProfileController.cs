@@ -8,6 +8,7 @@ using WebmasterAPI.Authentication.Resources;
 
 namespace WebmasterAPI.Controllers;
 
+[Authorize]
 [Route("api/v1/[controller]")]
 [ApiController]
 [Produces(MediaTypeNames.Application.Json)]

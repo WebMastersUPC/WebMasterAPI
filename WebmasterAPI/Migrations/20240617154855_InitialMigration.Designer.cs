@@ -11,8 +11,8 @@ using WebmasterAPI.Shared.Persistence.Contexts;
 namespace WebmasterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240609103425_initialmigrations")]
-    partial class initialmigrations
+    [Migration("20240617154855_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
