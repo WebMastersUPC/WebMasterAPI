@@ -87,5 +87,13 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             return project == null ? NotFound("Project not found or applicant not exist") :  
                 Ok(new { message = "Added developer succesful", status = "200"});
         }
+
+        [HttpDelete("delete-applicant/{id}")]
+        public async Task<IActionResult> DeleteApplicant(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
+        {
+            var project = await _projectService.DeleteApplicant(id, insertDeveloperProjectDto);
+            return project == null ? NotFound("Project not found or applicant not exist") : 
+                Ok(new { message = "Delete applicant succesful", status = "200"});
+        }
     }
 }

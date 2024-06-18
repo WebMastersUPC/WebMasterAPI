@@ -12,4 +12,5 @@ public interface ICommonService<T, TI, TU, TDP> //T:dto, TI: insertDto, TU:updat
     bool Validate(TU updateDto);
     Task<T> AssignDeveloper(long id, TDP insertDeveloperProjectDto);
     Task<T> AddApplicant(long projectId, TDP insertDeveloperProjectDto);
+    Task<T> DeleteApplicant(long projectId, TDP insertDeveloperProjectDto);
 }

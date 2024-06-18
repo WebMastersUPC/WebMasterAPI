@@ -170,4 +170,23 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         var projectDto = _mapper.Map<ProjectDto>(project);
         return projectDto;
     }
+    public async Task<ProjectDto> DeleteApplicant(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        if (project.applicants_id == null || !project.applicants_id.Contains(insertDeveloperProjectDto.developer_id))
+        {
+            throw new Exception("Applicant not found in the project.");
+        }
+
+        project.applicants_id.Remove(insertDeveloperProjectDto.developer_id);
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
+    }
 }
