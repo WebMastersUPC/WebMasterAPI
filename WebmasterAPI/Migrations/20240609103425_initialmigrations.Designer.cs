@@ -11,7 +11,7 @@ using WebmasterAPI.Shared.Persistence.Contexts;
 namespace WebmasterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240609035717_initialmigrations")]
+    [Migration("20240609103425_initialmigrations")]
     partial class initialmigrations
     {
         /// <inheritdoc />
@@ -128,6 +128,34 @@ namespace WebmasterAPI.Migrations
                     b.HasIndex("user_id");
 
                     b.ToTable("Enterprises", (string)null);
+                });
+
+            modelBuilder.Entity("WebmasterAPI.Messaging.Domain.Models.Message", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<long>("ReceiverId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SenderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("WebmasterAPI.Models.User", b =>
@@ -297,6 +325,25 @@ namespace WebmasterAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebmasterAPI.Messaging.Domain.Models.Message", b =>
+                {
+                    b.HasOne("WebmasterAPI.Models.User", "Receiver")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WebmasterAPI.Models.User", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("WebmasterAPI.ProjectManagement.Domain.Models.Deliverable", b =>
                 {
                     b.HasOne("WebmasterAPI.Authentication.Domain.Models.Developer", "Developer")
@@ -340,6 +387,10 @@ namespace WebmasterAPI.Migrations
 
             modelBuilder.Entity("WebmasterAPI.Models.User", b =>
                 {
+                    b.Navigation("ReceivedMessages");
+
+                    b.Navigation("SentMessages");
+
                     b.Navigation("SupportRequests");
                 });
 #pragma warning restore 612, 618

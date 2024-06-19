@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using WebmasterAPI.Messaging.Domain.Models;
 using  WebmasterAPI.Support.Domain.Models;
 
 
@@ -16,4 +17,6 @@ public class User
     public string passwordHashed { get; set; }
     
     public List<SupportRequest> SupportRequests { get; set; }
+    public List<Message> SentMessages { get; set; }
+    public List<Message> ReceivedMessages { get; set; }
 }
