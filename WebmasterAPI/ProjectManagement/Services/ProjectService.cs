@@ -7,7 +7,7 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 
 namespace WebmasterAPI.ProjectManagement.Services;
 
-public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto>
+public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto>
 {
     private IProjectRepository<Project> _projectRepository;
     private IMapper _mapper;
@@ -39,33 +39,33 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 
         return null;
     }
-    public async Task<bool> ValidateDeveloperIdsAsync(List<long> developerIds)
-    {
-        var existingDeveloperIds = await _developerRepository.GetAllDeveloperIdsAsync();
-        return developerIds.All(id => existingDeveloperIds.Contains(id));
-    }
     public async Task<ProjectDto> Add(InsertProjectDto insertDto)
     {
-        if (await ValidateDeveloperIdsAsync(insertDto.developer_id))
-        {
+       
             var project = _mapper.Map<Project>(insertDto);
             await _projectRepository.Add(project);
             
             await _projectRepository.Save();
             var projectDto = _mapper.Map<ProjectDto>(project);
             return projectDto;
-        }
-        throw new Exception("One or more developer IDs are invalid.");
+      
     }
+    public async Task<bool> ValidateDeveloperIdsAsync(List<long> applicantsId, long developerId)
+    {
+        var existingDeveloperIds = await _developerRepository.GetAllDeveloperIdsAsync();
+        var allValid = applicantsId.All(id => existingDeveloperIds.Contains(id));
+        var developerInApplicants = applicantsId.Contains(developerId);
 
+        return allValid && developerInApplicants;
+    }
     public async Task<ProjectDto> Update(long id, UpdateProjectDto updateDto)
     {
-        if (await ValidateDeveloperIdsAsync(updateDto.developer_id))
+        if (await ValidateDeveloperIdsAsync(updateDto.applicants_id, updateDto.developer_id) )
         {
             var project = await _projectRepository.GetById(id);
             if (project != null)
             {
-                _mapper.Map<UpdateProjectDto,Project>(updateDto, project);
+                _mapper.Map<UpdateProjectDto, Project>(updateDto, project);
                 _projectRepository.Update(project);
                 await _projectRepository.Save();
                 var projectDto = _mapper.Map<ProjectDto>(project);
@@ -103,11 +103,115 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
     public bool Validate(UpdateProjectDto updateDto)
     {
         if (_projectRepository.Search(p => p.nameProject == updateDto.nameProject && 
-                                        updateDto.projectID != p.projectID).Count() > 0)
+                                        updateDto.project_ID != p.projectID).Count() > 0)
         {
             Errors.Add("A project with the same name cannot exist");
             return false;
         }
         return true;
+    }
+    
+    public async Task<bool> ValidateDeveloperIdForProjectAsync(long projectId, long developerId)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        // Registro para depuración
+        Console.WriteLine($"Project ID: {projectId}, Developer ID: {developerId}");
+        Console.WriteLine($"Applicants ID: {string.Join(", ", project.applicants_id)}");
+
+        return project.applicants_id.Contains(developerId);
+    }
+    public async Task<ProjectDto> AssignDeveloper(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+        
+        if (project.developer_id != null)
+        {
+            throw new Exception("There is already a developer assigned to this project.");
+        }
+        
+        if (!await ValidateDeveloperIdForProjectAsync(projectId, insertDeveloperProjectDto.developer_id))
+        {
+            throw new Exception("Developer ID must be one of the applicants.");
+        }
+
+        project.developer_id = insertDeveloperProjectDto.developer_id;
+        project.applicants_id.Remove(insertDeveloperProjectDto.developer_id);
+        _mapper.Map<InsertDeveloperProjectDto, Project>(insertDeveloperProjectDto, project);
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
+    }
+    
+    public async Task<ProjectDto> AddApplicant(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+        
+        if (project.applicants_id == null)
+        {
+            project.applicants_id = new List<long>();
+        }
+        
+        if (project.applicants_id.Contains(insertDeveloperProjectDto.developer_id))
+        {
+            throw new Exception("Applicant already exists in the project.");
+        }
+        
+        project.applicants_id.Add(insertDeveloperProjectDto.developer_id);
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
+    }
+    public async Task<ProjectDto> DeleteApplicant(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        if (project.applicants_id == null || !project.applicants_id.Contains(insertDeveloperProjectDto.developer_id))
+        {
+            throw new Exception("Applicant not found in the project.");
+        }
+
+        project.applicants_id.Remove(insertDeveloperProjectDto.developer_id);
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
+    }
+    public async Task<ProjectDto> DeleteDeveloper(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        if (project.developer_id != insertDeveloperProjectDto.developer_id)
+        {
+            throw new Exception("Developer not found in the project.");
+        }
+
+        project.developer_id = null; // Remove the developer
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
     }
 }
