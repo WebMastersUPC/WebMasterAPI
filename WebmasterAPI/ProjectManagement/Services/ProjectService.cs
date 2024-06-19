@@ -132,13 +132,19 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         {
             throw new Exception("Project not found.");
         }
-
+        
+        if (project.developer_id != null)
+        {
+            throw new Exception("There is already a developer assigned to this project.");
+        }
+        
         if (!await ValidateDeveloperIdForProjectAsync(projectId, insertDeveloperProjectDto.developer_id))
         {
             throw new Exception("Developer ID must be one of the applicants.");
         }
 
         project.developer_id = insertDeveloperProjectDto.developer_id;
+        project.applicants_id.Remove(insertDeveloperProjectDto.developer_id);
         _mapper.Map<InsertDeveloperProjectDto, Project>(insertDeveloperProjectDto, project);
         _projectRepository.Update(project);
         await _projectRepository.Save();
@@ -184,6 +190,25 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         }
 
         project.applicants_id.Remove(insertDeveloperProjectDto.developer_id);
+        _projectRepository.Update(project);
+        await _projectRepository.Save();
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        return projectDto;
+    }
+    public async Task<ProjectDto> DeleteDeveloper(long projectId, InsertDeveloperProjectDto insertDeveloperProjectDto)
+    {
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
+        {
+            throw new Exception("Project not found.");
+        }
+
+        if (project.developer_id != insertDeveloperProjectDto.developer_id)
+        {
+            throw new Exception("Developer not found in the project.");
+        }
+
+        project.developer_id = null; // Remove the developer
         _projectRepository.Update(project);
         await _projectRepository.Save();
         var projectDto = _mapper.Map<ProjectDto>(project);
