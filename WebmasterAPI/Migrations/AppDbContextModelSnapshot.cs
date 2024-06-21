@@ -185,7 +185,18 @@ namespace WebmasterAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("deadline")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
+
+                    b.Property<string>("developerDescription")
                         .IsRequired()
                         .HasMaxLength(512)
                         .HasColumnType("varchar(512)");

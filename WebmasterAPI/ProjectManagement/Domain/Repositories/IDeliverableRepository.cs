@@ -1,4 +1,5 @@
 using WebmasterAPI.ProjectManagement.Domain.Models;
+using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
 namespace WebmasterAPI.ProjectManagement.Domain.Repositories;
 
@@ -9,21 +10,21 @@ public interface IDeliverableRepository
     
     Task UpdateAsync(Deliverable deliverable);
     
-    Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, Deliverable deliverable);
+    Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber, Deliverable deliverable);
     
-    Task<Deliverable> FindDeliverableIdAsync(long id);
-
-    Task <List<Deliverable>> ListAsync();
+    Task <Deliverable> FindDeliverableByProjectIdAndOrderNumberAsync(long projectId, int orderNumber);
+    Task<Deliverable> FindDeliverableByIdAsync(long deliverableId);
     
-    Task <List<Deliverable>> ListByProjectIdAsync(long projectId);
-
-    Task RemoveByIdAsync(long id);
+    Task<Deliverable> FindDeliverableByorderNumberAsync(int orderNumber);
+    Task <List<DeliverableResponse>> ListByProjectIdAsync(long projectId);
     
-    Task RemoveDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId);
+    Task RemoveDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber);
     
-    Task<bool> ExistByIdAsync(long id);
     Task<bool> ProjectExistsAsync(long projectId);
-    Task<bool> DeveloperExistsAsync(long developerId);
-    //Task<bool> DeveloperBelongsToProjectAsync(long projectId, long developerId);
     
+    Task <Deliverable> GetHighestOrderNumberByProjectIdAsync(long projectId);
+    
+    Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long developerId, long projectId);
+    
+    Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber);
 }

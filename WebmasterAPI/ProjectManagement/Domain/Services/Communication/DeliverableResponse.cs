@@ -12,15 +12,14 @@ public class DeliverableResponse  {
     //Properties
     
     public string title {get; set;}
-    public string descripción { get; set; }
+    public string description { get; set; }
     public string state { get; set; }
-    public string file { get; set; }
+    public DateTime deadline { get; set; }
     
     //Foreign Key
-    public long project_id { get; set; }
-    public Project Project { get; set; }
-    
+    public string nameProject { get; set; }
+    public long projectID { get; set; }
+    public String firstName { get; set; }
     public long developer_id { get; set; }
-    public Developer Developer { get; set; }
     
 }

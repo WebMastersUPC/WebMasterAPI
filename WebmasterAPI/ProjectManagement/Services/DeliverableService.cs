@@ -10,132 +10,48 @@ namespace WebmasterAPI.ProjectManagement.Services;
 
 public class DeliverableService : IDeliverableService
 {
-
     private readonly IDeliverableRepository _deliverableRepository;
+    private readonly IProjectRepository<Project> _projectRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
-    
-    
-    public DeliverableService(IDeliverableRepository deliverableRepository, IMapper mapper, IUnitOfWork unitOfWork)
+
+    public DeliverableService(IDeliverableRepository deliverableRepository, IProjectRepository<Project> projectRepository,IMapper mapper, IUnitOfWork unitOfWork)
     {
         _deliverableRepository = deliverableRepository;
+        _projectRepository = projectRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
     }
-    
-    public async Task<List<DeliverableResponse>> ListDeliverablesAsync()
-    {
-        var deliverables = await _deliverableRepository.ListAsync();
-        var response = _mapper.Map<List<DeliverableResponse>>(deliverables);
-        return response;
-    }
 
-    public async Task<DeliverableResponse> GetDeliverableByIdAsync(long id)
-    {
-        var deliverable = await _deliverableRepository.FindDeliverableIdAsync(id);
-        var response = _mapper.Map<DeliverableResponse>(deliverable);
-        return response;
-    }
-
-
-    public async Task<DeliverableResponse> DeleteDeliverableByIdAsync(long id)
-    {
-        await _deliverableRepository.RemoveByIdAsync(id);
-        await _unitOfWork.CompleteAsync();
-        return new DeliverableResponse();
-    }
-
-    public async Task UpdateDeliverableAsync(long id, DeliverableUpdateRequest updateRequest)
-    {
-        var deliverable = await _deliverableRepository.FindDeliverableIdAsync(id);
-        if (deliverable == null)
-        {
-            throw new Exception("Deliverable not found");
-        }
-        
-        deliverable.title=updateRequest.title;
-        deliverable.description=updateRequest.description;
-        deliverable.state=updateRequest.state;
-        await _deliverableRepository.UpdateAsync(deliverable);
-        
-    }
-    
-    public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest)
-    {
-        var deliverable = await _deliverableRepository.FindDeliverableIdAsync(deliverableId);
-        if (deliverable == null)
-        {
-            throw new Exception("Deliverable not found");
-        }
-        
-        deliverable.title=updateRequest.title;
-        deliverable.description=updateRequest.description;
-        deliverable.state=updateRequest.state;
-        await _deliverableRepository.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId, deliverable);
-        
-    }
-
-    public async Task AddDeliverableAsync(CreateDeliverableRequest request)
-    {
-        /*// Verificar existencia del proyecto
-        var projectExists = await _deliverableRepository.ProjectExistsAsync(request.project_id);
-        if (!projectExists)
-        {
-            throw new Exception($"No se encontró un proyecto con ID {request.project_id}");
-        }*/
-
-        // Verificar existencia del desarrollador
-        var developerExists = await _deliverableRepository.DeveloperExistsAsync(request.developer_id);
-        if (!developerExists)
-        {
-            throw new Exception($"No se encontró un desarrollador con ID {request.developer_id}");
-        }
-
-        var deliverable = new Deliverable
-        {
-            title = request.title,
-            description = request.description,
-            state = request.state,
-            file = "", // Valor predeterminado para file
-            developer_id = request.developer_id
-        };
-
-        try
-        {
-            await _deliverableRepository.AddSync(deliverable);
-            await _unitOfWork.CompleteAsync();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al agregar el deliverable: {ex.Message}");
-            throw;
-        }
-    }
     
     public async Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableByProjectIdRequest request)
     {
-        // Verificar existencia del proyecto
-        var projectExists = await _deliverableRepository.ProjectExistsAsync(projectId);
-        if (!projectExists)
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null)
         {
             throw new Exception($"No se encontró un proyecto con ID {projectId}");
         }
 
-        // Verificar existencia del desarrollador
-        var developerExists = await _deliverableRepository.DeveloperExistsAsync(request.developer_id);
-        if (!developerExists)
+        var developerId = project.developer_id;
+        if (developerId == null)
         {
-            throw new Exception($"No se encontró un desarrollador con ID {request.developer_id}");
+            throw new Exception($"No se encontró un desarrollador asociado al proyecto con ID {projectId}");
         }
+
+        var highestOrderDeliverable = await _deliverableRepository.GetHighestOrderNumberByProjectIdAsync(projectId);
+        var nextOrderNumber = (highestOrderDeliverable != null) ? highestOrderDeliverable.orderNumber + 1 : 1;
 
         var deliverable = new Deliverable
         {
             title = request.title,
             description = request.description,
-            state = request.state,
+            state = "En espera de entrega",
+            developerDescription = "",
+            deadline = request.deadline,
             file = "", // Valor predeterminado para file
             projectID = projectId,
-            developer_id = request.developer_id
+            developer_id = developerId.Value, 
+            orderNumber = nextOrderNumber
         };
 
         try
@@ -148,19 +64,107 @@ public class DeliverableService : IDeliverableService
             Console.WriteLine($"Error al agregar el deliverable: {ex.Message}");
             throw;
         }
+    }
+    
+    public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber, DeliverableUpdateRequest updateRequest)
+    {
+        var deliverable = await _deliverableRepository.FindDeliverableByorderNumberAsync(orderNumber);
+        if (deliverable == null)
+        {
+            throw new Exception("Entregable no encontrado.");
+        }
+    
+        deliverable.title=updateRequest.title;
+        deliverable.description=updateRequest.description;
+        deliverable.deadline=updateRequest.deadline;
+        await _deliverableRepository.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, orderNumber, deliverable);
+    
+    }
+
+    public async Task<UploadDeliverableResponse> UploadDeliverableAsync(long projectId, int orderNumber, long developerId, UploadDeliverableRequest upload)
+{
+    var deliverable = await _deliverableRepository.FindDeliverableByProjectIdAndOrderNumberAsync(projectId, orderNumber);
+
+    if (deliverable == null)
+    {
+        throw new Exception("No se encontró el entregable.");
+    }
+
+    if (deliverable.developer_id != developerId)
+    {
+        throw new Exception("No está autorizado a subir entregables en este proyecto.");
+    }
+
+    // el entregable con el número de orden más alto que el desarrollador ha subido en el proyecto específico
+    var lastUploadedDeliverable = await _deliverableRepository.GetLastUploadedDeliverableByDeveloperIdAndProjectId(developerId, projectId);
+
+    // verifica si el entregable que el desarrollador está intentando subir sigue el orden correcto
+    if (lastUploadedDeliverable != null && deliverable.orderNumber != lastUploadedDeliverable.orderNumber + 1)
+    {
+        throw new Exception($"El último entregable subido por el desarrollador con ID {developerId} para el proyecto con ID {projectId} es el entregable con ID {lastUploadedDeliverable.deliverable_id}. " +
+                            $"El siguiente entregable que debe subir debe tener el número de orden {lastUploadedDeliverable.orderNumber + 1}.");
+    }
+
+    // si el último entregable es nulo y el número de orden del entregable no es 1, lanza una excepción
+    if (lastUploadedDeliverable == null && deliverable.orderNumber != 1)
+    {
+        throw new Exception($"El entregable con ID {orderNumber} no es el primer entregable. Debe comenzar con el entregable número 1.");
+    }
+
+    // verifica si la fecha límite del entregable ha pasado
+    if (deliverable.deadline < DateTime.Now)
+    {
+        throw new Exception("La fecha límite de entrega del entregable ha pasado. No puedes subir ningún archivo.");
+    }
+
+    deliverable.developerDescription = upload.developerDescription;
+    deliverable.file = upload.file;
+    deliverable.state = "En espera de revisión";
+
+    await _deliverableRepository.UpdateAsync(deliverable);
+
+    return new UploadDeliverableResponse { developerDescription = deliverable.developerDescription, file = deliverable.file };
+}
+
+    
+
+    public async Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber)
+    {
+        var deliverable = await _deliverableRepository.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, orderNumber);
+        return deliverable;
     }
 
     public async Task<List<DeliverableResponse>> GetDeliverableByProjectIdAsync(long projectId)
     {
         var deliverables = await _deliverableRepository.ListByProjectIdAsync(projectId);
-        var response = _mapper.Map<List<DeliverableResponse>>(deliverables);
-        return response;
+        return _mapper.Map<List<DeliverableResponse>>(deliverables);
     }
-    
-    public async Task<DeliverableResponse> DeleteDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId)
+
+    public async Task<DeliverableResponse> DeleteDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber)
     {
-        await _deliverableRepository.RemoveDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId);
+        await _deliverableRepository.RemoveDeliverableByProjectIdandDeliverableIdAsync(projectId, orderNumber);
         await _unitOfWork.CompleteAsync();
-        return new DeliverableResponse();
+        var deletedDeliverable = await _deliverableRepository.FindDeliverableByorderNumberAsync(orderNumber);
+
+        return _mapper.Map<DeliverableResponse>(deletedDeliverable);
+    }
+
+    public async Task ApproveOrRejectDeliverableAsync(int orderNumber, string newState)
+    {
+        var deliverable = await _deliverableRepository.FindDeliverableByorderNumberAsync(orderNumber);
+        if (deliverable == null)
+        {
+            throw new Exception("No se encontró el entregable.");
+        }
+
+        if (deliverable.state != "En espera de revisión")
+        {
+            throw new Exception("El desarrollador tuvo que haber enviado un entregable anteriormente.");
+        }
+
+        deliverable.state = newState;
+
+        await _deliverableRepository.UpdateAsync(deliverable);
+        await _unitOfWork.CompleteAsync();
     }
 }

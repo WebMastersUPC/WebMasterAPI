@@ -49,47 +49,83 @@ public class DeliverableController : ControllerBase
     }
     
     //PUT: api/v1/Projects/{projectId}/Deliverables/{deliverableId}
-    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}")]
-    public async Task<IActionResult> UpdateDeliverableByProjectIdandDeliverableId(long projectId, long deliverableId, [FromBody] DeliverableUpdateRequest resource)
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{orderNumber}")]
+    public async Task<IActionResult> UpdateDeliverableByProjectIdandDeliverableId(long projectId, int orderNumber, [FromBody] DeliverableUpdateRequest resource)
     {
         
         var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
-        await _deliverableService.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId, updateRequest);
-        return Ok();
+        await _deliverableService.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, orderNumber, updateRequest);
+        return Ok(new { message = "El entregable ha sido modificado." });
     }
     
     //DELETE: api/v1/Projects/{projectId}/Deliverables/{deliverableId}
-    [HttpDelete("api/v1/Projects/{projectId}/Deliverables/{deliverableId}")]
-    public async Task<IActionResult> DeleteDeliverableByProjectIdandDeliverableId(long projectId, long deliverableId)
+    [HttpDelete("api/v1/Projects/{projectId}/Deliverables/{orderNumber}")]
+    public async Task<IActionResult> DeleteDeliverableByProjectIdandDeliverableId(long projectId, int orderNumber)
     {
-        var response = await _deliverableService.DeleteDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId);
+        var response = await _deliverableService.DeleteDeliverableByProjectIdandDeliverableIdAsync(projectId, orderNumber);
         return Ok(response);
     }
     
-    //GET: api/v1/Deliverables/{id}
-    [HttpGet("api/v1/Deliverables/{id}")]
-    public async Task<IActionResult> GetDeliverableById(long id)
+    // POST: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Developers/{developerId}/Upload
+    [HttpPost("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Upload")]
+    public async Task<IActionResult> UploadDeliverableAsync(long projectId, int orderNumber, long developerId, [FromBody] UploadDeliverableRequest upload)
     {
-        var deliverable = await _deliverableService.GetDeliverableByIdAsync(id);
+        try
+        {
+            var response = await _deliverableService.UploadDeliverableAsync(projectId, orderNumber, developerId, upload);
+            return Ok(response);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
+    }
+
+    
+    // PUT: api/v1/Deliverables/{deliverableId}/Approve
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Approve")]
+    public async Task<IActionResult> ApproveDeliverable(int orderNumber)
+    {
+        try
+        {
+            await _deliverableService.ApproveOrRejectDeliverableAsync(orderNumber, "Aprobado");
+            return Ok(new { message = "El entregable ha sido aprobado." });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
+    }
+
+    // PUT: api/v1/Deliverables/{deliverableId}/Reject
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Reject")]
+    public async Task<IActionResult> RejectDeliverable(int orderNumber)
+    {
+        try
+        {
+            await _deliverableService.ApproveOrRejectDeliverableAsync(orderNumber, "Rechazado");
+            return Ok(new { message = "El entregable ha sido rechazado." });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.InnerException?.Message ?? e.Message });
+        }
+    }
+    
+    // GET: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Uploaded
+    [HttpGet("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Review")]
+    public async Task<IActionResult> GetUploadedDeliverableByProjectIdAndDeliverableId(long projectId, int orderNumber)
+    {
+        var deliverable = await _deliverableService.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, orderNumber);
+
+        if (deliverable == null)
+        {
+            return NotFound("No se encontró el entregable subido para este proyecto.");
+        }
+
         return Ok(deliverable);
     }
     
-    //DELETE: api/v1/Deliverables/{id}
-    [HttpDelete("api/v1/Deliverables/{id}")]
-    public async Task<IActionResult> DeleteDeliverableById(long id)
-    {
-        var response = await _deliverableService.DeleteDeliverableByIdAsync(id);
-        return Ok(response);
-    }
     
-    //PUT: api/v1/Deliverables/{id}
-    [HttpPut("api/v1/Deliverables/{id}")]
-    public async Task<IActionResult> UpdateDeliverable(long id, [FromBody] DeliverableUpdateRequest resource)
-    {
-        var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
-        await _deliverableService.UpdateDeliverableAsync(id, updateRequest);
-        return Ok();
-    }
-    
-    
+
 }
