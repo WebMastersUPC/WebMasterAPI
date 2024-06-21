@@ -16,15 +16,10 @@ public class DeliverableResponse  {
     public string state { get; set; }
     public DateTime deadline { get; set; }
     
-    public DateTime createdAt { get; set; }
-    
     //Foreign Key
     public string nameProject { get; set; }
     public long projectID { get; set; }
-    public Project Project { get; set; }
-    
     public String firstName { get; set; }
     public long developer_id { get; set; }
-    public Developer Developer { get; set; }
     
 }

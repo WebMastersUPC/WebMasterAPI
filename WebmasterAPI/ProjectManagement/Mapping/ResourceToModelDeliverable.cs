@@ -19,14 +19,11 @@ public class ResourceToModelDeliverable : AutoMapper.Profile
             })
         );
         
+        
         // UploadDeliverableRequest to Deliverable
         CreateMap<UploadDeliverableRequest, Deliverable>()
             .ForMember(dest => dest.developerDescription, opt => opt.MapFrom(src => src.developerDescription))
             .ForMember(dest => dest.file, opt => opt.MapFrom(src => src.file));
-        
-        CreateMap<CreateDeliverableRequest, Deliverable>();
-        
-        CreateMap<CreateDeliverableRequest, DeliverableResource>();
         
         // DeliverableRequest to Deliverable
         CreateMap<DeliverableRequest, Deliverable>()

@@ -84,7 +84,6 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Deliverable>().Property(d=> d.title).IsRequired().HasMaxLength(64);
             builder.Entity<Deliverable>().Property(d => d.description).IsRequired().HasMaxLength(512);
             builder.Entity<Deliverable>().Property(d => d.developerDescription).IsRequired().HasMaxLength(512);
-            builder.Entity<Deliverable>().Property(d => d.createdAt).IsRequired();
             builder.Entity<Deliverable>().Property(d => d.state).IsRequired().HasMaxLength(32);
             builder.Entity<Deliverable>().Property(d => d.file).IsRequired().HasMaxLength(512);
             builder.Entity<Deliverable>().Property(d => d.deadline).IsRequired();
@@ -95,13 +94,18 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 .WithMany()
                 .HasForeignKey(d=> d.developer_id);
             
-            //Project Configuration
+             // Deliverable Configuration
             builder.Entity<Project>().ToTable("Projects");
             builder.Entity<Project>().HasKey(p => p.projectID);
             builder.Entity<Project>().Property(p => p.projectID).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Project>().HasOne(p => p.Enterprise)
                 .WithMany()
                 .HasForeignKey(p => p.enterprise_id);
+            builder.Entity<Project>().HasOne(p => p.Developer)
+                .WithMany()
+                .HasForeignKey(p => p.developer_id).OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Project>().Property(p => p.developer_id).IsRequired(false);
+            builder.Entity<Project>().Property(p => p.applicants_id).IsRequired(false);
             builder.Entity<Project>().Property(p => p.nameProject).HasMaxLength(100);
             builder.Entity<Project>().Property(p => p.descriptionProject).HasColumnType("TEXT");
             builder.Entity<Project>().Property(p => p.languages).HasConversion(
@@ -118,7 +122,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
 
-            builder.Entity<Project>().Property(p => p.developer_id).HasConversion(
+            builder.Entity<Project>().Property(p => p.applicants_id).HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s.Trim())).ToList());
             

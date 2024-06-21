@@ -15,12 +15,10 @@ public class Deliverable {
     public string developerDescription { get; set; }
     public string state { get; set; }
     public string file { get; set; }
-    
     public DateTime deadline { get; set; }
     
-    public DateTime createdAt { get; set; }
-    
-    
+    public int orderNumber { get; set; }
+
     //Foreign Key
     public long projectID { get; set; }
     public Project Project { get; set; }
