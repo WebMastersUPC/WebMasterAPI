@@ -110,6 +110,12 @@ public class DeliverableService : IDeliverableService
     {
         throw new Exception($"El entregable con ID {orderNumber} no es el primer entregable. Debe comenzar con el entregable número 1.");
     }
+    
+    // verifica si el último entregable subido ha sido aprobado
+    if (lastUploadedDeliverable != null && lastUploadedDeliverable.state != "Aprobado")
+    {
+        throw new Exception("No puedes subir un nuevo entregable hasta que el último entregable subido haya sido aprobado.");
+    }
 
     // verifica si la fecha límite del entregable ha pasado
     if (deliverable.deadline < DateTime.Now)
