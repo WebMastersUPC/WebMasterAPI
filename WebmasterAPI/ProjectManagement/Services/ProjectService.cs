@@ -44,7 +44,18 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         var projects = await _projectRepository.GetAvailableProjects();
         return projects.Select(p => _mapper.Map<ProjectDto>(p));
     }
-
+    
+    public async Task<IEnumerable<ProjectDto>> GetProjectByDeveloperId(long developerId)
+    {
+        var projects = await _projectRepository.GetProjectByDeveloperId(developerId);
+        return projects.Select(p => _mapper.Map<ProjectDto>(p));
+    }
+    
+    public async Task<IEnumerable<ProjectDto>> GetProjectByEnterpriseId(long enterpriseId)
+    {
+        var projects = await _projectRepository.GetProjectByEnterpriseId(enterpriseId);
+        return projects.Select(p => _mapper.Map<ProjectDto>(p));
+    }
     public async Task<ProjectDto> Add(InsertProjectDto insertDto)
     {
        

@@ -41,6 +41,20 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             return Ok(projects);
         }
         
+        [HttpGet("by-developer/{developerId}")]
+        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetByDeveloperId(long developerId)
+        {
+            var projects = await _projectService.GetProjectByDeveloperId(developerId);
+            return projects == null ? NotFound() : Ok(projects);
+        }
+        
+        [HttpGet("by-enterprise/{enterpriseId}")]
+        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetByEnterpriseId(long enterpriseId)
+        {
+            var projects = await _projectService.GetProjectByEnterpriseId(enterpriseId);
+            return projects == null ? NotFound() : Ok(projects);
+        }
+        
         [HttpPost]
         public async Task<ActionResult<InsertProjectDto>> Add(InsertProjectDto insertProjectDto)
         {

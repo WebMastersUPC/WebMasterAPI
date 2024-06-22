@@ -15,4 +15,6 @@ public interface ICommonService<T, TI, TU, TDP> //T:dto, TI: insertDto, TU:updat
     Task<T> DeleteApplicant(long projectId, TDP insertDeveloperProjectDto);
     Task<T> DeleteDeveloper(long projectId, TDP insertDeveloperProjectDto);
     Task<IEnumerable<T>> GetAvailableProjects();
+    Task<IEnumerable<T>> GetProjectByDeveloperId(long developerId);
+    Task<IEnumerable<T>> GetProjectByEnterpriseId(long enterpriseId);
 }

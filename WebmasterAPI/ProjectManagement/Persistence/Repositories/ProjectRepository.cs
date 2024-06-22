@@ -44,4 +44,16 @@ public class ProjectRepository : IProjectRepository<Project>
             .Where(p => p.developer_id == null)
             .ToListAsync();
     }
+    public async Task<IEnumerable<Project>> GetProjectByDeveloperId(long developerId)
+    {
+        return await _appDbContext.Projects
+            .Where(p => p.developer_id == developerId)
+            .ToListAsync();
+    }
+    public async Task<IEnumerable<Project>> GetProjectByEnterpriseId(long enterpriseId)
+    {
+        return await _appDbContext.Projects
+            .Where(p => p.enterprise_id == enterpriseId)
+            .ToListAsync();
+    }
 }
