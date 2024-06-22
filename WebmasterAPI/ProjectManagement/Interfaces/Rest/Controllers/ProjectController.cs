@@ -33,7 +33,14 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             var projectDto = await _projectService.GetById(id);
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
-
+        
+        [HttpGet("available-projects")]
+        public async Task<IActionResult> GetAvailableProjects()
+        {
+            var projects = await _projectService.GetAvailableProjects();
+            return Ok(projects);
+        }
+        
         [HttpPost]
         public async Task<ActionResult<InsertProjectDto>> Add(InsertProjectDto insertProjectDto)
         {
@@ -65,21 +72,7 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             var projectDto = await _projectService.Update(id, updateProjectDto);
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ProjectDto>> Delete(long id)
-        {
-            var projectDto = await _projectService.Delete(id);
-            return projectDto == null ? NotFound() : Ok(projectDto);
-        }
-
-        [HttpPost("assign-developer/{id}")]
-        public async Task<IActionResult> AssignDeveloper(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
-        {
-            var project = await _projectService.AssignDeveloper(id, insertDeveloperProjectDto);
-            return project == null ? NotFound("Project not found or developer not an applicant") : 
-                Ok(new { message = "Added developer succesful", status = "200"});
-        }
-
+        
         [HttpPost("add-applicant/{id}")]
         public async Task<IActionResult> AddApplicant(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
         {
@@ -87,6 +80,15 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             return project == null ? NotFound("Project not found or applicant not exist") :  
                 Ok(new { message = "Added developer succesful", status = "200"});
         }
+        
+        [HttpPost("assign-developer/{id}")]
+        public async Task<IActionResult> AssignDeveloper(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
+        {
+            var project = await _projectService.AssignDeveloper(id, insertDeveloperProjectDto);
+            return project == null ? NotFound("Project not found or developer not an applicant") : 
+                Ok(new { message = "Added developer succesful", status = "200"});
+        }
+        
 
         [HttpDelete("delete-applicant/{id}")]
         public async Task<IActionResult> DeleteApplicant(long id, InsertDeveloperProjectDto insertDeveloperProjectDto)
@@ -103,6 +105,13 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             return project == null
                 ? NotFound("Project not found or developer not exist")
                 : Ok(new { message = "Delete developer succesful", status = "200" });
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ProjectDto>> Delete(long id)
+        {
+            var projectDto = await _projectService.Delete(id);
+            return projectDto == null ? NotFound() : Ok(projectDto);
         }
     }
 }
