@@ -2,6 +2,7 @@ using WebmasterAPI.Authentication.Domain.Models;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Resources;
 using WebmasterAPI.Models;
+using WebmasterAPI.UserManagement.Domain.Models;
 
 namespace WebmasterAPI.Authentication.Mapping;
 
@@ -31,6 +32,8 @@ public class ResourceToModelProfile : AutoMapper.Profile
         CreateMap<RegisterEnterpriseRequest, EnterpriseResource>();
 
         CreateMap<DeveloperResource, Developer>();
+        CreateMap<DeveloperResponse, DevApplicant>();
+        
         CreateMap<EnterpriseResource, Enterprise>();
 
         CreateMap<EnterpriseUpdateRequest, Enterprise>()

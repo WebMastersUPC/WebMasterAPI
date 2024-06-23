@@ -22,6 +22,11 @@ public class DeveloperRepository : BaseRepository, IDeveloperRepository
     {
         return await _Context.Developers.Include(d => d.User).FirstOrDefaultAsync(d => d.user_id == id);
     }
+    
+    public async Task<Developer> FindByDevIdAsync(long id)
+    {
+        return await _Context.Developers.Include(d => d.User).FirstOrDefaultAsync(d => d.developer_id == id);
+    }
 
     public void Remove(Developer developer)
     {

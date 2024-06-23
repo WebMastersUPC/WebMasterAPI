@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Authentication.Resources;
+using WebmasterAPI.UserManagement.Domain.Models;
 
 namespace WebmasterAPI.Controllers;
 
@@ -45,6 +46,15 @@ public class ProfileController : ControllerBase
     {
         var enterprise = await _profileService.GetEnterpriseByIdAsync(id);
         return Ok(enterprise);
+    }
+    
+    // GET: api/v1/Profile/Enterprises/{developer_id}
+    [HttpGet("Enterprises/Developers/{developer_id}")]
+    public async Task<IActionResult> GetDeveloperByDevId(long developer_id)
+    {
+        var developer = await _profileService.GetDeveloperByDevIdAsync(developer_id);
+        var developerSummary = _mapper.Map<DevApplicant>(developer);
+        return Ok(developerSummary);
     }
     
     // PUT: api/v1/Profile/Enterprises/{id}
