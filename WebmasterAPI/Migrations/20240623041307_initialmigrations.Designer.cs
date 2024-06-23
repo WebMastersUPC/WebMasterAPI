@@ -11,8 +11,8 @@ using WebmasterAPI.Shared.Persistence.Contexts;
 namespace WebmasterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240617154855_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240623041307_initialmigrations")]
+    partial class initialmigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -272,6 +272,11 @@ namespace WebmasterAPI.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
+
+                    b.Property<string>("AttachmentPath")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
