@@ -35,6 +35,7 @@ public class ResourceToModelProfile : AutoMapper.Profile
         CreateMap<DeveloperResponse, DevApplicant>();
         
         CreateMap<EnterpriseResource, Enterprise>();
+        CreateMap<EnterpriseResponse, EnterpriseProfile>();
 
         CreateMap<EnterpriseUpdateRequest, Enterprise>()
             .ForAllMembers(options => options.Condition((source, target, sourceMember, destMember) =>

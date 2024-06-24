@@ -49,12 +49,21 @@ public class ProfileController : ControllerBase
     }
     
     // GET: api/v1/Profile/Enterprises/{developer_id}
-    [HttpGet("Enterprises/Developers/{developer_id}")]
+    [HttpGet("Profile/Developers/{developer_id}")]
     public async Task<IActionResult> GetDeveloperByDevId(long developer_id)
     {
         var developer = await _profileService.GetDeveloperByDevIdAsync(developer_id);
         var developerSummary = _mapper.Map<DevApplicant>(developer);
         return Ok(developerSummary);
+    }
+    
+    // GET: api/v1/Profile/Enterprises/{enterprise_id}
+    [HttpGet("Profile/Enterprises/{enterprise_id}")]
+    public async Task<IActionResult> GetEnterpriseByEnterpriseId(long enterprise_id)
+    {
+        var enterprise = await _profileService.GetEnterpriseByEnterpriseIdAsync(enterprise_id);
+        var enterpriseSummary = _mapper.Map<EnterpriseProfile>(enterprise);
+        return Ok(enterpriseSummary);
     }
     
     // PUT: api/v1/Profile/Enterprises/{id}

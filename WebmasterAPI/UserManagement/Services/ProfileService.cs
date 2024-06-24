@@ -43,12 +43,21 @@ public class ProfileService : IProfileService
         return response;
     }
 
+    public async Task<EnterpriseResponse> GetEnterpriseByEnterpriseIdAsync(long enterprise_id)
+    {
+        var enterprise = await _enterpriseRepository.FindByEnterpriseIdAsync(enterprise_id);
+        var response = _mapper.Map<EnterpriseResponse>(enterprise);
+        return response;
+    }
+
     public async Task<EnterpriseResponse> GetEnterpriseByIdAsync(long id)
     {
         var enterprise = await _enterpriseRepository.FindByIdAsync(id);
         var response = _mapper.Map<EnterpriseResponse>(enterprise);
         return response;
     }
+    
+    
 
     public async Task UpdateEnterpriseAsync(long id, EnterpriseUpdateRequest updateRequest)
     {

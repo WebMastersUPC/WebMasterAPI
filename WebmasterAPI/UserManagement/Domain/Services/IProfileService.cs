@@ -16,4 +16,6 @@ public interface IProfileService
     Task UpdateDeveloperAsync(long id, DeveloperUpdateRequest updateRequest);
     
     Task<DeveloperResponse> GetDeveloperByDevIdAsync(long developer_id);
+    
+    Task<EnterpriseResponse> GetEnterpriseByEnterpriseIdAsync(long enterprise_id);
 }
