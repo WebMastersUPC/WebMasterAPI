@@ -5,49 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0d23f27-5e71-47f1-9ed0-82acee4b6f15" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.vs/WebMasterAPI/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Models/Developer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Models/Enterprise.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Models/Message.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Repositories/IMessageRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Services/IMessageService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Interfaces.rest/Controllers/MessageController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Mapping/ModelStateExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Mapping/ModelToResourceProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Mapping/ResourceToModelProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Persistence/MessageRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Resources/MessageResource.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Resources/SaveMessageResource.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Resources/SaveMessageResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Messaging/Services/MessageService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Migrations/20240609103425_initialmigrations.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebmasterAPI/Migrations/20240609103425_initialmigrations.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebMasterAPI.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebMasterAPI.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/Migrations/20240609035717_initialmigrations.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/Migrations/20240609035717_initialmigrations.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/Shared/Persistence/Contexts/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/Shared/Persistence/Contexts/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/UserManagement/Domain/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/UserManagement/Domain/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/WebmasterAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/WebmasterAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/bin/Debug/net8.0/WebmasterAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/bin/Debug/net8.0/WebmasterAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/bin/Debug/net8.0/WebmasterAPI.exe" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/bin/Debug/net8.0/WebmasterAPI.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/bin/Debug/net8.0/WebmasterAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/bin/Debug/net8.0/WebmasterAPI.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/WebmasterAPI.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/ref/WebmasterAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/ref/WebmasterAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/refint/WebmasterAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/Debug/net8.0/refint/WebmasterAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/WebmasterAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/WebmasterAPI.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/WebmasterAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/WebmasterAPI.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebmasterAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebmasterAPI/obj/project.nuget.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +16,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Models/Developer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Models/Enterprise.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WebmasterAPI/Messaging/Domain/Models/Message.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WebmasterAPI/Messaging/Services/MessageService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/WebmasterAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/WebmasterAPI/Shared/Persistence/Contexts/AppDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WebmasterAPI/Support/Domain/Models/SupportRequest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WebmasterAPI/UserManagement/Domain/Models/User.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -79,7 +43,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Feature/messaging-2&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature/prueba__&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/josep/OneDrive/Documentos/GitHub/WebMasterAPI&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -114,6 +78,8 @@
       <workItem from="1717927619438" duration="265000" />
       <workItem from="1717929442258" duration="1439000" />
       <workItem from="1717931256891" duration="594000" />
+      <workItem from="1719205881878" duration="33000" />
+      <workItem from="1719205949272" duration="1000" />
     </task>
     <servers />
   </component>

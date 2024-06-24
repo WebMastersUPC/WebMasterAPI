@@ -133,9 +133,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 .HasOne(p => p.User)
                 .WithMany(u => u.SupportRequests)
                 .HasForeignKey(p => p.UserId);
-
-
-
+            
             builder.Entity<Message>()
                 .HasOne(m => m.Sender)
                 .WithMany(c => c.SentMessages)
@@ -147,6 +145,20 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 .WithMany(c => c.ReceivedMessages)
                 .HasForeignKey(m => m.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .Property(m => m.Title)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Entity<Message>()
+                .Property(m => m.Subject)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Entity<Message>()
+                .Property(m => m.AttachmentPath)
+                .HasMaxLength(200);
         }
     }
     
