@@ -41,23 +41,17 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
     public async Task<Deliverable> FindDeliverableByProjectIdAndOrderNumberAsync(long projectId, int orderNumber)
     {
         return await _Context.Deliverables
-            .Include(d => d.Project)
-            .Include(d => d.Developer)
             .FirstOrDefaultAsync(d => d.projectID == projectId && d.orderNumber == orderNumber);
     }
     public async Task<Deliverable> FindDeliverableByorderNumberAsync(int orderNumber)
     {
         return await _Context.Deliverables
-            .Include(d => d.Project)
-            .Include(d => d.Developer)
             .FirstOrDefaultAsync(d => d.orderNumber == orderNumber);
     }
     
     public async Task<Deliverable> FindDeliverableByIdAsync(long deliverableId)
     {
         return await _Context.Deliverables
-            .Include(d => d.Project)
-            .Include(d => d.Developer)
             .FirstOrDefaultAsync(d => d.deliverable_id == deliverableId);
     }
 
@@ -74,8 +68,11 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             deliverable_id = d.deliverable_id,
             title = d.title,
             description = d.description,
+            developerDescription = d.developerDescription,
             state = d.state,
+            file=d.file,
             deadline = d.deadline,
+            orderNumber = d.orderNumber,
             projectID = d.projectID,
             nameProject = d.Project.nameProject,
             developer_id = d.developer_id,
@@ -132,4 +129,5 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             file = deliverable.file,
         };
     }
+    
 }

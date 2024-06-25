@@ -9,7 +9,7 @@ public interface IDeliverableService {
     
     Task<DeliverableResponse>DeleteDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber);
     
-    Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber, DeliverableUpdateRequest updateRequest);
+    Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest);
     
     Task ApproveOrRejectDeliverableAsync(int orderNumber, string newState);
     
@@ -18,5 +18,6 @@ public interface IDeliverableService {
     Task<UploadDeliverableResponse> UploadDeliverableAsync(long projectId, int deliverableId, long developerId, UploadDeliverableRequest upload);
     
     Task <UploadDeliverableResponse>GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber);
-
+    
+    Task<DeliverableResponse> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId);
 }

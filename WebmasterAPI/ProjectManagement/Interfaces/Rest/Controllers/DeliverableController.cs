@@ -32,7 +32,19 @@ public class DeliverableController : ControllerBase
         var deliverables = await _deliverableService.GetDeliverableByProjectIdAsync(projectId);
         return Ok(deliverables);
     }
-    
+
+    //GET: api/v1/Projects/{projectId}/Deliverables/{deliverableId}
+    [HttpGet("api/v1/Projects/{projectId}/Deliverables/{deliverableId}")]
+    public async Task<IActionResult> GetDeliverableById(long projectId, long deliverableId)
+    {
+        var deliverable = await _deliverableService.GetDeliverableByProjectIdAndDeliverableIdAsync(projectId, deliverableId);
+        if (deliverable == null)
+        {
+            return NotFound(new { message = "No se encontró el entregable con el ID especificado en el proyecto." });
+        }
+
+        return Ok(deliverable);
+    }
     // POST: api/v1/Projects/{projectId}/Deliverables
     [HttpPost("api/v1/Projects/{projectId}/Deliverables")]
     public async Task<IActionResult> CreateDeliverableForProject(long projectId, [FromBody] CreateDeliverableByProjectIdRequest request)
@@ -49,12 +61,12 @@ public class DeliverableController : ControllerBase
     }
     
     //PUT: api/v1/Projects/{projectId}/Deliverables/{deliverableId}
-    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{orderNumber}")]
-    public async Task<IActionResult> UpdateDeliverableByProjectIdandDeliverableId(long projectId, int orderNumber, [FromBody] DeliverableUpdateRequest resource)
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}")]
+    public async Task<IActionResult> UpdateDeliverableByProjectIdandDeliverableId(long projectId, long deliverableId, [FromBody] DeliverableUpdateRequest resource)
     {
         
         var updateRequest = _mapper.Map<DeliverableUpdateRequest>(resource);
-        await _deliverableService.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, orderNumber, updateRequest);
+        await _deliverableService.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, deliverableId, updateRequest);
         return Ok(new { message = "El entregable ha sido modificado." });
     }
     
