@@ -27,4 +27,6 @@ public interface IDeliverableRepository
     Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long developerId, long projectId);
     
     Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber);
+    
+    
 }

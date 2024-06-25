@@ -66,80 +66,82 @@ public class DeliverableService : IDeliverableService
         }
     }
     
-    public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber, DeliverableUpdateRequest updateRequest)
+    public async Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest)
     {
-        var deliverable = await _deliverableRepository.FindDeliverableByorderNumberAsync(orderNumber);
+        var deliverable = await _deliverableRepository.FindDeliverableByIdAsync(deliverableId);
         if (deliverable == null)
         {
             throw new Exception("Entregable no encontrado.");
         }
-    
-        deliverable.title=updateRequest.title;
-        deliverable.description=updateRequest.description;
-        deliverable.deadline=updateRequest.deadline;
-        await _deliverableRepository.UpdateDeliverableByProjectIdandDeliverableIdAsync(projectId, orderNumber, deliverable);
-    
+
+        if (deliverable.projectID != projectId)
+        {
+            throw new Exception("El entregable no pertenece al proyecto especificado.");
+        }
+
+        deliverable.title = updateRequest.title;
+        deliverable.description = updateRequest.description;
+        deliverable.deadline = updateRequest.deadline;
+        await _deliverableRepository.UpdateAsync(deliverable);
     }
 
     public async Task<UploadDeliverableResponse> UploadDeliverableAsync(long projectId, int orderNumber, long developerId, UploadDeliverableRequest upload)
-{
-    var deliverable = await _deliverableRepository.FindDeliverableByProjectIdAndOrderNumberAsync(projectId, orderNumber);
-
-    if (deliverable == null)
     {
-        throw new Exception("No se encontró el entregable.");
+        var deliverable = await _deliverableRepository.FindDeliverableByProjectIdAndOrderNumberAsync(projectId, orderNumber);
+
+        if (deliverable == null)
+        {
+            throw new Exception("No se encontró el entregable.");
+        }
+
+        if (deliverable.developer_id != developerId)
+        {
+            throw new Exception("No está autorizado a subir entregables en este proyecto.");
+        }
+
+        // el entregable con el número de orden más alto que el desarrollador ha subido en el proyecto específico
+        var lastUploadedDeliverable = await _deliverableRepository.GetLastUploadedDeliverableByDeveloperIdAndProjectId(developerId, projectId);
+
+        // verifica si el entregable que el desarrollador está intentando subir sigue el orden correcto
+        if (lastUploadedDeliverable != null && deliverable.orderNumber != lastUploadedDeliverable.orderNumber + 1)
+        {
+            throw new Exception($"El último entregable subido por el desarrollador con ID {developerId} para el proyecto con ID {projectId} es el entregable con ID {lastUploadedDeliverable.deliverable_id}. " +
+                                $"El siguiente entregable que debe subir debe tener el número de orden {lastUploadedDeliverable.orderNumber + 1}.");
+        }
+
+        // si el último entregable es nulo y el número de orden del entregable no es 1, lanza una excepción
+        if (lastUploadedDeliverable == null && deliverable.orderNumber != 1)
+        {
+            throw new Exception($"El entregable con ID {orderNumber} no es el primer entregable. Debe comenzar con el entregable número 1.");
+        }
+        
+        // verifica si el último entregable subido ha sido aprobado
+        if (lastUploadedDeliverable != null && lastUploadedDeliverable.state != "Aprobado")
+        {
+            throw new Exception("No puedes subir un nuevo entregable hasta que el último entregable subido haya sido aprobado.");
+        }
+
+        // verifica si la fecha límite del entregable ha pasado
+        if (deliverable.deadline < DateTime.Now)
+        {
+            throw new Exception("La fecha límite de entrega del entregable ha pasado. No puedes subir ningún archivo.");
+        }
+
+        deliverable.developerDescription = upload.developerDescription;
+        deliverable.file = upload.file;
+        deliverable.state = "En espera de revisión";
+
+        await _deliverableRepository.UpdateAsync(deliverable);
+
+        return new UploadDeliverableResponse { developerDescription = deliverable.developerDescription, file = deliverable.file };
     }
-
-    if (deliverable.developer_id != developerId)
-    {
-        throw new Exception("No está autorizado a subir entregables en este proyecto.");
-    }
-
-    // el entregable con el número de orden más alto que el desarrollador ha subido en el proyecto específico
-    var lastUploadedDeliverable = await _deliverableRepository.GetLastUploadedDeliverableByDeveloperIdAndProjectId(developerId, projectId);
-
-    // verifica si el entregable que el desarrollador está intentando subir sigue el orden correcto
-    if (lastUploadedDeliverable != null && deliverable.orderNumber != lastUploadedDeliverable.orderNumber + 1)
-    {
-        throw new Exception($"El último entregable subido por el desarrollador con ID {developerId} para el proyecto con ID {projectId} es el entregable con ID {lastUploadedDeliverable.deliverable_id}. " +
-                            $"El siguiente entregable que debe subir debe tener el número de orden {lastUploadedDeliverable.orderNumber + 1}.");
-    }
-
-    // si el último entregable es nulo y el número de orden del entregable no es 1, lanza una excepción
-    if (lastUploadedDeliverable == null && deliverable.orderNumber != 1)
-    {
-        throw new Exception($"El entregable con ID {orderNumber} no es el primer entregable. Debe comenzar con el entregable número 1.");
-    }
-    
-    // verifica si el último entregable subido ha sido aprobado
-    if (lastUploadedDeliverable != null && lastUploadedDeliverable.state != "Aprobado")
-    {
-        throw new Exception("No puedes subir un nuevo entregable hasta que el último entregable subido haya sido aprobado.");
-    }
-
-    // verifica si la fecha límite del entregable ha pasado
-    if (deliverable.deadline < DateTime.Now)
-    {
-        throw new Exception("La fecha límite de entrega del entregable ha pasado. No puedes subir ningún archivo.");
-    }
-
-    deliverable.developerDescription = upload.developerDescription;
-    deliverable.file = upload.file;
-    deliverable.state = "En espera de revisión";
-
-    await _deliverableRepository.UpdateAsync(deliverable);
-
-    return new UploadDeliverableResponse { developerDescription = deliverable.developerDescription, file = deliverable.file };
-}
-
-    
 
     public async Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber)
     {
         var deliverable = await _deliverableRepository.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, orderNumber);
         return deliverable;
     }
-
+    
     public async Task<List<DeliverableResponse>> GetDeliverableByProjectIdAsync(long projectId)
     {
         var deliverables = await _deliverableRepository.ListByProjectIdAsync(projectId);
@@ -172,5 +174,11 @@ public class DeliverableService : IDeliverableService
 
         await _deliverableRepository.UpdateAsync(deliverable);
         await _unitOfWork.CompleteAsync();
+    }
+    
+    public async Task<DeliverableResponse> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId)
+    {
+        var deliverable = await _deliverableRepository.FindDeliverableByIdAsync(deliverableId);
+        return _mapper.Map<DeliverableResponse>(deliverable);
     }
 }
