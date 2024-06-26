@@ -78,13 +78,13 @@ public class DeliverableController : ControllerBase
         return Ok(response);
     }
     
-    // POST: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Developers/{developerId}/Upload
-    [HttpPost("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Upload")]
-    public async Task<IActionResult> UploadDeliverableAsync(long projectId, int orderNumber, long developerId, [FromBody] UploadDeliverableRequest upload)
+    // PUT: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Upload
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Upload")]
+    public async Task<IActionResult> UploadDeliverableAsync(long projectId, long deliverableId,  [FromBody] UploadDeliverableRequest upload)
     {
         try
         {
-            var response = await _deliverableService.UploadDeliverableAsync(projectId, orderNumber, developerId, upload);
+            var response = await _deliverableService.UploadDeliverableAsync(projectId, deliverableId,  upload);
             return Ok(response);
         }
         catch (Exception e)

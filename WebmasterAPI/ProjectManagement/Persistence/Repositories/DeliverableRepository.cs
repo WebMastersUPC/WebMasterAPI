@@ -105,10 +105,10 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long developerId, long projectId)
+    public async Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long projectId)
     {
         return await _Context.Deliverables
-            .Where(d => d.developer_id == developerId && d.projectID == projectId && d.state != "En espera de entrega")
+            .Where(d=> d.projectID == projectId && d.state != "En espera de entrega")
             .OrderByDescending(d => d.orderNumber)
             .FirstOrDefaultAsync();
     }

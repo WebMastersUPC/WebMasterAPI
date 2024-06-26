@@ -24,7 +24,7 @@ public interface IDeliverableRepository
     
     Task <Deliverable> GetHighestOrderNumberByProjectIdAsync(long projectId);
     
-    Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long developerId, long projectId);
+    Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long projectId);
     
     Task<Deliverable> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId);
     
