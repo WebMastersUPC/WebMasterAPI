@@ -15,7 +15,10 @@ public class Deliverable {
     public string developerDescription { get; set; }
     public string state { get; set; }
     public string file { get; set; }
-    public DateTime deadline { get; set; }
+    
+    public DateTime deadlineDateValue { get; set; }
+    
+    public string deadlineTime { get; set; }
     
     public int orderNumber { get; set; }
 
@@ -25,5 +28,23 @@ public class Deliverable {
     
     public long developer_id { get; set; }
     public Developer Developer { get; set; }
+    
+    public string deadlineDate
+    {
+        get
+        {
+            return deadlineDateValue.ToString("yyyy-MM-dd");
+        }
+    }
+    
+    public DateTime deadline
+    {
+        get
+        {
+            DateTime deadlineDateValue = DateTime.Parse(deadlineDate);
+            TimeSpan timeSpan = TimeSpan.Parse(deadlineTime);
+            return deadlineDateValue.Date + timeSpan;
+        }
+    }
     
 }

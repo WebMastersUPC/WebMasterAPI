@@ -34,7 +34,18 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
 
         deliverableToUpdate.title = deliverable.title;
         deliverableToUpdate.description = deliverable.description;
-        deliverableToUpdate.deadline = deliverable.deadline;
+        deliverable.deadlineDateValue = deliverable.deadlineDateValue;
+        
+        if (TimeSpan.TryParse(deliverable.deadlineTime, out TimeSpan deadlineTime))
+        {
+            // convierte el TimeSpan a string antes de asignarlo a deliverableToUpdate.deadlineTime
+            deliverableToUpdate.deadlineTime = deadlineTime.ToString();
+        }
+        else
+        {
+            throw new Exception("Invalid deadlineTime format. It should be in the format HH:MM:SS.");
+        }
+
         await _Context.SaveChangesAsync();
     }
 
@@ -71,7 +82,9 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             developerDescription = d.developerDescription,
             state = d.state,
             file=d.file,
-            deadline = d.deadline,
+            deadlineDateValue = d.deadlineDateValue,
+            // Trata deadlineTime como string
+            deadlineTime = d.deadlineTime,
             orderNumber = d.orderNumber,
             projectID = d.projectID,
             nameProject = d.Project.nameProject,
@@ -105,29 +118,25 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long developerId, long projectId)
+    public async Task<Deliverable> GetLastUploadedDeliverableByDeveloperIdAndProjectId(long projectId)
     {
         return await _Context.Deliverables
-            .Where(d => d.developer_id == developerId && d.projectID == projectId && d.state != "En espera de entrega")
+            .Where(d=> d.projectID == projectId && d.state != "En espera de entrega")
             .OrderByDescending(d => d.orderNumber)
             .FirstOrDefaultAsync();
     }
 
-    public async Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber)
+    public async Task<Deliverable> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId)
     {
-        var deliverable = await _Context.Deliverables
-            .FirstOrDefaultAsync(d => d.projectID == projectId && d.orderNumber == orderNumber);
-
-        if (deliverable == null)
-        {
-            return null;
-        }
-
-        return new UploadDeliverableResponse
-        {
-            developerDescription = deliverable.developerDescription,
-            file = deliverable.file,
-        };
+        return await _Context.Deliverables
+            .FirstOrDefaultAsync(d => d.projectID == projectId && d.deliverable_id == deliverableId);
     }
+    
+    public async Task<Deliverable> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId)
+    {
+        return await _Context.Deliverables
+            .FirstOrDefaultAsync(d => d.projectID == projectId && d.deliverable_id == deliverableId);
+    }
+    
     
 }

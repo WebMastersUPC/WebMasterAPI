@@ -4,6 +4,6 @@ namespace WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 
 public class UploadDeliverableRequest
 {
-    [Required] public string developerDescription { get; set; }
-    [Required] public string file { get; set; }
+    public string developerDescription { get; set; }
+    public string file { get; set; }
 }

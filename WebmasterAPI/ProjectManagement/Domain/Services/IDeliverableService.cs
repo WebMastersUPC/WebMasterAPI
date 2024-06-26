@@ -6,18 +6,18 @@ namespace WebmasterAPI.ProjectManagement.Domain.Services;
 public interface IDeliverableService {
     
     Task<List<DeliverableResponse>> GetDeliverableByProjectIdAsync(long projectId);
+
+    Task<DeliverableResponse> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId);
     
     Task<DeliverableResponse>DeleteDeliverableByProjectIdandDeliverableIdAsync(long projectId, int orderNumber);
     
     Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest);
     
-    Task ApproveOrRejectDeliverableAsync(int orderNumber, string newState);
+    Task ApproveOrRejectDeliverableAsync(long deliverableId, string newState);
     
     Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableByProjectIdRequest request);
 
-    Task<UploadDeliverableResponse> UploadDeliverableAsync(long projectId, int deliverableId, long developerId, UploadDeliverableRequest upload);
+    Task<UploadDeliverableResponse> UploadDeliverableAsync(long projectId, long deliverableId,UploadDeliverableRequest upload);
     
-    Task <UploadDeliverableResponse>GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber);
-    
-    Task<DeliverableResponse> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId);
+    Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId);
 }

@@ -78,13 +78,13 @@ public class DeliverableController : ControllerBase
         return Ok(response);
     }
     
-    // POST: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Developers/{developerId}/Upload
-    [HttpPost("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Upload")]
-    public async Task<IActionResult> UploadDeliverableAsync(long projectId, int orderNumber, long developerId, [FromBody] UploadDeliverableRequest upload)
+    // PUT: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Upload
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Upload")]
+    public async Task<IActionResult> UploadDeliverableAsync(long projectId, long deliverableId,  [FromBody] UploadDeliverableRequest upload)
     {
         try
         {
-            var response = await _deliverableService.UploadDeliverableAsync(projectId, orderNumber, developerId, upload);
+            var response = await _deliverableService.UploadDeliverableAsync(projectId, deliverableId,  upload);
             return Ok(response);
         }
         catch (Exception e)
@@ -94,13 +94,13 @@ public class DeliverableController : ControllerBase
     }
 
     
-    // PUT: api/v1/Deliverables/{deliverableId}/Approve
-    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Approve")]
-    public async Task<IActionResult> ApproveDeliverable(int orderNumber)
+    // PUT: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Approve
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Approve")]
+    public async Task<IActionResult> ApproveDeliverable(long deliverableId)
     {
         try
         {
-            await _deliverableService.ApproveOrRejectDeliverableAsync(orderNumber, "Aprobado");
+            await _deliverableService.ApproveOrRejectDeliverableAsync(deliverableId, "Aprobado");
             return Ok(new { message = "El entregable ha sido aprobado." });
         }
         catch (Exception e)
@@ -110,12 +110,12 @@ public class DeliverableController : ControllerBase
     }
 
     // PUT: api/v1/Deliverables/{deliverableId}/Reject
-    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Reject")]
-    public async Task<IActionResult> RejectDeliverable(int orderNumber)
+    [HttpPut("api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Reject")]
+    public async Task<IActionResult> RejectDeliverable(long deliverableId)
     {
         try
         {
-            await _deliverableService.ApproveOrRejectDeliverableAsync(orderNumber, "Rechazado");
+            await _deliverableService.ApproveOrRejectDeliverableAsync(deliverableId, "Rechazado");
             return Ok(new { message = "El entregable ha sido rechazado." });
         }
         catch (Exception e)
@@ -124,11 +124,11 @@ public class DeliverableController : ControllerBase
         }
     }
     
-    // GET: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Uploaded
-    [HttpGet("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Review")]
-    public async Task<IActionResult> GetUploadedDeliverableByProjectIdAndDeliverableId(long projectId, int orderNumber)
+    // GET: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Review
+    [HttpGet("api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Review")]
+    public async Task<IActionResult> GetUploadedDeliverableByProjectIdAndDeliverableId(long projectId, long deliverableId)
     {
-        var deliverable = await _deliverableService.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, orderNumber);
+        var deliverable = await _deliverableService.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, deliverableId);
 
         if (deliverable == null)
         {
