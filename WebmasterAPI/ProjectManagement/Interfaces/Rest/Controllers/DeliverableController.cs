@@ -124,11 +124,11 @@ public class DeliverableController : ControllerBase
         }
     }
     
-    // GET: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Uploaded
-    [HttpGet("api/v1/Projects/{projectId}/Deliverables/{orderNumber}/Review")]
-    public async Task<IActionResult> GetUploadedDeliverableByProjectIdAndDeliverableId(long projectId, int orderNumber)
+    // GET: api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Review
+    [HttpGet("api/v1/Projects/{projectId}/Deliverables/{deliverableId}/Review")]
+    public async Task<IActionResult> GetUploadedDeliverableByProjectIdAndDeliverableId(long projectId, long deliverableId)
     {
-        var deliverable = await _deliverableService.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, orderNumber);
+        var deliverable = await _deliverableService.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, deliverableId);
 
         if (deliverable == null)
         {

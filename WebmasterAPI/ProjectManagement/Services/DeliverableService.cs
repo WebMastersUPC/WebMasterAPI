@@ -135,12 +135,6 @@ public class DeliverableService : IDeliverableService
 
         return new UploadDeliverableResponse { developerDescription = deliverable.developerDescription, file = deliverable.file };
     }
-
-    public async Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber)
-    {
-        var deliverable = await _deliverableRepository.GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(projectId, orderNumber);
-        return deliverable;
-    }
     
     public async Task<List<DeliverableResponse>> GetDeliverableByProjectIdAsync(long projectId)
     {
@@ -180,5 +174,22 @@ public class DeliverableService : IDeliverableService
     {
         var deliverable = await _deliverableRepository.FindDeliverableByIdAsync(deliverableId);
         return _mapper.Map<DeliverableResponse>(deliverable);
+    }
+    
+    public async Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId)
+    {
+        var deliverable = await _deliverableRepository.GetDeliverableByProjectIdAndDeliverableIdAsync(projectId, deliverableId);
+
+        if (deliverable == null)
+        {
+            return null;
+        }
+
+        return new UploadDeliverableResponse
+        {
+            title=deliverable.title,
+            developerDescription = deliverable.developerDescription,
+            file = deliverable.file
+        };
     }
 }

@@ -113,21 +113,17 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<UploadDeliverableResponse> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, int orderNumber)
+    public async Task<Deliverable> GetUploadedDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId)
     {
-        var deliverable = await _Context.Deliverables
-            .FirstOrDefaultAsync(d => d.projectID == projectId && d.orderNumber == orderNumber);
-
-        if (deliverable == null)
-        {
-            return null;
-        }
-
-        return new UploadDeliverableResponse
-        {
-            developerDescription = deliverable.developerDescription,
-            file = deliverable.file,
-        };
+        return await _Context.Deliverables
+            .FirstOrDefaultAsync(d => d.projectID == projectId && d.deliverable_id == deliverableId);
     }
+    
+    public async Task<Deliverable> GetDeliverableByProjectIdAndDeliverableIdAsync(long projectId, long deliverableId)
+    {
+        return await _Context.Deliverables
+            .FirstOrDefaultAsync(d => d.projectID == projectId && d.deliverable_id == deliverableId);
+    }
+    
     
 }
