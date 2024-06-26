@@ -34,7 +34,18 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
 
         deliverableToUpdate.title = deliverable.title;
         deliverableToUpdate.description = deliverable.description;
-        deliverableToUpdate.deadline = deliverable.deadline;
+        deliverable.deadlineDateValue = deliverable.deadlineDateValue;
+        
+        if (TimeSpan.TryParse(deliverable.deadlineTime, out TimeSpan deadlineTime))
+        {
+            // convierte el TimeSpan a string antes de asignarlo a deliverableToUpdate.deadlineTime
+            deliverableToUpdate.deadlineTime = deadlineTime.ToString();
+        }
+        else
+        {
+            throw new Exception("Invalid deadlineTime format. It should be in the format HH:MM:SS.");
+        }
+
         await _Context.SaveChangesAsync();
     }
 
@@ -71,7 +82,9 @@ public class DeliverableRepository : BaseRepository, IDeliverableRepository
             developerDescription = d.developerDescription,
             state = d.state,
             file=d.file,
-            deadline = d.deadline,
+            deadlineDateValue = d.deadlineDateValue,
+            // Trata deadlineTime como string
+            deadlineTime = d.deadlineTime,
             orderNumber = d.orderNumber,
             projectID = d.projectID,
             nameProject = d.Project.nameProject,

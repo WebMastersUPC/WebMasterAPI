@@ -47,10 +47,11 @@ public class DeliverableService : IDeliverableService
             description = request.description,
             state = "En espera de entrega",
             developerDescription = "",
-            deadline = request.deadline,
+            deadlineDateValue = request.deadlineDateValue,
+            deadlineTime = request.deadlineTime,
             file = "", // Valor predeterminado para file
             projectID = projectId,
-            developer_id = developerId.Value, 
+            developer_id = developerId.Value,
             orderNumber = nextOrderNumber
         };
 
@@ -81,7 +82,8 @@ public class DeliverableService : IDeliverableService
 
         deliverable.title = updateRequest.title;
         deliverable.description = updateRequest.description;
-        deliverable.deadline = updateRequest.deadline;
+        deliverable.deadlineDateValue = updateRequest.deadlineDateValue;
+        deliverable.deadlineTime = updateRequest.deadlineTime.ToString();
         await _deliverableRepository.UpdateAsync(deliverable);
     }
 

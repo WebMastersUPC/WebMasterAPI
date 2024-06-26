@@ -85,6 +85,8 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Deliverable>().Property(d => d.description).IsRequired().HasMaxLength(512);
             builder.Entity<Deliverable>().Property(d => d.state).IsRequired().HasMaxLength(32);
             builder.Entity<Deliverable>().Property(d => d.file).IsRequired().HasMaxLength(512);
+            builder.Entity<Deliverable>().Property(d => d.deadlineDateValue).IsRequired();
+            builder.Entity<Deliverable>().Property(d => d.deadlineTime).IsRequired();
             builder.Entity<Deliverable>().HasOne(d => d.Project)
                 .WithMany()
                 .HasForeignKey(d => d.projectID);

@@ -17,7 +17,10 @@ public class DeliverableResponse  {
     public string developerDescription { get; set; }
     public string state { get; set; }
     public string file { get; set; }
-    public DateTime deadline { get; set; }
+    
+    public DateTime deadlineDateValue { get; set; }
+    
+    public string deadlineTime { get; set; }
     
     public int orderNumber { get; set; }
     
