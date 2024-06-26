@@ -4,6 +4,7 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Shared.Persistence.Contexts;
 using WebmasterAPI.Shared.Persistence.Repositories;
+using WebmasterAPI.UserManagement.Domain.Models;
 
 namespace WebmasterAPI.Authentication.Persistence.Repositories;
 
@@ -32,5 +33,10 @@ public class EnterpriseRepository : BaseRepository, IEnterpriseRepository
     {
         _Context.Enterprises.Update(enterprise);
         await _Context.SaveChangesAsync();
+    }
+
+    public Task<Enterprise> FindByEnterpriseIdAsync(long id)
+    {
+        return _Context.Enterprises.FirstOrDefaultAsync(e => e.enterprise_id == id);
     }
 }

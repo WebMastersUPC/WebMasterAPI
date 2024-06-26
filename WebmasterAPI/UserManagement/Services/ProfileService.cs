@@ -35,6 +35,20 @@ public class ProfileService : IProfileService
         var response = _mapper.Map<DeveloperResponse>(developer);
         return response;
     }
+    
+    public async Task<DeveloperResponse> GetDeveloperByDevIdAsync(long id)
+    {
+        var developer = await _developerRepository.FindByDevIdAsync(id);
+        var response = _mapper.Map<DeveloperResponse>(developer);
+        return response;
+    }
+
+    public async Task<EnterpriseResponse> GetEnterpriseByEnterpriseIdAsync(long enterprise_id)
+    {
+        var enterprise = await _enterpriseRepository.FindByEnterpriseIdAsync(enterprise_id);
+        var response = _mapper.Map<EnterpriseResponse>(enterprise);
+        return response;
+    }
 
     public async Task<EnterpriseResponse> GetEnterpriseByIdAsync(long id)
     {
@@ -42,6 +56,8 @@ public class ProfileService : IProfileService
         var response = _mapper.Map<EnterpriseResponse>(enterprise);
         return response;
     }
+    
+    
 
     public async Task UpdateEnterpriseAsync(long id, EnterpriseUpdateRequest updateRequest)
     {

@@ -11,4 +11,5 @@ public interface IDeveloperRepository
     Task<List<Developer>> ListAsync();
     Task UpdateAsync(Developer developer);
     Task<List<long>> GetAllDeveloperIdsAsync();
+    Task<Developer> FindByDevIdAsync(long id);
 }
