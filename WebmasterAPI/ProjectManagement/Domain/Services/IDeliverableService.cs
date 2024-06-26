@@ -13,7 +13,7 @@ public interface IDeliverableService {
     
     Task UpdateDeliverableByProjectIdandDeliverableIdAsync(long projectId, long deliverableId, DeliverableUpdateRequest updateRequest);
     
-    Task ApproveOrRejectDeliverableAsync(int orderNumber, string newState);
+    Task ApproveOrRejectDeliverableAsync(long deliverableId, string newState);
     
     Task AddDeliverableToProjectAsync(long projectId, CreateDeliverableByProjectIdRequest request);
 

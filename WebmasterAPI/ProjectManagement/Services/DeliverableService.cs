@@ -151,9 +151,9 @@ public class DeliverableService : IDeliverableService
         return _mapper.Map<DeliverableResponse>(deletedDeliverable);
     }
 
-    public async Task ApproveOrRejectDeliverableAsync(int orderNumber, string newState)
+    public async Task ApproveOrRejectDeliverableAsync(long deliverableId, string newState)
     {
-        var deliverable = await _deliverableRepository.FindDeliverableByorderNumberAsync(orderNumber);
+        var deliverable = await _deliverableRepository.FindDeliverableByIdAsync(deliverableId);
         if (deliverable == null)
         {
             throw new Exception("No se encontró el entregable.");
@@ -187,7 +187,7 @@ public class DeliverableService : IDeliverableService
 
         return new UploadDeliverableResponse
         {
-            title=deliverable.title,
+            orderNumber= deliverable.orderNumber,
             developerDescription = deliverable.developerDescription,
             file = deliverable.file
         };
