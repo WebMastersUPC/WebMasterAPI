@@ -86,7 +86,6 @@ public class ProfileService : IProfileService
         developer.description = updateRequest.description;
         developer.country = updateRequest.country;
         developer.phone = updateRequest.phone;
-        developer.completed_projects = updateRequest.completed_projects;
         developer.specialties = updateRequest.specialties;
         developer.profile_img_url = updateRequest.profile_img_url;
         await _developerRepository.UpdateAsync(developer);
