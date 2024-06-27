@@ -90,7 +90,8 @@ builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
 builder.Services.AddScoped<IDeliverableService, DeliverableService>();
 builder.Services.AddScoped<IDeliverableRepository, DeliverableRepository>();
-builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto>, ProjectService>("projectService");
+builder.Services.AddKeyedScoped<ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto,
+HomeDeveloperProjectDto,HomeEnterpriseProjectDto,PostulateDeveloperProjectDto,AvailableProjectDto>, ProjectService>("projectService");
 builder.Services.AddScoped<IProjectRepository<Project>, ProjectRepository>();
 builder.Services.AddScoped<IValidator<InsertProjectDto>, InsertProjectValidation>();
 builder.Services.AddScoped<IValidator<UpdateProjectDto>, UpdateProjectValidation>();

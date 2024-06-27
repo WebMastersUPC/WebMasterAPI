@@ -10,12 +10,14 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto,InsertDeveloperProjectDto> _projectService;
+        private ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto,InsertDeveloperProjectDto,
+        HomeDeveloperProjectDto,HomeEnterpriseProjectDto,PostulateDeveloperProjectDto, AvailableProjectDto> _projectService;
         private IValidator<InsertProjectDto> _projectInsertValidation;
         private IValidator<UpdateProjectDto> _projectUpdateValidation;
 
         public ProjectController([FromKeyedServices("projectService")]
-            ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto> projectService,
+            ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto,
+                HomeDeveloperProjectDto,HomeEnterpriseProjectDto,PostulateDeveloperProjectDto, AvailableProjectDto> projectService,
             IValidator<InsertProjectDto> projectInsertValidation, IValidator<UpdateProjectDto> projectUpdateValidation )
         {
             _projectService = projectService;
@@ -28,28 +30,28 @@ namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers
             await _projectService.Get();
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProjectDto>> GetById(long id)
+        public async Task<ActionResult<PostulateDeveloperProjectDto>> GetById(long id)
         {
             var projectDto = await _projectService.GetById(id);
             return projectDto == null ? NotFound() : Ok(projectDto);
         }
         
         [HttpGet("available-projects")]
-        public async Task<IActionResult> GetAvailableProjects()
+        public async Task<ActionResult<IEnumerable<AvailableProjectDto>>> GetAvailableProjects()
         {
             var projects = await _projectService.GetAvailableProjects();
-            return Ok(projects);
+            return projects == null ? NotFound() : Ok(projects);
         }
         
         [HttpGet("by-developer/{developerId}")]
-        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetByDeveloperId(long developerId)
+        public async Task<ActionResult<IEnumerable<HomeDeveloperProjectDto>>> GetByDeveloperId(long developerId)
         {
             var projects = await _projectService.GetProjectByDeveloperId(developerId);
             return projects == null ? NotFound() : Ok(projects);
         }
         
         [HttpGet("by-enterprise/{enterpriseId}")]
-        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetByEnterpriseId(long enterpriseId)
+        public async Task<ActionResult<IEnumerable<HomeEnterpriseProjectDto>>> GetByEnterpriseId(long enterpriseId)
         {
             var projects = await _projectService.GetProjectByEnterpriseId(enterpriseId);
             return projects == null ? NotFound() : Ok(projects);

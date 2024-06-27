@@ -116,7 +116,7 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList());
 
-            builder.Entity<Project>().Property(p => p.budget).HasColumnType("decimal(18, 2)");
+            builder.Entity<Project>().Property(p => p.budget).HasColumnType("decimal(10, 2)");
 
             builder.Entity<Project>().Property(p => p.methodologies).HasColumnType("TEXT").HasConversion(
                 v => string.Join(',', v),
@@ -125,6 +125,9 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<Project>().Property(p => p.applicants_id).HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s.Trim())).ToList());
+            builder.Entity<Project>().Property(p => p.stateProject).HasMaxLength(100);
+            builder.Entity<Project>().Property(p => p.budgetDescription).HasColumnType("TEXT");
+            builder.Entity<Project>().Property(p => p.projectProgressBar).HasColumnType("decimal(5, 2)");
             
             // Configuración de la entidad SupportRequest
             builder.Entity<SupportRequest>().ToTable("SupportRequests");

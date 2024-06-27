@@ -9,6 +9,7 @@ public class Project
     public List<string> languages { get; set; }
     public List<string> frameworks { get; set; }
     public decimal budget { get; set; }
+    public string budgetDescription { get; set; }
     public List<string> methodologies { get; set; }
     
     public List<long> applicants_id { get; set; }
@@ -18,4 +19,6 @@ public class Project
     
     public long? developer_id { get; set; }
     public virtual Developer Developer { get; set; }
+    public string stateProject { get; set; }
+    public decimal projectProgressBar { get; set; }
 }

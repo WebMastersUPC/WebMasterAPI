@@ -1,10 +1,12 @@
 namespace WebmasterAPI.ProjectManagement.Domain.Services;
 
-public interface ICommonService<T, TI, TU, TDP> //T:dto, TI: insertDto, TU:updateDto TDP: DeveloperProject
+public interface ICommonService<T, TI, TU, TDP, HDP,HEP,PDP,AP> 
+    /*T:Projectdto, TI: insertDto, TU:updateDto TDP: DeveloperProject, HDP:HomeDeveloperProjectDto,
+     HEP:HomeDeveloperProjectDto, PDP:PostulateDeveloperProjectDto, AP:AvailableProjectDto*/
 {
     public List<string> Errors { get; }
     Task<IEnumerable<T>> Get();
-    Task<T> GetById(long id);
+    Task<PDP> GetById(long id);
     Task<T> Add(TI insertDto);
     Task<T> Update(long id, TU updateDto);
     Task<T> Delete(long id);
@@ -14,7 +16,7 @@ public interface ICommonService<T, TI, TU, TDP> //T:dto, TI: insertDto, TU:updat
     Task<T> AddApplicant(long projectId, TDP insertDeveloperProjectDto);
     Task<T> DeleteApplicant(long projectId, TDP insertDeveloperProjectDto);
     Task<T> DeleteDeveloper(long projectId, TDP insertDeveloperProjectDto);
-    Task<IEnumerable<T>> GetAvailableProjects();
-    Task<IEnumerable<T>> GetProjectByDeveloperId(long developerId);
-    Task<IEnumerable<T>> GetProjectByEnterpriseId(long enterpriseId);
+    Task<IEnumerable<AP>> GetAvailableProjects();
+    Task<IEnumerable<HDP>> GetProjectByDeveloperId(long developerId);
+    Task<IEnumerable<HEP>> GetProjectByEnterpriseId(long enterpriseId);
 }
