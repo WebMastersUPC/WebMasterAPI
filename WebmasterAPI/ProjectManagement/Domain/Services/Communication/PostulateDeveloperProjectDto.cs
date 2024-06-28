@@ -10,4 +10,5 @@ public class PostulateDeveloperProjectDto
     public decimal budget { get; set; }
     public string budgetDescription { get; set; }
     public List<string> methodologies { get; set; }
+    public string stateProject { get; set; }
 }
