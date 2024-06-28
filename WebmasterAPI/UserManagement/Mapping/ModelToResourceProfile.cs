@@ -21,5 +21,9 @@ public class ModelToResourceProfile : AutoMapper.Profile
         CreateMap<Enterprise, EnterpriseResponse>();
         
         CreateMap<Enterprise, EnterpriseUpdateRequest>();
+        CreateMap<Developer, DeveloperUpdateRequest>();
+
+        CreateMap<Enterprise, EnterpriseImgUpdateRequest>();
+        CreateMap<Developer, DevImgUpdateRequest>();
     }
 }

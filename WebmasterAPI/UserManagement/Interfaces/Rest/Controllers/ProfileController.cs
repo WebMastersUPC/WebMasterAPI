@@ -84,4 +84,22 @@ public class ProfileController : ControllerBase
         return Ok();
     }
     
+    // PUT: api/v1/Profile/Developers/{developer_id}/img
+    [HttpPut("Developers/{id}/img")]
+    public async Task<IActionResult> UpdateDeveloperProfileImg(long id, [FromBody] DevImgUpdateRequest resource)
+    {
+        var updateRequest = _mapper.Map<DevImgUpdateRequest>(resource);
+        await _profileService.UpdateDeveloperProfileImgAsync(id, updateRequest);
+        return Ok();
+    }
+    
+    // PUT: api/v1/Profile/Enterprises/{enterprise_id}/img
+    [HttpPut("Enterprises/{id}/img")]
+    public async Task<IActionResult> UpdateEnterpriseProfileImg(long id, [FromBody] EnterpriseImgUpdateRequest resource)
+    {
+        var updateRequest = _mapper.Map<EnterpriseImgUpdateRequest>(resource);
+        await _profileService.UpdateEnterpriseProfileImgAsync(id, updateRequest);
+        return Ok();
+    }
+    
 }

@@ -4,6 +4,7 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.Authentication.Domain.Services.Communication;
 using WebmasterAPI.Shared.Domain.Repositories;
+using WebmasterAPI.UserManagement.Domain.Models;
 
 namespace WebmasterAPI.Authentication.Services;
 
@@ -50,6 +51,33 @@ public class ProfileService : IProfileService
         return response;
     }
 
+    public async Task UpdateDeveloperProfileImgAsync(long id, DevImgUpdateRequest updateRequest)
+    {
+        var developer = await _developerRepository.FindByIdAsync(id);
+        if (developer == null)
+        {
+            throw new Exception("Developer not found");
+        }
+        
+        developer.profile_img_url = updateRequest.profile_img_url;
+        
+        await _developerRepository.UpdateAsync(developer);
+    }
+
+    public async Task UpdateEnterpriseProfileImgAsync(long id, EnterpriseImgUpdateRequest updateRequest)
+    {
+        var enterprise = await _enterpriseRepository.FindByIdAsync(id);
+        if (enterprise == null)
+        {
+            throw new Exception("Enterprise not found");
+        }
+        
+        enterprise.profile_img_url = updateRequest.profile_img_url;
+        
+        await _enterpriseRepository.UpdateAsync(enterprise);
+    }
+
+
     public async Task<EnterpriseResponse> GetEnterpriseByIdAsync(long id)
     {
         var enterprise = await _enterpriseRepository.FindByIdAsync(id);
@@ -71,7 +99,6 @@ public class ProfileService : IProfileService
         enterprise.RUC = updateRequest.RUC;
         enterprise.phone = updateRequest.phone;
         enterprise.website = updateRequest.website;
-        enterprise.profile_img_url = updateRequest.profile_img_url;
         enterprise.sector = updateRequest.sector;
         await _enterpriseRepository.UpdateAsync(enterprise);
     }
@@ -87,7 +114,6 @@ public class ProfileService : IProfileService
         developer.country = updateRequest.country;
         developer.phone = updateRequest.phone;
         developer.specialties = updateRequest.specialties;
-        developer.profile_img_url = updateRequest.profile_img_url;
         await _developerRepository.UpdateAsync(developer);
     }
 }

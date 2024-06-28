@@ -7,7 +7,6 @@ public class EnterpriseUpdateRequest
     public string RUC { get; set; }
     public string phone { get; set; }
     public string website { get; set; }
-    public string profile_img_url { get; set; }
     public string sector { get; set; }
     
 }

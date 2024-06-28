@@ -7,5 +7,4 @@ public class DeveloperUpdateRequest
     public string phone { get; set; }
     
     public string specialties { get; set; }
-    public string profile_img_url { get; set; }
 }
