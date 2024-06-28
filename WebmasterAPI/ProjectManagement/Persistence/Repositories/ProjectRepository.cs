@@ -38,4 +38,22 @@ public class ProjectRepository : IProjectRepository<Project>
         await _appDbContext.SaveChangesAsync();
     public IEnumerable<Project> Search(Func<Project, bool> filter) =>
         _appDbContext.Projects.Where(filter).ToList();
+    public async Task<IEnumerable<Project>> GetAvailableProjects()
+    {
+        return await _appDbContext.Projects
+            .Where(p => p.developer_id == null)
+            .ToListAsync();
+    }
+    public async Task<IEnumerable<Project>> GetProjectByDeveloperId(long developerId)
+    {
+        return await _appDbContext.Projects
+            .Where(p => p.developer_id == developerId)
+            .ToListAsync();
+    }
+    public async Task<IEnumerable<Project>> GetProjectByEnterpriseId(long enterpriseId)
+    {
+        return await _appDbContext.Projects
+            .Where(p => p.enterprise_id == enterpriseId)
+            .ToListAsync();
+    }
 }
