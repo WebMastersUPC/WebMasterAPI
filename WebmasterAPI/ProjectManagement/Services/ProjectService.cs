@@ -7,7 +7,9 @@ using WebmasterAPI.Authentication.Domain.Repositories;
 
 namespace WebmasterAPI.ProjectManagement.Services;
 
-public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, InsertDeveloperProjectDto>
+public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, UpdateProjectDto, 
+    InsertDeveloperProjectDto,HomeDeveloperProjectDto,HomeEnterpriseProjectDto,
+    PostulateDeveloperProjectDto,AvailableProjectDto>
 {
     private IProjectRepository<Project> _projectRepository;
     private IMapper _mapper;
@@ -28,38 +30,40 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
         return projects.Select(p => _mapper.Map<ProjectDto>(p));
     }
 
-    public async Task<ProjectDto> GetById(long id)
+    public async Task<PostulateDeveloperProjectDto> GetById(long id)
     {
         var project = await _projectRepository.GetById(id);
         if (project != null)
         {
-            var projectDto = _mapper.Map<ProjectDto>(project);
+            var projectDto = _mapper.Map<PostulateDeveloperProjectDto>(project);
             return projectDto;
         }
 
         return null;
     }
-    public async Task<IEnumerable<ProjectDto>> GetAvailableProjects()
+    public async Task<IEnumerable<AvailableProjectDto>> GetAvailableProjects()
     {
         var projects = await _projectRepository.GetAvailableProjects();
-        return projects.Select(p => _mapper.Map<ProjectDto>(p));
+        return projects.Select(p => _mapper.Map<AvailableProjectDto>(p));
     }
     
-    public async Task<IEnumerable<ProjectDto>> GetProjectByDeveloperId(long developerId)
+    public async Task<IEnumerable<HomeDeveloperProjectDto>> GetProjectByDeveloperId(long developerId)
     {
         var projects = await _projectRepository.GetProjectByDeveloperId(developerId);
-        return projects.Select(p => _mapper.Map<ProjectDto>(p));
+        return projects.Select(p => _mapper.Map<HomeDeveloperProjectDto>(p));
     }
     
-    public async Task<IEnumerable<ProjectDto>> GetProjectByEnterpriseId(long enterpriseId)
+    public async Task<IEnumerable<HomeEnterpriseProjectDto>> GetProjectByEnterpriseId(long enterpriseId)
     {
         var projects = await _projectRepository.GetProjectByEnterpriseId(enterpriseId);
-        return projects.Select(p => _mapper.Map<ProjectDto>(p));
+        return projects.Select(p => _mapper.Map<HomeEnterpriseProjectDto>(p));
     }
     public async Task<ProjectDto> Add(InsertProjectDto insertDto)
     {
        
             var project = _mapper.Map<Project>(insertDto);
+            project.stateProject = "Recruitment Process";
+            project.projectProgressBar = 0;
             await _projectRepository.Add(project);
             
             await _projectRepository.Save();
@@ -67,30 +71,23 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
             return projectDto;
       
     }
-    public async Task<bool> ValidateDeveloperIdsAsync(List<long> applicantsId, long developerId)
-    {
-        var existingDeveloperIds = await _developerRepository.GetAllDeveloperIdsAsync();
-        var allValid = applicantsId.All(id => existingDeveloperIds.Contains(id));
-        var developerInApplicants = applicantsId.Contains(developerId);
-
-        return allValid && developerInApplicants;
-    }
     public async Task<ProjectDto> Update(long id, UpdateProjectDto updateDto)
     {
-        if (await ValidateDeveloperIdsAsync(updateDto.applicants_id, updateDto.developer_id) )
+        var project = await _projectRepository.GetById(id);
+        if (project != null)
         {
-            var project = await _projectRepository.GetById(id);
-            if (project != null)
+            if (project.stateProject != "Recruitment Process")
             {
-                _mapper.Map<UpdateProjectDto, Project>(updateDto, project);
-                _projectRepository.Update(project);
-                await _projectRepository.Save();
-                var projectDto = _mapper.Map<ProjectDto>(project);
-                return projectDto;
+                throw new Exception("The project can only be updated when it is in the Recruitment Process state.");
             }
-            throw new Exception("Project not found.");
+
+            _mapper.Map<UpdateProjectDto, Project>(updateDto, project);
+            _projectRepository.Update(project);
+            await _projectRepository.Save();
+            var projectDto = _mapper.Map<ProjectDto>(project);
+            return projectDto;
         }
-        throw new Exception("One or more developer IDs are invalid.");
+        throw new Exception("Project not found.");
     }
 
     public async Task<ProjectDto> Delete(long id)
@@ -162,6 +159,7 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
 
         project.developer_id = insertDeveloperProjectDto.developer_id;
         project.applicants_id.Remove(insertDeveloperProjectDto.developer_id);
+        project.stateProject = "Developing";
         _mapper.Map<InsertDeveloperProjectDto, Project>(insertDeveloperProjectDto, project);
         _projectRepository.Update(project);
         await _projectRepository.Save();
@@ -225,7 +223,8 @@ public class ProjectService : ICommonService<ProjectDto, InsertProjectDto, Updat
             throw new Exception("Developer not found in the project.");
         }
 
-        project.developer_id = null; // Remove the developer
+        project.developer_id = null;
+        project.stateProject = "Recruitment Process";
         _projectRepository.Update(project);
         await _projectRepository.Save();
         var projectDto = _mapper.Map<ProjectDto>(project);
