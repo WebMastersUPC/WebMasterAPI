@@ -7,65 +7,66 @@ using WebmasterAPI.Models;
 using WebmasterAPI.UserManagement.Authorization.Handlers.Interface;
 using WebmasterAPI.UserManagement.Authorization.Settings;
 
-namespace WebmasterAPI.UserManagement.Authorization.Handlers.Implementations;
-
-public class JwtHandler : IJwtHandler
+namespace WebmasterAPI.UserManagement.Authorization.Handlers.Implementations
 {
-    private readonly AppSettings _appSettings;
-
-    public JwtHandler(IOptions<AppSettings> appSettings)
+    public class JwtHandler : IJwtHandler
     {
-        _appSettings = appSettings.Value;
-    }
+        private readonly AppSettings _appSettings;
 
-    public string GenerateToken(User user)
-    {
-        var secret = _appSettings.Secret;
-        var key = Encoding.ASCII.GetBytes(secret);
-        var tokenDescriptor = new SecurityTokenDescriptor
+        public JwtHandler(IOptions<AppSettings> appSettings)
         {
-            Subject = new ClaimsIdentity(
-                new[]
-                {
-                    new Claim(ClaimTypes.Sid, user.user_id.ToString()),
-                    new Claim(ClaimTypes.Name, user.mail),
-                }),
-            Expires = DateTime.UtcNow.AddDays(31),
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        
-        return tokenHandler.WriteToken(token);
-    }
-
-    public int? ValidateToken(string token)
-    {
-        if (string.IsNullOrEmpty(token)) return null;
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-    
-        try
-        {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ClockSkew = TimeSpan.Zero
-            }, out var validatedToken);
-      
-            var jwtToken = (JwtSecurityToken) validatedToken;
-            var userId = int.Parse(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value);
-      
-            return userId;
+            _appSettings = appSettings.Value;
         }
-        catch (Exception e)
+
+        public string GenerateToken(User user)
         {
-            Console.WriteLine(e);
-            return null;
+            var secret = _appSettings.Secret;
+            var key = Encoding.ASCII.GetBytes(secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Sid, user.user_id.ToString()), // user_id claim
+                        new Claim(ClaimTypes.Name, user.mail),
+                    }),
+                Expires = DateTime.UtcNow.AddDays(31),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+        
+            return tokenHandler.WriteToken(token);
+        }
+
+        public int? ValidateToken(string token)
+        {
+            if (string.IsNullOrEmpty(token)) return null;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+    
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out var validatedToken);
+      
+                var jwtToken = (JwtSecurityToken) validatedToken;
+                var userId = int.Parse(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value);
+      
+                return userId;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
         }
     }
 }

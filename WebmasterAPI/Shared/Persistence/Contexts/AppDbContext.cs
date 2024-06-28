@@ -135,12 +135,12 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
             builder.Entity<SupportRequest>().Property(p => p.Description).IsRequired();
             builder.Entity<SupportRequest>().Property(p => p.CreatedAt).IsRequired();
             builder.Entity<SupportRequest>().Property(p => p.Status).IsRequired().HasMaxLength(20);
+            builder.Entity<SupportRequest>().Property(p => p.AttachmentPath).HasMaxLength(512); // Nueva propiedad para el archivo adjunto
             builder.Entity<SupportRequest>()
                 .HasOne(p => p.User)
                 .WithMany(u => u.SupportRequests)
                 .HasForeignKey(p => p.UserId);
-
-
+            
             builder.Entity<Message>()
                 .HasOne(m => m.Sender)
                 .WithMany(c => c.SentMessages)
@@ -152,6 +152,20 @@ namespace WebmasterAPI.Shared.Persistence.Contexts
                 .WithMany(c => c.ReceivedMessages)
                 .HasForeignKey(m => m.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .Property(m => m.Title)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Entity<Message>()
+                .Property(m => m.Subject)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Entity<Message>()
+                .Property(m => m.AttachmentPath)
+                .HasMaxLength(200);
         }
     }
     

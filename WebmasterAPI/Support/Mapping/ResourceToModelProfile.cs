@@ -8,7 +8,8 @@ namespace WebmasterAPI.Support.Mapping
     {
         public ResourceToModelProfile()
         {
-            CreateMap<SaveSupportRequestResource, SupportRequest>();
+            CreateMap<SaveSupportRequestResource, SupportRequest>()
+                .ForMember(dest => dest.AttachmentPath, opt => opt.Ignore()); // Ignorar la propiedad AttachmentPath
         }
     }
 }

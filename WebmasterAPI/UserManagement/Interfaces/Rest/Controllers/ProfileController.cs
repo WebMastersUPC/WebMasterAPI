@@ -9,6 +9,7 @@ using WebmasterAPI.UserManagement.Domain.Models;
 
 namespace WebmasterAPI.Controllers;
 
+[Authorize]
 [Route("api/v1/[controller]")]
 [ApiController]
 [Produces(MediaTypeNames.Application.Json)]

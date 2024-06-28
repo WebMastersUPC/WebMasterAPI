@@ -20,6 +20,7 @@ public class AuthService : IUserService
     private readonly IJwtHandler _jwtHandler;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
+    
 
     public AuthService(IUserRepository userRepository, IDeveloperRepository developerRepository, IEnterpriseRepository enterpriseRepository, IPasswordHashingService passwordHashingService, IJwtHandler jwtHandler ,IMapper mapper, IUnitOfWork unitOfWork)
     {
