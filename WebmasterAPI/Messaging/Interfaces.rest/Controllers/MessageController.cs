@@ -26,7 +26,6 @@ namespace WebmasterAPI.Messaging.Interfaces.Rest.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> PostAsync([FromForm] SaveMessageResource resource)
         {
             var userId = User.FindFirst(ClaimTypes.Sid)?.Value;

@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebmasterAPI.Authentication.Domain.Services;
 using WebmasterAPI.ProjectManagement.Domain.Models;
@@ -8,7 +9,6 @@ using WebmasterAPI.ProjectManagement.Domain.Services.Communication;
 using WebmasterAPI.ProjectManagement.Resources;
 
 namespace WebmasterAPI.ProjectManagement.Interfaces.Rest.Controllers;
-
 
 
 [ApiController]

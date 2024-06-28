@@ -93,7 +93,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        policy => policy.WithOrigins("http://localhost:5173")
+        policy => policy.WithOrigins("https://webmaster-app.netlify.app")
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
@@ -132,12 +132,14 @@ builder.Services.AddAutoMapper(
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Production WebMaster V1");
+    options.RoutePrefix = string.Empty;  // Set Swagger UI at the app's root
+});
+
 
 app.UseMiddleware<JwtMiddleware>();
 
